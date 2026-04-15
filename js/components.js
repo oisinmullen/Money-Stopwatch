@@ -26,6 +26,29 @@
     { label: 'Elon Counter',    href: '/elon-musk-earnings-counter.html' },
   ];
 
+  /* ── Logo assets ───────────────────────── */
+  // Flat stopwatch icon: crown + face circle + single hand + pivot dot, all #10b981
+  var LOGO_SVG = [
+    '<svg width="26" height="30" viewBox="0 0 26 30" fill="none"',
+    ' xmlns="http://www.w3.org/2000/svg" aria-hidden="true">',
+    // Crown (top button)
+    '<rect x="8.5" y="0" width="9" height="3" rx="1.5" fill="#10b981"/>',
+    // Stem connecting crown to face
+    '<rect x="12" y="2.5" width="2" height="3" fill="#10b981"/>',
+    // Watch face circle
+    '<circle cx="13" cy="19" r="10.5" stroke="#10b981" stroke-width="1.75"/>',
+    // Minute hand pointing straight up (12 o\'clock)
+    '<line x1="13" y1="19" x2="13" y2="11" stroke="#10b981"',
+    ' stroke-width="2" stroke-linecap="round"/>',
+    // Centre pivot dot
+    '<circle cx="13" cy="19" r="1.5" fill="#10b981"/>',
+    '</svg>',
+  ].join('');
+
+  // "Money" white/400 · "Stopwatch" green/600
+  var LOGO_TEXT = '<span style="font-weight:400;color:#fff;">Money</span>' +
+                  '<span style="font-weight:600;color:#10b981;">Stopwatch</span>';
+
   /* ── Resolve root path ─────────────────── */
   // Detects if current page is inside a subdirectory (paycheck-calculator/)
   // and uses that to build correct relative paths — works on both
@@ -48,10 +71,7 @@
     return `
 <header class="site-header">
   <div class="container">
-    <a class="logo" href="${resolveHref('/index.html')}">
-      <span class="logo-icon">💰</span>
-      MoneyStopwatch
-    </a>
+    <a class="logo" href="${resolveHref('/index.html')}">${LOGO_SVG}${LOGO_TEXT}</a>
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       ${navHTML}
     </nav>
@@ -70,10 +90,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="logo" href="${r('/index.html')}">
-          <span class="logo-icon">💰</span>
-          MoneyStopwatch
-        </a>
+        <a class="logo" href="${r('/index.html')}">${LOGO_SVG}${LOGO_TEXT}</a>
         <p>Free salary and pay calculators. Know your worth, track every penny.</p>
       </div>
       <div class="footer-col">
