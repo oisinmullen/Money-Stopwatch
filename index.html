@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoneyStopwatch — Watch Your Earnings Grow in Real Time</title>
+  <meta name="description" content="Enter your hourly or annual salary and watch your earnings tick up to the penny in real time. Free online earnings stopwatch calculator.">
+  <meta property="og:title" content="MoneyStopwatch — Real-Time Earnings Counter">
+  <meta property="og:description" content="Watch your salary tick up in real time. Enter your pay rate and hit Start.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://moneystopwatch.com/">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MoneyStopwatch",
+    "description": "Real-time earnings calculator — watch your salary tick up to the penny",
+    "url": "https://moneystopwatch.com",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any"
+  }
+  </script>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Page hero -->
+    <div class="page-hero">
+      <h1>Real-Time Earnings Calculator</h1>
+      <p>Enter your pay rate, hit Start, and watch your money accumulate to the penny.</p>
+    </div>
+
+    <!-- AdSense — above calculator -->
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <!-- Setup card -->
+    <div class="card" id="setup-card">
+      <h2 style="font-size:1.15rem;margin-bottom:1.25rem;">Configure Your Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="pay-type">Pay Type</label>
+          <select id="pay-type">
+            <option value="hourly">Hourly</option>
+            <option value="annual">Annual Salary</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pay-rate">Pay Rate</label>
+          <input type="number" id="pay-rate" placeholder="e.g. 25.00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="USD">USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="JPY">JPY — Japanese Yen</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="MXN">MXN — Mexican Peso</option>
+          </select>
+        </div>
+        <div class="form-group" id="hours-per-week-group">
+          <label for="hours-per-week">Hours Per Week</label>
+          <input type="number" id="hours-per-week" value="40" min="1" max="168" step="1">
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;" class="btn-row">
+        <button class="btn btn-primary btn-lg" id="btn-start">▶ Start</button>
+        <button class="btn btn-ghost btn-lg" id="btn-pause" disabled>⏸ Pause</button>
+        <button class="btn btn-danger btn-lg" id="btn-reset" disabled>↺ Reset</button>
+      </div>
+      <p id="setup-error" class="text-sm" style="color:var(--red);margin-top:.6rem;display:none;"></p>
+    </div>
+
+    <!-- Counter display -->
+    <div class="counter-display mt-3" id="counter-display">
+      <div class="counter-value" id="counter-value">$0.00</div>
+      <div class="counter-label">Total Earned</div>
+      <div class="counter-time" id="counter-time">0m 00s elapsed</div>
+      <div id="status-badge" class="status-badge idle">
+        <span class="pulse" id="pulse-dot"></span>
+        <span id="status-text">Idle — enter your rate above</span>
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="form-grid mt-3" id="stats-row" style="display:none!important">
+    </div>
+
+    <div class="card mt-3" id="stats-card" style="display:none;">
+      <h3 style="margin-bottom:1rem;font-size:1rem;">Earnings Breakdown</h3>
+      <table class="results-table">
+        <tbody>
+          <tr><td>Per Second</td><td id="stat-sec">—</td></tr>
+          <tr><td>Per Minute</td><td id="stat-min">—</td></tr>
+          <tr><td>Per Hour</td><td id="stat-hr">—</td></tr>
+          <tr><td>Per Day (8 h)</td><td id="stat-day">—</td></tr>
+          <tr><td>Per Week</td><td id="stat-wk">—</td></tr>
+          <tr class="total"><td>Per Year</td><td id="stat-yr">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- AdSense — below calculator -->
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--banner mt-3" aria-hidden="true">Advertisement</div>
+
+    <!-- Tools navigation -->
+    <div class="section mt-4">
+      <h2 class="mb-3">More Free Pay Calculators</h2>
+      <div class="tools-grid">
+        <a href="overtime-calculator.html" class="tool-card">
+          <div class="tool-card-icon">⏱️</div>
+          <h3>Overtime Calculator</h3>
+          <p>Calculate regular + overtime pay with custom multipliers</p>
+        </a>
+        <a href="time-and-a-half-calculator.html" class="tool-card">
+          <div class="tool-card-icon">✖️</div>
+          <h3>Time and a Half</h3>
+          <p>Instantly find your 1.5× overtime rate and total earnings</p>
+        </a>
+        <a href="pay-raise-calculator.html" class="tool-card">
+          <div class="tool-card-icon">📈</div>
+          <h3>Pay Raise Calculator</h3>
+          <p>See how much a raise adds to your annual, monthly, and hourly pay</p>
+        </a>
+        <a href="paycheck-calculator/california.html" class="tool-card">
+          <div class="tool-card-icon">📋</div>
+          <h3>Paycheck Calculators</h3>
+          <p>California, Florida, Ohio, and Illinois take-home pay</p>
+        </a>
+        <a href="how-to-ask-for-a-raise.html" class="tool-card">
+          <div class="tool-card-icon">💬</div>
+          <h3>How to Ask for a Raise</h3>
+          <p>A complete guide with scripts, timing tips, and follow-up strategies</p>
+        </a>
+        <a href="salary-negotiation-email.html" class="tool-card">
+          <div class="tool-card-icon">✉️</div>
+          <h3>Salary Negotiation Emails</h3>
+          <p>5 free copy-paste email templates for negotiating your pay</p>
+        </a>
+        <a href="elon-musk-earnings-counter.html" class="tool-card">
+          <div class="tool-card-icon">🚀</div>
+          <h3>Elon Musk Earnings Counter</h3>
+          <p>Watch Elon's estimated wealth grow in real time</p>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── State ── */
+  var ratePerSecond = 0;
+  var totalEarned   = 0;
+  var elapsedSec    = 0;
+  var timerID       = null;
+  var lastTick      = null;
+  var running       = false;
+  var currency      = 'USD';
+
+  /* ── DOM refs ── */
+  var elValue    = document.getElementById('counter-value');
+  var elTime     = document.getElementById('counter-time');
+  var elBadge    = document.getElementById('status-badge');
+  var elStatus   = document.getElementById('status-text');
+  var elPulse    = document.getElementById('pulse-dot');
+  var elStart    = document.getElementById('btn-start');
+  var elPause    = document.getElementById('btn-pause');
+  var elReset    = document.getElementById('btn-reset');
+  var elError    = document.getElementById('setup-error');
+  var elStats    = document.getElementById('stats-card');
+  var elPayType  = document.getElementById('pay-type');
+  var elHoursGrp = document.getElementById('hours-per-week-group');
+
+  /* ── Pay type toggle ── */
+  elPayType.addEventListener('change', function () {
+    elHoursGrp.style.display = this.value === 'annual' ? 'flex' : 'flex';
+  });
+
+  /* ── Compute per-second rate ── */
+  function computeRate() {
+    var type    = document.getElementById('pay-type').value;
+    var rate    = parseFloat(document.getElementById('pay-rate').value) || 0;
+    var hpw     = parseFloat(document.getElementById('hours-per-week').value) || 40;
+    currency    = document.getElementById('currency').value;
+
+    if (rate <= 0) return 0;
+
+    var perYear;
+    if (type === 'hourly') {
+      perYear = rate * hpw * 52;
+    } else {
+      perYear = rate;
+    }
+    return perYear / (365.25 * 24 * 3600);
+  }
+
+  /* ── Tick ── */
+  function tick() {
+    var now  = Date.now();
+    var dt   = (now - lastTick) / 1000;
+    lastTick = now;
+    totalEarned += ratePerSecond * dt;
+    elapsedSec  += dt;
+    elValue.textContent = MS.formatCurrency(totalEarned, currency);
+    elTime.textContent  = MS.formatTime(elapsedSec) + ' elapsed';
+  }
+
+  /* ── Start ── */
+  function start() {
+    ratePerSecond = computeRate();
+    if (ratePerSecond <= 0) {
+      showError('Please enter a valid pay rate greater than 0.');
+      return;
+    }
+    hideError();
+    running  = true;
+    lastTick = Date.now();
+    timerID  = setInterval(tick, 50);
+
+    elStart.disabled = true;
+    elPause.disabled = false;
+    elReset.disabled = false;
+    setBadge('running');
+    showStats();
+  }
+
+  /* ── Pause ── */
+  function pause() {
+    if (!running) return;
+    running = false;
+    clearInterval(timerID);
+    timerID = null;
+    elStart.disabled = false;
+    elStart.textContent = '▶ Resume';
+    elPause.disabled = true;
+    setBadge('paused');
+  }
+
+  /* ── Reset ── */
+  function reset() {
+    running     = false;
+    totalEarned = 0;
+    elapsedSec  = 0;
+    clearInterval(timerID);
+    timerID = null;
+    elValue.textContent = MS.formatCurrency(0, currency);
+    elTime.textContent  = '0m 00s elapsed';
+    elStart.disabled = false;
+    elStart.textContent = '▶ Start';
+    elPause.disabled = true;
+    elReset.disabled = true;
+    setBadge('idle');
+    elStats.style.display = 'none';
+  }
+
+  /* ── Badge state ── */
+  function setBadge(state) {
+    elBadge.className = 'status-badge ' + state;
+    if (state === 'running') {
+      elStatus.textContent = 'Running';
+      elPulse.style.display = 'block';
+    } else if (state === 'paused') {
+      elStatus.textContent = 'Paused';
+      elPulse.style.display = 'none';
+    } else {
+      elStatus.textContent = 'Idle — enter your rate above';
+      elPulse.style.display = 'block';
+    }
+  }
+
+  /* ── Stats ── */
+  function showStats() {
+    var r = computeRate();
+    var fmt = function (v) { return MS.formatCurrency(v, currency); };
+    document.getElementById('stat-sec').textContent = fmt(r);
+    document.getElementById('stat-min').textContent = fmt(r * 60);
+    document.getElementById('stat-hr').textContent  = fmt(r * 3600);
+    document.getElementById('stat-day').textContent = fmt(r * 3600 * 8);
+    var hpw = parseFloat(document.getElementById('hours-per-week').value) || 40;
+    document.getElementById('stat-wk').textContent  = fmt(r * 3600 * hpw);
+    document.getElementById('stat-yr').textContent  = fmt(r * 3600 * hpw * 52);
+    elStats.style.display = 'block';
+  }
+
+  /* ── Error helpers ── */
+  function showError(msg) {
+    elError.textContent = msg;
+    elError.style.display = 'block';
+  }
+  function hideError() {
+    elError.style.display = 'none';
+  }
+
+  /* ── Bind buttons ── */
+  elStart.addEventListener('click', start);
+  elPause.addEventListener('click', pause);
+  elReset.addEventListener('click', reset);
+
+  /* ── Keyboard shortcut: Space = start/pause ── */
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (!running && !elStart.disabled) start();
+      else if (running) pause();
+    }
+  });
+})();
+</script>
+</body>
+</html>

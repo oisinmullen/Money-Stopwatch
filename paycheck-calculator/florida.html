@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Florida Paycheck Calculator 2024 — No State Income Tax</title>
+  <meta name="description" content="Free Florida paycheck calculator. Florida has NO state income tax. Calculate take-home pay after federal income tax and FICA only.">
+  <link rel="canonical" href="https://moneystopwatch.com/paycheck-calculator/florida.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Florida Paycheck Calculator</h1>
+      <p>Florida has <strong style="color:var(--accent)">no state income tax</strong> — calculate your take-home pay after federal taxes and FICA only.</p>
+    </div>
+
+    <!-- Florida highlight -->
+    <div class="card" style="border-color:var(--accent);background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.02));margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <span style="font-size:2rem;">🌴</span>
+        <div>
+          <h2 style="font-size:1.1rem;margin-bottom:.25rem;">Florida Has No State Income Tax!</h2>
+          <p style="margin:0;font-size:.9rem;color:var(--muted);">Florida does not levy a state income tax on individual wages. This means more money in your pocket compared to most states. You only pay federal income tax and FICA.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <!-- State nav -->
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <a href="california.html" class="btn btn-ghost btn-sm">California</a>
+      <a href="florida.html"    class="btn btn-primary btn-sm">Florida</a>
+      <a href="ohio.html"       class="btn btn-ghost btn-sm">Ohio</a>
+      <a href="illinois.html"   class="btn btn-ghost btn-sm">Illinois</a>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fl-gross">Gross Pay ($)</label>
+          <input type="number" id="fl-gross" placeholder="e.g. 5000" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="fl-freq">Pay Frequency</label>
+          <select id="fl-freq">
+            <option value="52">Weekly (52×/year)</option>
+            <option value="26">Bi-weekly (26×/year)</option>
+            <option value="24">Semi-monthly (24×/year)</option>
+            <option value="12" selected>Monthly (12×/year)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fl-status">Filing Status</label>
+          <select id="fl-status">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="hoh">Head of Household</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fl-401k">401(k) Contribution (%)</label>
+          <input type="number" id="fl-401k" placeholder="e.g. 6" min="0" max="23" step="0.5" value="0">
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-fl">Calculate Take-Home</button>
+        <button class="btn btn-ghost" id="btn-reset-fl">Reset</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="fl-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Florida Paycheck Breakdown</h3>
+
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="result-highlight">
+          <div class="label">Gross Pay</div>
+          <div class="amount" id="r-fl-gross">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Total Deductions</div>
+          <div class="amount" style="color:var(--red);" id="r-fl-ded">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Net Take-Home</div>
+          <div class="amount" id="r-fl-net">—</div>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="breakdown-row">
+          <span class="row-label">Gross Pay</span>
+          <span class="row-value" id="b-fl-gross">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Federal Income Tax</span>
+          <span class="row-value" id="b-fl-fed">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Social Security (6.2%)</span>
+          <span class="row-value" id="b-fl-ss">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Medicare (1.45%)</span>
+          <span class="row-value" id="b-fl-mc">—</span>
+        </div>
+        <div class="breakdown-row" style="background:rgba(16,185,129,.05);border-radius:6px;padding:.6rem .5rem;">
+          <span class="row-label" style="color:var(--accent);font-weight:600;">FL State Income Tax</span>
+          <span class="row-value" style="color:var(--accent);">$0.00 — No State Tax!</span>
+        </div>
+        <div class="breakdown-row deduction" id="b-fl-401k-row" style="display:none;">
+          <span class="row-label">401(k) Contribution</span>
+          <span class="row-value" id="b-fl-401k">—</span>
+        </div>
+        <div class="breakdown-row total">
+          <span class="row-label">Net Take-Home Pay</span>
+          <span class="row-value" id="b-fl-net">—</span>
+        </div>
+      </div>
+
+      <!-- Comparison vs. CA -->
+      <div style="margin-top:1.5rem;" id="fl-vs-ca">
+        <h4 style="font-size:.95rem;margin-bottom:.75rem;">Florida vs. California Comparison</h4>
+        <table class="results-table">
+          <tbody>
+            <tr><td>Florida Net Pay (per paycheck)</td><td id="fl-comp-fl" style="color:var(--accent);">—</td></tr>
+            <tr><td>Est. California Net Pay (same gross)</td><td id="fl-comp-ca" style="color:var(--muted);">—</td></tr>
+            <tr class="total"><td>You Save in Florida (per paycheck)</td><td id="fl-comp-diff">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2024 federal tax brackets and standard deduction. California comparison uses ~9.3% avg state rate for illustration.</p>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <div class="card mt-3">
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Florida Tax Overview</h2>
+      <table class="results-table">
+        <tbody>
+          <tr><td>Federal Income Tax</td><td>10% – 37% (progressive brackets)</td></tr>
+          <tr><td>Social Security</td><td>6.2% (up to $168,600 wage base)</td></tr>
+          <tr><td>Medicare</td><td>1.45% (+ 0.9% over $200k single)</td></tr>
+          <tr><td>FL State Income Tax</td><td><strong style="color:var(--accent)">$0 — None!</strong></td></tr>
+          <tr><td>FL State Disability</td><td>$0 — None</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var FEDERAL_STD_DED = { single: 14600, married: 29200, hoh: 21900 };
+  var FEDERAL_BRACKETS = {
+    single:  [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]],
+    married: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]],
+    hoh:     [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+  };
+
+  function calcBracketTax(income, brackets) {
+    var tax = 0, prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= prev) break;
+      tax += (Math.min(income, cap) - prev) * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+
+  document.getElementById('btn-calc-fl').addEventListener('click', calculate);
+  document.getElementById('btn-reset-fl').addEventListener('click', resetForm);
+
+  function calculate() {
+    var gross  = parseFloat(document.getElementById('fl-gross').value);
+    var freq   = parseInt(document.getElementById('fl-freq').value);
+    var status = document.getElementById('fl-status').value;
+    var k401   = parseFloat(document.getElementById('fl-401k').value) || 0;
+    if (isNaN(gross) || gross <= 0) return;
+
+    var annual     = gross * freq;
+    var k401Amt    = annual * (k401 / 100);
+    var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
+    var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
+    var ss         = Math.min(annual, 168600) * 0.062;
+    var medicare   = annual * 0.0145;
+    var totalDed   = fedTax + ss + medicare + k401Amt;
+    var netAnnual  = annual - totalDed;
+
+    var div = function (v) { return v / freq; };
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+    var neg = function (v) { return '-' + fmt(div(v)); };
+
+    document.getElementById('r-fl-gross').textContent = fmt(div(annual));
+    document.getElementById('r-fl-ded').textContent   = '-' + fmt(div(totalDed));
+    document.getElementById('r-fl-net').textContent   = fmt(div(netAnnual));
+
+    document.getElementById('b-fl-gross').textContent = fmt(div(annual));
+    document.getElementById('b-fl-fed').textContent   = neg(fedTax);
+    document.getElementById('b-fl-ss').textContent    = neg(ss);
+    document.getElementById('b-fl-mc').textContent    = neg(medicare);
+    document.getElementById('b-fl-net').textContent   = fmt(div(netAnnual));
+
+    if (k401 > 0) {
+      document.getElementById('b-fl-401k-row').style.display = 'flex';
+      document.getElementById('b-fl-401k').textContent = neg(k401Amt);
+    } else {
+      document.getElementById('b-fl-401k-row').style.display = 'none';
+    }
+
+    // CA comparison (rough: add ~9.3% CA state tax on taxable + 1.1% SDI)
+    var caStateEst = fedTaxable * 0.093;
+    var caSDI      = annual * 0.011;
+    var caNet      = netAnnual - caStateEst - caSDI;
+    var diff       = netAnnual - caNet;
+
+    document.getElementById('fl-comp-fl').textContent   = fmt(div(netAnnual));
+    document.getElementById('fl-comp-ca').textContent   = fmt(div(caNet));
+    document.getElementById('fl-comp-diff').textContent = '+' + fmt(div(diff));
+
+    document.getElementById('fl-results').style.display = 'block';
+    document.getElementById('fl-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetForm() {
+    document.getElementById('fl-gross').value = '';
+    document.getElementById('fl-401k').value = '0';
+    document.getElementById('fl-results').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>

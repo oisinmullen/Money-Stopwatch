@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ohio Paycheck Calculator 2024 — Take-Home Pay After OH State Tax</title>
+  <meta name="description" content="Free Ohio paycheck calculator 2024. Calculate your take-home pay after federal income tax, FICA, and Ohio state income tax brackets.">
+  <link rel="canonical" href="https://moneystopwatch.com/paycheck-calculator/ohio.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Ohio Paycheck Calculator</h1>
+      <p>Calculate your Ohio take-home pay after federal taxes, FICA, and Ohio state income tax.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <!-- State nav -->
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <a href="california.html" class="btn btn-ghost btn-sm">California</a>
+      <a href="florida.html"    class="btn btn-ghost btn-sm">Florida</a>
+      <a href="ohio.html"       class="btn btn-primary btn-sm">Ohio</a>
+      <a href="illinois.html"   class="btn btn-ghost btn-sm">Illinois</a>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="oh-gross">Gross Pay ($)</label>
+          <input type="number" id="oh-gross" placeholder="e.g. 4000" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="oh-freq">Pay Frequency</label>
+          <select id="oh-freq">
+            <option value="52">Weekly (52×/year)</option>
+            <option value="26">Bi-weekly (26×/year)</option>
+            <option value="24">Semi-monthly (24×/year)</option>
+            <option value="12" selected>Monthly (12×/year)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="oh-status">Filing Status</label>
+          <select id="oh-status">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="hoh">Head of Household</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="oh-401k">401(k) Contribution (%)</label>
+          <input type="number" id="oh-401k" placeholder="e.g. 6" min="0" max="23" step="0.5" value="0">
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-oh">Calculate Take-Home</button>
+        <button class="btn btn-ghost" id="btn-reset-oh">Reset</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="oh-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Ohio Paycheck Breakdown</h3>
+
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="result-highlight">
+          <div class="label">Gross Pay</div>
+          <div class="amount" id="r-oh-gross">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Total Deductions</div>
+          <div class="amount" style="color:var(--red);" id="r-oh-ded">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Net Take-Home</div>
+          <div class="amount" id="r-oh-net">—</div>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="breakdown-row">
+          <span class="row-label">Gross Pay</span>
+          <span class="row-value" id="b-oh-gross">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Federal Income Tax</span>
+          <span class="row-value" id="b-oh-fed">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Social Security (6.2%)</span>
+          <span class="row-value" id="b-oh-ss">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Medicare (1.45%)</span>
+          <span class="row-value" id="b-oh-mc">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Ohio State Income Tax</span>
+          <span class="row-value" id="b-oh-state">—</span>
+        </div>
+        <div class="breakdown-row deduction" id="b-oh-401k-row" style="display:none;">
+          <span class="row-label">401(k) Contribution</span>
+          <span class="row-value" id="b-oh-401k">—</span>
+        </div>
+        <div class="breakdown-row total">
+          <span class="row-label">Net Take-Home Pay</span>
+          <span class="row-value" id="b-oh-net">—</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2024 Ohio tax brackets and federal standard deduction. Many Ohio municipalities also levy a local income tax (typically 1–3%) not reflected here.</p>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <div class="card mt-3">
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Ohio Tax Brackets 2024</h2>
+      <table class="results-table">
+        <thead>
+          <tr style="color:var(--muted);font-size:.8rem;"><td>Income Range</td><td>Rate</td></tr>
+        </thead>
+        <tbody>
+          <tr><td>$0 – $26,050</td><td>0%</td></tr>
+          <tr><td>$26,051 – $100,000</td><td>2.765%</td></tr>
+          <tr><td>$100,001 – $115,300</td><td>3.226%</td></tr>
+          <tr><td>Over $115,300</td><td>3.688%</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:.75rem;">Ohio also has a $20 personal exemption credit per filer.</p>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var FEDERAL_STD_DED = { single: 14600, married: 29200, hoh: 21900 };
+  var FEDERAL_BRACKETS = {
+    single:  [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]],
+    married: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]],
+    hoh:     [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+  };
+
+  // Ohio 2024 brackets (on Ohio AGI)
+  var OH_BRACKETS = [[26050,0],[100000,0.02765],[115300,0.03226],[Infinity,0.03688]];
+
+  function calcBracketTax(income, brackets) {
+    var tax = 0, prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= prev) break;
+      tax += (Math.min(income, cap) - prev) * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+
+  document.getElementById('btn-calc-oh').addEventListener('click', calculate);
+  document.getElementById('btn-reset-oh').addEventListener('click', resetForm);
+
+  function calculate() {
+    var gross  = parseFloat(document.getElementById('oh-gross').value);
+    var freq   = parseInt(document.getElementById('oh-freq').value);
+    var status = document.getElementById('oh-status').value;
+    var k401   = parseFloat(document.getElementById('oh-401k').value) || 0;
+    if (isNaN(gross) || gross <= 0) return;
+
+    var annual     = gross * freq;
+    var k401Amt    = annual * (k401 / 100);
+    var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
+    var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
+    var ss         = Math.min(annual, 168600) * 0.062;
+    var medicare   = annual * 0.0145;
+    var ohState    = calcBracketTax(annual - k401Amt, OH_BRACKETS) - 20; // $20 personal credit
+    ohState        = Math.max(0, ohState);
+    var totalDed   = fedTax + ss + medicare + ohState + k401Amt;
+    var netAnnual  = annual - totalDed;
+
+    var div = function (v) { return v / freq; };
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+    var neg = function (v) { return '-' + fmt(div(v)); };
+
+    document.getElementById('r-oh-gross').textContent = fmt(div(annual));
+    document.getElementById('r-oh-ded').textContent   = '-' + fmt(div(totalDed));
+    document.getElementById('r-oh-net').textContent   = fmt(div(netAnnual));
+
+    document.getElementById('b-oh-gross').textContent = fmt(div(annual));
+    document.getElementById('b-oh-fed').textContent   = neg(fedTax);
+    document.getElementById('b-oh-ss').textContent    = neg(ss);
+    document.getElementById('b-oh-mc').textContent    = neg(medicare);
+    document.getElementById('b-oh-state').textContent = neg(ohState);
+    document.getElementById('b-oh-net').textContent   = fmt(div(netAnnual));
+
+    if (k401 > 0) {
+      document.getElementById('b-oh-401k-row').style.display = 'flex';
+      document.getElementById('b-oh-401k').textContent = neg(k401Amt);
+    } else {
+      document.getElementById('b-oh-401k-row').style.display = 'none';
+    }
+
+    document.getElementById('oh-results').style.display = 'block';
+    document.getElementById('oh-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetForm() {
+    document.getElementById('oh-gross').value = '';
+    document.getElementById('oh-401k').value = '0';
+    document.getElementById('oh-results').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>

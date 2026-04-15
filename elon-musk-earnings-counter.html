@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elon Musk Earnings Counter — Watch His Wealth Grow in Real Time</title>
+  <meta name="description" content="Watch Elon Musk's estimated earnings accumulate in real time. See how much he earns per second, minute, and hour — and compare it to your own pay.">
+  <link rel="canonical" href="https://moneystopwatch.com/elon-musk-earnings-counter.html">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .musk-hero {
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1000 100%);
+      border: 1px solid rgba(245,158,11,.2);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .musk-counter-wrap {
+      margin: 1rem 0;
+    }
+
+    .musk-label {
+      font-size: .85rem;
+      color: #d97706;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: .4rem;
+    }
+
+    .context-stat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .context-stat .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .context-stat .stat-label {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-top: .25rem;
+    }
+
+    .your-counter-val {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .disclaimer {
+      font-size: .78rem;
+      color: var(--muted2);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .75rem 1rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Elon Musk Earnings Counter</h1>
+      <p>Watch Elon Musk's estimated wealth accumulate in real time — based on his ~$70 billion/year net worth increase.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above counter -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <!-- Main counter -->
+    <div class="musk-hero">
+      <div class="musk-label">🚀 Estimated Musk Earnings Since You Loaded This Page</div>
+      <div class="musk-counter-wrap">
+        <div class="musk-counter" id="musk-counter">$0</div>
+      </div>
+      <div id="musk-time" style="color:#d97706;font-size:.95rem;margin-top:.5rem;">0 seconds on page</div>
+      <div style="margin-top:1rem;">
+        <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;color:#d97706;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);padding:.3rem .75rem;border-radius:20px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;animation:pulse 1.2s infinite;display:inline-block;"></span>
+          Live counter
+        </span>
+      </div>
+    </div>
+
+    <!-- Context stats -->
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
+      <div class="context-stat">
+        <div class="stat-value" style="color:#f59e0b;" id="musk-per-sec">$2,218</div>
+        <div class="stat-label">Per Second</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-value" style="color:#f59e0b;" id="musk-per-min">$133,100</div>
+        <div class="stat-label">Per Minute</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-value" style="color:#f59e0b;" id="musk-per-hr">$7.99M</div>
+        <div class="stat-label">Per Hour</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-value" style="color:#f59e0b;">$191.7M</div>
+        <div class="stat-label">Per Day</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-value" style="color:#f59e0b;">$1.34B</div>
+        <div class="stat-label">Per Week</div>
+      </div>
+      <div class="context-stat">
+        <div class="stat-value" style="color:#f59e0b;">$70B</div>
+        <div class="stat-label">Per Year (est.)</div>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: mid-page rectangle -->
+    <div class="ad-slot ad-slot--rectangle" aria-hidden="true">Advertisement</div>
+
+    <!-- Your earnings comparison -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.1rem;margin-bottom:1rem;">Compare: How Much Did YOU Earn?</h2>
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.25rem;">Enter your salary and see what you've earned in the same time Musk has been accumulating wealth.</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="your-rate">Your Annual Salary ($)</label>
+          <input type="number" id="your-rate" placeholder="e.g. 75000" min="0">
+        </div>
+        <div class="form-group" style="justify-content:flex-end;">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" id="btn-your-start">Start Your Counter</button>
+        </div>
+      </div>
+
+      <div id="compare-section" style="display:none;margin-top:1.5rem;">
+        <div class="compare-box">
+          <div class="compare-item you">
+            <div class="sublabel">You Earned</div>
+            <div class="value" id="your-earned">$0.00</div>
+          </div>
+          <div class="compare-item musk">
+            <div class="sublabel">Musk Earned</div>
+            <div class="value" id="musk-earned-compare">$0</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:1rem;" id="ratio-display">
+          <p style="color:var(--muted);font-size:.9rem;" id="ratio-text">—</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Perspective cards -->
+    <div class="section mt-4">
+      <h2 class="mb-3">To Put It in Perspective…</h2>
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+        <div class="card">
+          <div style="font-size:1.75rem;margin-bottom:.5rem;">🏥</div>
+          <h3 style="font-size:.95rem;margin-bottom:.4rem;">US Median Annual Salary</h3>
+          <p style="font-size:.85rem;color:var(--muted);margin:0;">The median US worker earns ~$59,000/year. Musk earns that in about <strong style="color:var(--white);">26 seconds</strong>.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:1.75rem;margin-bottom:.5rem;">🏠</div>
+          <h3 style="font-size:.95rem;margin-bottom:.4rem;">Median US Home Price</h3>
+          <p style="font-size:.85rem;color:var(--muted);margin:0;">At ~$420,000 for the median home, Musk earns the price of one house every <strong style="color:var(--white);">3 minutes 9 seconds</strong>.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:1.75rem;margin-bottom:.5rem;">🎓</div>
+          <h3 style="font-size:.95rem;margin-bottom:.4rem;">4-Year College Degree</h3>
+          <p style="font-size:.85rem;color:var(--muted);margin:0;">Average US 4-year degree costs ~$104,000. Musk earns that in about <strong style="color:var(--white);">47 seconds</strong>.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:1.75rem;margin-bottom:.5rem;">✈️</div>
+          <h3 style="font-size:.95rem;margin-bottom:.4rem;">SpaceX Falcon 9 Launch</h3>
+          <p style="font-size:.85rem;color:var(--muted);margin:0;">A Falcon 9 launch costs ~$67M. Musk earns enough for one in about <strong style="color:var(--white);">8.4 hours</strong>.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:1.75rem;margin-bottom:.5rem;">💊</div>
+          <h3 style="font-size:.95rem;margin-bottom:.4rem;">US Poverty Line (Annual)</h3>
+          <p style="font-size:.85rem;color:var(--muted);margin:0;">The federal poverty line for a single person is ~$14,580/year. Musk earns that in about <strong style="color:var(--white);">6.6 seconds</strong>.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:1.75rem;margin-bottom:.5rem;">🌍</div>
+          <h3 style="font-size:.95rem;margin-bottom:.4rem;">Global Median Income</h3>
+          <p style="font-size:.85rem;color:var(--muted);margin:0;">The global median income is ~$2,900/year. Musk earns that in about <strong style="color:var(--white);">1.3 seconds</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Methodology -->
+    <div class="card mt-3">
+      <h2 style="font-size:1rem;margin-bottom:.75rem;">How We Calculate This</h2>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:.5rem;">This counter is based on Elon Musk's <strong style="color:var(--text);">estimated annual net worth increase of approximately $70 billion</strong>, derived from multi-year averages of his reported net worth changes.</p>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:.5rem;">Per-second rate: $70,000,000,000 ÷ 31,557,600 seconds/year ≈ <strong style="color:var(--text);">$2,218.37 per second</strong>.</p>
+      <p style="font-size:.88rem;color:var(--muted);margin:0;">This is an educational estimate for entertainment and perspective. Actual net worth changes fluctuate with Tesla, SpaceX, and X valuations. This is not financial data.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: below content -->
+    <div class="ad-slot ad-slot--leaderboard mt-3" aria-hidden="true">Advertisement</div>
+
+    <!-- CTA to stopwatch -->
+    <div class="cta-box mt-3">
+      <h2>Track Your Own Earnings</h2>
+      <p>Use our real-time stopwatch to watch your own salary accumulate while you're at work.</p>
+      <a href="index.html" class="btn btn-primary btn-lg">Start Your Earnings Counter →</a>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* Musk's estimated per-second rate: $70B / 31,557,600 sec/year */
+  var MUSK_PER_SECOND = 70000000000 / 31557600; // ≈ 2218.37
+
+  var muskTotal   = 0;
+  var elapsedSec  = 0;
+  var lastTick    = Date.now();
+  var yourRate    = 0;    // per second
+  var yourTotal   = 0;
+  var comparing   = false;
+
+  var elCounter   = document.getElementById('musk-counter');
+  var elTime      = document.getElementById('musk-time');
+  var elYourEarned     = document.getElementById('your-earned');
+  var elMuskCompare    = document.getElementById('musk-earned-compare');
+  var elRatioText      = document.getElementById('ratio-text');
+  var elCompareSection = document.getElementById('compare-section');
+
+  /* ── Format large numbers ── */
+  function fmtMusk(v) {
+    if (v >= 1e9)  return '$' + (v / 1e9).toFixed(3) + 'B';
+    if (v >= 1e6)  return '$' + (v / 1e6).toFixed(3) + 'M';
+    if (v >= 1000) return '$' + (v / 1000).toFixed(2) + 'K';
+    return '$' + v.toFixed(2);
+  }
+
+  /* ── Tick loop (60fps using requestAnimationFrame) ── */
+  function tick() {
+    var now = Date.now();
+    var dt  = (now - lastTick) / 1000;
+    lastTick = now;
+
+    muskTotal  += MUSK_PER_SECOND * dt;
+    elapsedSec += dt;
+
+    elCounter.textContent = fmtMusk(muskTotal);
+    elTime.textContent    = formatTime(elapsedSec) + ' on page';
+
+    if (comparing && yourRate > 0) {
+      yourTotal += yourRate * dt;
+      elYourEarned.textContent     = MS.formatCurrency(yourTotal, 'USD');
+      elMuskCompare.textContent    = fmtMusk(muskTotal);
+      var ratio = muskTotal / Math.max(yourTotal, 0.01);
+      elRatioText.textContent = 'In this time, Musk earned ' + ratio.toFixed(0) + '× more than you.';
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function formatTime(s) {
+    if (s < 60) return Math.floor(s) + ' second' + (Math.floor(s) !== 1 ? 's' : '');
+    var m = Math.floor(s / 60);
+    var sec = Math.floor(s % 60);
+    if (m < 60) return m + 'm ' + sec + 's';
+    var h = Math.floor(m / 60);
+    return h + 'h ' + (m % 60) + 'm ' + sec + 's';
+  }
+
+  /* ── Start comparison ── */
+  document.getElementById('btn-your-start').addEventListener('click', function () {
+    var annual = parseFloat(document.getElementById('your-rate').value);
+    if (isNaN(annual) || annual <= 0) return;
+    yourRate    = annual / 31557600;
+    yourTotal   = 0;
+    comparing   = true;
+    elCompareSection.style.display = 'block';
+    elCompareSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  /* ── Kick off ── */
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time and a Half Calculator — What Is 1.5× Your Hourly Rate?</title>
+  <meta name="description" content="Calculate your time and a half pay rate instantly. Enter your base hourly wage and overtime hours to see your 1.5× rate and total overtime earnings.">
+  <link rel="canonical" href="https://moneystopwatch.com/time-and-a-half-calculator.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does time and a half mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Time and a half means you are paid 1.5 times your regular hourly rate for overtime hours. For example, if your regular rate is $20/hour, your time-and-a-half rate is $30/hour ($20 × 1.5)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When does time and a half apply?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under the US Fair Labor Standards Act, non-exempt employees must receive time and a half for all hours worked beyond 40 in a single workweek. Some states have daily overtime rules too."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate my time and a half rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Multiply your regular hourly rate by 1.5. If you earn $18/hour, your time-and-a-half rate is $18 × 1.5 = $27/hour."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Time and a Half Calculator</h1>
+      <p>Find your 1.5× overtime rate and see exactly how much you earn for each overtime hour.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <!-- Explainer -->
+    <div class="card" style="border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.04);">
+      <h2 style="font-size:1rem;color:var(--accent);margin-bottom:.5rem;">What is Time and a Half?</h2>
+      <p style="margin:0;font-size:.92rem;">Time and a half means earning <strong>1.5× your regular hourly rate</strong> for overtime hours. It is the minimum overtime rate required by the US Fair Labor Standards Act (FLSA) for non-exempt employees who work more than 40 hours in a week. If you earn <strong>$20/hr</strong> normally, your time-and-a-half rate is <strong>$30/hr</strong>.</p>
+    </div>
+
+    <!-- Calculator -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Calculate Your Time and a Half Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="base-rate">Base Hourly Rate ($)</label>
+          <input type="number" id="base-rate" placeholder="e.g. 20.00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="ot-hours-tah">Overtime Hours</label>
+          <input type="number" id="ot-hours-tah" placeholder="e.g. 5" min="0" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="tah-currency">Currency</label>
+          <select id="tah-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-tah">Calculate</button>
+        <button class="btn btn-ghost" id="btn-reset-tah">Reset</button>
+      </div>
+      <p id="tah-error" style="color:var(--red);font-size:.85rem;margin-top:.5rem;display:none;"></p>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="tah-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Time and a Half Breakdown</h3>
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="result-highlight">
+          <div class="label">Regular Rate</div>
+          <div class="amount" id="r-base">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Time & a Half Rate</div>
+          <div class="amount" id="r-tah-rate">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Total Overtime Earnings</div>
+          <div class="amount" id="r-tah-total">—</div>
+        </div>
+      </div>
+      <table class="results-table">
+        <tbody id="tah-detail-body"></tbody>
+      </table>
+
+      <!-- Quick reference table -->
+      <div style="margin-top:1.5rem;">
+        <h4 style="font-size:.95rem;margin-bottom:.75rem;">Reference: What's My 1.5× Rate?</h4>
+        <table class="results-table" id="tah-ref-table">
+          <thead>
+            <tr style="color:var(--muted);font-size:.8rem;">
+              <td>Regular Rate</td><td>Time &amp; a Half Rate</td><td>Per 10 OT Hours</td>
+            </tr>
+          </thead>
+          <tbody id="tah-ref-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <!-- FAQ -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What does time and a half mean? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Time and a half means your pay rate is multiplied by 1.5. For every hour of overtime, you earn your normal hourly wage plus half of it again. Example: $20/hr × 1.5 = $30/hr overtime rate.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">When is time and a half required by law? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">In the US, the FLSA requires time and a half for non-exempt employees working more than 40 hours per week. Some states (like California) also require it for hours over 8 in a single workday.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is time and a half required on weekends or holidays? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Federal law does not require overtime pay specifically for weekends or holidays — it is based on total hours worked per week. However, many employers voluntarily pay time and a half or double time on holidays.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What is the difference between time and a half and double time? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Time and a half = 1.5× your regular rate. Double time = 2× your regular rate. Double time is typically paid for extreme overtime (e.g., over 12 hrs/day in California) or holidays, depending on your employer's policy or state law.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  document.getElementById('btn-calc-tah').addEventListener('click', calculate);
+  document.getElementById('btn-reset-tah').addEventListener('click', resetForm);
+
+  function calculate() {
+    var base     = parseFloat(document.getElementById('base-rate').value);
+    var otHrs    = parseFloat(document.getElementById('ot-hours-tah').value);
+    var currency = document.getElementById('tah-currency').value;
+    var errEl    = document.getElementById('tah-error');
+
+    if (isNaN(base) || base <= 0) { errEl.textContent = 'Please enter a valid hourly rate.'; errEl.style.display = 'block'; return; }
+    if (isNaN(otHrs) || otHrs < 0) { errEl.textContent = 'Overtime hours must be 0 or more.'; errEl.style.display = 'block'; return; }
+    errEl.style.display = 'none';
+
+    var fmt     = function (v) { return MS.formatCurrency(v, currency); };
+    var tahRate = base * 1.5;
+    var total   = tahRate * otHrs;
+
+    document.getElementById('r-base').textContent     = fmt(base) + '/hr';
+    document.getElementById('r-tah-rate').textContent = fmt(tahRate) + '/hr';
+    document.getElementById('r-tah-total').textContent = fmt(total);
+
+    var tbody = document.getElementById('tah-detail-body');
+    tbody.innerHTML = [
+      row('Regular Hourly Rate', fmt(base) + '/hr'),
+      row('Time and a Half Multiplier', '1.5×'),
+      row('Time and a Half Rate', fmt(tahRate) + '/hr'),
+      row('Overtime Hours Worked', otHrs + ' hrs'),
+      '<tr class="total"><td>Total Overtime Earnings</td><td>' + fmt(total) + '</td></tr>',
+    ].join('');
+
+    // Reference table
+    var refRates = [base * 0.5, base * 0.75, base, base * 1.25, base * 1.5, base * 2];
+    var refLabels = ['$' + (base*0.5).toFixed(2) + '/hr (half)', '$' + (base*0.75).toFixed(2) + '/hr', '$' + base.toFixed(2) + '/hr (regular)', '$' + (base*1.25).toFixed(2) + '/hr (1.25×)', '$' + tahRate.toFixed(2) + '/hr (time&amp;half)', '$' + (base*2).toFixed(2) + '/hr (double)'];
+    var refBody = document.getElementById('tah-ref-body');
+    var refData = [10, 15, 20, 25, 30, 35, 40, 50];
+    refBody.innerHTML = refData.map(function (r) {
+      return '<tr><td>' + fmt(r) + '</td><td>' + fmt(r * 1.5) + '</td><td>' + fmt(r * 1.5 * 10) + '</td></tr>';
+    }).join('');
+
+    document.getElementById('tah-results').style.display = 'block';
+    document.getElementById('tah-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function row(label, value) {
+    return '<tr><td>' + label + '</td><td>' + value + '</td></tr>';
+  }
+
+  function resetForm() {
+    document.getElementById('base-rate').value = '';
+    document.getElementById('ot-hours-tah').value = '';
+    document.getElementById('tah-results').style.display = 'none';
+    document.getElementById('tah-error').style.display = 'none';
+  }
+
+  MS.initFAQ();
+})();
+</script>
+</body>
+</html>

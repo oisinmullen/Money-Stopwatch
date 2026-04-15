@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>California Paycheck Calculator 2024 — Take-Home Pay After Taxes</title>
+  <meta name="description" content="Free California paycheck calculator. Calculate your take-home pay after federal income tax, FICA, California state income tax, and SDI deductions.">
+  <link rel="canonical" href="https://moneystopwatch.com/paycheck-calculator/california.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>California Paycheck Calculator</h1>
+      <p>Calculate your California take-home pay after federal taxes, FICA, California state income tax, and SDI.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <!-- State nav -->
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <a href="california.html" class="btn btn-primary btn-sm">California</a>
+      <a href="florida.html"    class="btn btn-ghost btn-sm">Florida</a>
+      <a href="ohio.html"       class="btn btn-ghost btn-sm">Ohio</a>
+      <a href="illinois.html"   class="btn btn-ghost btn-sm">Illinois</a>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="ca-gross">Gross Pay ($)</label>
+          <input type="number" id="ca-gross" placeholder="e.g. 5000" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="ca-freq">Pay Frequency</label>
+          <select id="ca-freq">
+            <option value="52">Weekly (52×/year)</option>
+            <option value="26">Bi-weekly (26×/year)</option>
+            <option value="24">Semi-monthly (24×/year)</option>
+            <option value="12" selected>Monthly (12×/year)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ca-status">Filing Status</label>
+          <select id="ca-status">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="hoh">Head of Household</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ca-401k">401(k) Contribution (%)</label>
+          <input type="number" id="ca-401k" placeholder="e.g. 6" min="0" max="23" step="0.5" value="0">
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-ca">Calculate Take-Home</button>
+        <button class="btn btn-ghost" id="btn-reset-ca">Reset</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="ca-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your California Paycheck Breakdown</h3>
+
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="result-highlight">
+          <div class="label">Gross Pay</div>
+          <div class="amount" id="r-ca-gross">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Total Deductions</div>
+          <div class="amount" style="color:var(--red);" id="r-ca-ded">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Net Take-Home</div>
+          <div class="amount" id="r-ca-net">—</div>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="breakdown-row">
+          <span class="row-label">Gross Pay</span>
+          <span class="row-value" id="b-ca-gross">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Federal Income Tax</span>
+          <span class="row-value" id="b-ca-fed">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Social Security (6.2%)</span>
+          <span class="row-value" id="b-ca-ss">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Medicare (1.45%)</span>
+          <span class="row-value" id="b-ca-mc">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">CA State Income Tax</span>
+          <span class="row-value" id="b-ca-state">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">CA SDI (1.1%)</span>
+          <span class="row-value" id="b-ca-sdi">—</span>
+        </div>
+        <div class="breakdown-row deduction" id="b-401k-row" style="display:none;">
+          <span class="row-label">401(k) Contribution</span>
+          <span class="row-value" id="b-ca-401k">—</span>
+        </div>
+        <div class="breakdown-row total">
+          <span class="row-label">Net Take-Home Pay</span>
+          <span class="row-value" id="b-ca-net">—</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> These are estimates based on 2024 tax brackets and standard deductions. Actual taxes may vary based on deductions, credits, and other income. SDI rate reflects 2024 rate with no wage ceiling.</p>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <!-- Info card -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">California Taxes Explained</h2>
+      <table class="results-table">
+        <tbody>
+          <tr><td>Federal Income Tax</td><td>10% – 37% (progressive brackets)</td></tr>
+          <tr><td>Social Security</td><td>6.2% (up to $168,600 wage base)</td></tr>
+          <tr><td>Medicare</td><td>1.45% (+ 0.9% over $200k)</td></tr>
+          <tr><td>CA State Income Tax</td><td>1% – 13.3% (progressive)</td></tr>
+          <tr><td>CA SDI</td><td>1.1% (no wage ceiling in 2024)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── Federal tax brackets 2024 (standard deduction applied) ── */
+  var FEDERAL_STD_DED = { single: 14600, married: 29200, hoh: 21900 };
+
+  var FEDERAL_BRACKETS = {
+    single:  [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]],
+    married: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]],
+    hoh:     [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+  };
+
+  /* ── CA brackets 2024 (single) ── */
+  var CA_STD_DED = { single: 5202, married: 10404, hoh: 10404 };
+
+  var CA_BRACKETS = {
+    single:  [[10412,.01],[24684,.02],[38959,.04],[54081,.06],[68350,.08],[349137,.093],[418961,.103],[698274,.113],[1000000,.123],[Infinity,.133]],
+    married: [[20824,.01],[49368,.02],[77918,.04],[108162,.06],[136700,.08],[698274,.093],[837922,.103],[1000000,.113],[1999999,.123],[Infinity,.133]],
+    hoh:     [[20839,.01],[49384,.02],[63739,.04],[78865,.06],[93037,.08],[474824,.093],[569790,.103],[949616,.113],[1000000,.123],[Infinity,.133]]
+  };
+
+  function calcBracketTax(income, brackets) {
+    var tax  = 0;
+    var prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap  = brackets[i][0];
+      var rate = brackets[i][1];
+      if (income <= prev) break;
+      var taxable = Math.min(income, cap) - prev;
+      tax += taxable * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+
+  document.getElementById('btn-calc-ca').addEventListener('click', calculate);
+  document.getElementById('btn-reset-ca').addEventListener('click', resetForm);
+
+  function calculate() {
+    var gross  = parseFloat(document.getElementById('ca-gross').value);
+    var freq   = parseInt(document.getElementById('ca-freq').value);
+    var status = document.getElementById('ca-status').value;
+    var k401   = parseFloat(document.getElementById('ca-401k').value) || 0;
+
+    if (isNaN(gross) || gross <= 0) return;
+
+    var annual     = gross * freq;
+    var k401Amt    = annual * (k401 / 100);
+    var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
+    var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
+    var ss         = Math.min(annual, 168600) * 0.062;
+    var medicare   = annual * 0.0145;
+    var caAnnual   = annual - k401Amt; // CA taxes pre-tax 401k too (state doesn't recognize)
+    var caTaxable  = Math.max(0, caAnnual - CA_STD_DED[status]);
+    var caState    = calcBracketTax(caTaxable, CA_BRACKETS[status]);
+    var sdi        = annual * 0.011;
+    var totalDed   = fedTax + ss + medicare + caState + sdi + k401Amt;
+    var netAnnual  = annual - totalDed;
+
+    // Per paycheck amounts
+    var div = function (v) { return v / freq; };
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+    var neg = function (v) { return '-' + fmt(div(v)); };
+
+    document.getElementById('r-ca-gross').textContent = fmt(div(annual));
+    document.getElementById('r-ca-ded').textContent   = '-' + fmt(div(totalDed));
+    document.getElementById('r-ca-net').textContent   = fmt(div(netAnnual));
+
+    document.getElementById('b-ca-gross').textContent  = fmt(div(annual));
+    document.getElementById('b-ca-fed').textContent    = neg(fedTax);
+    document.getElementById('b-ca-ss').textContent     = neg(ss);
+    document.getElementById('b-ca-mc').textContent     = neg(medicare);
+    document.getElementById('b-ca-state').textContent  = neg(caState);
+    document.getElementById('b-ca-sdi').textContent    = neg(sdi);
+    document.getElementById('b-ca-net').textContent    = fmt(div(netAnnual));
+
+    if (k401 > 0) {
+      document.getElementById('b-401k-row').style.display = 'flex';
+      document.getElementById('b-ca-401k').textContent = neg(k401Amt);
+    } else {
+      document.getElementById('b-401k-row').style.display = 'none';
+    }
+
+    document.getElementById('ca-results').style.display = 'block';
+    document.getElementById('ca-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetForm() {
+    document.getElementById('ca-gross').value = '';
+    document.getElementById('ca-401k').value = '0';
+    document.getElementById('ca-results').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>

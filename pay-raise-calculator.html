@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay Raise Calculator — How Much Is Your Raise Worth?</title>
+  <meta name="description" content="Calculate your pay raise instantly. Enter current salary and raise percentage or amount. See your new annual, monthly, and hourly salary after the raise.">
+  <link rel="canonical" href="https://moneystopwatch.com/pay-raise-calculator.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the average pay raise percentage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In the US, the average annual pay raise is typically 3-5%. A raise matching or exceeding inflation (around 3-4%) keeps your purchasing power steady. Raises of 5-10%+ are considered strong and often come with promotions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate my new salary after a raise?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To calculate a raise by percentage: New Salary = Current Salary × (1 + raise%/100). For a dollar raise: simply add the raise amount to your current salary. For example, $60,000 with a 5% raise = $60,000 × 1.05 = $63,000."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Pay Raise Calculator</h1>
+      <p>See exactly how much your raise is worth — per year, per month, per week, and per hour.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <div class="card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Salary Details</h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="raise-pay-type">Current Pay Type</label>
+          <select id="raise-pay-type">
+            <option value="annual">Annual Salary</option>
+            <option value="hourly">Hourly Rate</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="current-salary">Current Pay</label>
+          <input type="number" id="current-salary" placeholder="e.g. 60000" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="raise-currency">Currency</label>
+          <select id="raise-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="raise-hpw">Hours / Week</label>
+          <input type="number" id="raise-hpw" value="40" min="1" max="168" step="1">
+        </div>
+      </div>
+
+      <hr style="margin:1.25rem 0;">
+
+      <div style="margin-bottom:1rem;">
+        <strong>Raise Type</strong>
+        <div style="display:flex;gap:1rem;margin-top:.6rem;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;color:var(--text);font-size:.9rem;text-transform:none;letter-spacing:0;">
+            <input type="radio" name="raise-type" value="percent" checked id="rt-percent" style="accent-color:var(--accent);width:16px;height:16px;"> Raise by Percentage
+          </label>
+          <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;color:var(--text);font-size:.9rem;text-transform:none;letter-spacing:0;">
+            <input type="radio" name="raise-type" value="amount" id="rt-amount" style="accent-color:var(--accent);width:16px;height:16px;"> Raise by Amount
+          </label>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group" id="pct-group">
+          <label for="raise-pct">Raise Percentage (%)</label>
+          <input type="number" id="raise-pct" placeholder="e.g. 5" min="0" step="0.1">
+        </div>
+        <div class="form-group" id="amt-group" style="display:none;">
+          <label for="raise-amt">Raise Amount ($)</label>
+          <input type="number" id="raise-amt" placeholder="e.g. 3000" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-raise">Calculate Raise</button>
+        <button class="btn btn-ghost" id="btn-reset-raise">Reset</button>
+      </div>
+      <p id="raise-error" style="color:var(--red);font-size:.85rem;margin-top:.5rem;display:none;"></p>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="raise-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Raise Breakdown</h3>
+
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="result-highlight">
+          <div class="label">New Annual Salary</div>
+          <div class="amount" id="r-new-annual">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Annual Increase</div>
+          <div class="amount" style="color:#10b981;" id="r-annual-inc">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Percentage Change</div>
+          <div class="amount" style="color:#10b981;" id="r-pct-change">—</div>
+        </div>
+      </div>
+
+      <table class="results-table">
+        <tbody>
+          <tr style="color:var(--muted);font-size:.78rem;"><td>Period</td><td>Current</td><td>After Raise</td></tr>
+          <tr><td>Per Hour</td><td id="c-hr">—</td><td id="n-hr">—</td></tr>
+          <tr><td>Per Day (8h)</td><td id="c-day">—</td><td id="n-day">—</td></tr>
+          <tr><td>Per Week</td><td id="c-wk">—</td><td id="n-wk">—</td></tr>
+          <tr><td>Per Month</td><td id="c-mo">—</td><td id="n-mo">—</td></tr>
+          <tr class="total"><td>Per Year</td><td id="c-yr" style="text-align:right;font-weight:600;">—</td><td id="n-yr">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <!-- Guide link -->
+    <div class="cta-box mt-3">
+      <h2>Ready to Ask for That Raise?</h2>
+      <p>Our complete guide walks you through timing, scripts, and follow-up strategies to maximize your chances.</p>
+      <a href="how-to-ask-for-a-raise.html" class="btn btn-primary btn-lg">Read the Guide →</a>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What is a good pay raise percentage? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">A cost-of-living raise matches inflation (~3-4%). A merit raise of 5-7% is considered good. Anything above 10% is excellent and typically tied to a promotion or competing offer.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How often should I get a raise? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Most companies do annual performance reviews with raises. If you haven't received a raise in 12-18 months, it's reasonable to request one. Always tie your request to performance, market data, or increased responsibilities.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Should I negotiate salary at a new job or after starting? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Both. The best leverage is when you have a job offer — negotiate before you accept. Once employed, the best time to raise salary discussions is during performance reviews or after significant achievements.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  // Toggle raise type
+  document.querySelectorAll('input[name="raise-type"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      document.getElementById('pct-group').style.display = this.value === 'percent' ? 'flex' : 'none';
+      document.getElementById('amt-group').style.display = this.value === 'amount'  ? 'flex' : 'none';
+    });
+  });
+
+  document.getElementById('btn-calc-raise').addEventListener('click', calculate);
+  document.getElementById('btn-reset-raise').addEventListener('click', resetForm);
+
+  function calculate() {
+    var payType  = document.getElementById('raise-pay-type').value;
+    var current  = parseFloat(document.getElementById('current-salary').value);
+    var hpw      = parseFloat(document.getElementById('raise-hpw').value) || 40;
+    var currency = document.getElementById('raise-currency').value;
+    var raiseType = document.querySelector('input[name="raise-type"]:checked').value;
+    var errEl    = document.getElementById('raise-error');
+
+    if (isNaN(current) || current <= 0) { errEl.textContent = 'Please enter a valid current pay.'; errEl.style.display = 'block'; return; }
+    errEl.style.display = 'none';
+
+    // Convert to annual
+    var currentAnnual = payType === 'hourly' ? current * hpw * 52 : current;
+    var currentHourly = payType === 'hourly' ? current : current / (hpw * 52);
+
+    var newAnnual;
+    if (raiseType === 'percent') {
+      var pct = parseFloat(document.getElementById('raise-pct').value);
+      if (isNaN(pct) || pct < 0) { errEl.textContent = 'Please enter a raise percentage.'; errEl.style.display = 'block'; return; }
+      newAnnual = currentAnnual * (1 + pct / 100);
+    } else {
+      var amt = parseFloat(document.getElementById('raise-amt').value);
+      if (isNaN(amt) || amt < 0) { errEl.textContent = 'Please enter a raise amount.'; errEl.style.display = 'block'; return; }
+      newAnnual = payType === 'hourly' ? (current + amt) * hpw * 52 : currentAnnual + amt;
+    }
+
+    var pctChange = ((newAnnual - currentAnnual) / currentAnnual) * 100;
+    var annualInc = newAnnual - currentAnnual;
+    var newHourly = newAnnual / (hpw * 52);
+
+    var fmt = function (v) { return MS.formatCurrency(v, currency); };
+
+    document.getElementById('r-new-annual').textContent = fmt(newAnnual);
+    document.getElementById('r-annual-inc').textContent = '+' + fmt(annualInc);
+    document.getElementById('r-pct-change').textContent = '+' + pctChange.toFixed(2) + '%';
+
+    // Table
+    document.getElementById('c-hr').textContent  = fmt(currentHourly);
+    document.getElementById('n-hr').textContent  = fmt(newHourly);
+    document.getElementById('c-day').textContent = fmt(currentHourly * 8);
+    document.getElementById('n-day').textContent = fmt(newHourly * 8);
+    document.getElementById('c-wk').textContent  = fmt(currentHourly * hpw);
+    document.getElementById('n-wk').textContent  = fmt(newHourly * hpw);
+    document.getElementById('c-mo').textContent  = fmt(currentAnnual / 12);
+    document.getElementById('n-mo').textContent  = fmt(newAnnual / 12);
+    document.getElementById('c-yr').textContent  = fmt(currentAnnual);
+    document.getElementById('n-yr').textContent  = fmt(newAnnual);
+
+    // Style the new column green
+    ['n-hr','n-day','n-wk','n-mo','n-yr'].forEach(function (id) {
+      document.getElementById(id).style.color = 'var(--accent)';
+      document.getElementById(id).style.fontWeight = '700';
+    });
+
+    document.getElementById('raise-results').style.display = 'block';
+    document.getElementById('raise-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetForm() {
+    document.getElementById('current-salary').value = '';
+    document.getElementById('raise-pct').value = '';
+    document.getElementById('raise-amt').value = '';
+    document.getElementById('raise-results').style.display = 'none';
+    document.getElementById('raise-error').style.display = 'none';
+  }
+
+  MS.initFAQ();
+})();
+</script>
+</body>
+</html>

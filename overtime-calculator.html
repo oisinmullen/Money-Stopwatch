@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overtime Pay Calculator — Regular + OT Pay, Custom Multiplier</title>
+  <meta name="description" content="Calculate your overtime pay instantly. Enter hourly rate, regular hours, and overtime hours. Supports custom OT multipliers (1.5×, 2×). Includes optional tax toggle.">
+  <link rel="canonical" href="https://moneystopwatch.com/overtime-calculator.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is overtime pay calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Overtime pay is calculated by multiplying your hourly rate by an overtime multiplier (usually 1.5x for time and a half). For example, if you earn $20/hour and work 10 hours of overtime at 1.5x, you earn $20 × 1.5 × 10 = $300 in overtime pay."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is overtime taxed differently?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Overtime pay is taxed at the same federal income tax rates as regular wages. However, because overtime increases your total income for the pay period, it may push you into a higher tax bracket temporarily."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the standard overtime multiplier?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under the US Fair Labor Standards Act (FLSA), the standard overtime rate is 1.5x (time and a half) for any hours worked beyond 40 in a workweek. Some employers voluntarily pay double time (2x) for holidays or other situations."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Overtime Pay Calculator</h1>
+      <p>Calculate regular pay, overtime pay, and total earnings — with a custom overtime multiplier.</p>
+    </div>
+
+    <!-- ADSENSE SLOT: leaderboard above calculator -->
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <div class="card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Pay Details</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="hourly-rate">Hourly Rate ($)</label>
+          <input type="number" id="hourly-rate" placeholder="e.g. 22.50" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="regular-hours">Regular Hours</label>
+          <input type="number" id="regular-hours" placeholder="e.g. 40" min="0" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="overtime-hours">Overtime Hours</label>
+          <input type="number" id="overtime-hours" placeholder="e.g. 10" min="0" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="ot-multiplier">Overtime Multiplier</label>
+          <select id="ot-multiplier">
+            <option value="1.5" selected>1.5× — Time and a Half</option>
+            <option value="2">2× — Double Time</option>
+            <option value="1.25">1.25× — Quarter Time</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </div>
+        <div class="form-group" id="custom-mult-group" style="display:none;">
+          <label for="custom-mult">Custom Multiplier</label>
+          <input type="number" id="custom-mult" placeholder="e.g. 1.75" min="1" step="0.05">
+        </div>
+        <div class="form-group">
+          <label for="ot-currency">Currency</label>
+          <select id="ot-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div class="toggle-group">
+          <label class="toggle">
+            <input type="checkbox" id="no-tax-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-label">Show "No Tax on Overtime" comparison</span>
+        </div>
+      </div>
+
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-ot">Calculate</button>
+        <button class="btn btn-ghost" id="btn-reset-ot">Reset</button>
+      </div>
+      <p id="ot-error" style="color:var(--red);font-size:.85rem;margin-top:.5rem;display:none;"></p>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="ot-results" style="display:none;">
+      <h3 style="margin-bottom:1rem;">Your Pay Breakdown</h3>
+
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="result-highlight">
+          <div class="label">Regular Pay</div>
+          <div class="amount" id="res-regular">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Overtime Pay</div>
+          <div class="amount" id="res-ot">—</div>
+        </div>
+        <div class="result-highlight">
+          <div class="label">Total Pay</div>
+          <div class="amount" id="res-total">—</div>
+        </div>
+      </div>
+
+      <table class="results-table" id="ot-detail-table">
+        <tbody id="ot-detail-body"></tbody>
+      </table>
+
+      <div id="no-tax-section" style="display:none;margin-top:1.5rem;">
+        <h4 style="margin-bottom:.75rem;font-size:.95rem;">If Overtime Were Tax-Free</h4>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:.75rem;">This is hypothetical — US federal law taxes all wages equally. But here's how your take-home would look:</p>
+        <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+          <div class="result-highlight">
+            <div class="label">Est. Tax on OT (22% bracket)</div>
+            <div class="amount" id="res-ot-tax" style="color:var(--red)">—</div>
+          </div>
+          <div class="result-highlight">
+            <div class="label">OT Take-Home (No Tax)</div>
+            <div class="amount" id="res-ot-net">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT: rectangle below calculator -->
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <!-- FAQ -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">How is overtime pay calculated? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Overtime pay = hourly rate × overtime multiplier × overtime hours. Under US federal law (FLSA), the multiplier is at least 1.5 for hours over 40/week. Example: $20/hr × 1.5 × 10 hrs = $300 overtime pay.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is overtime taxed at a higher rate? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">No — overtime is taxed at the same marginal income tax rate as your regular wages. Because it increases your total income, it could push more of your income into a higher bracket, but your regular income is not taxed more.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Does every employer have to pay 1.5× overtime? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Most hourly (non-exempt) employees in the US must receive at least 1.5× pay for hours beyond 40/week under the FLSA. Exempt employees (certain salaried positions) may not be entitled to overtime. Check your state laws too.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What is double time? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Double time means you earn 2× your regular hourly rate. It is not federally required but is common for holidays, and is legally required in some states like California for hours over 12 in a day.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  document.getElementById('ot-multiplier').addEventListener('change', function () {
+    document.getElementById('custom-mult-group').style.display = this.value === 'custom' ? 'flex' : 'none';
+  });
+
+  document.getElementById('btn-calc-ot').addEventListener('click', calculate);
+  document.getElementById('btn-reset-ot').addEventListener('click', resetForm);
+  document.getElementById('no-tax-toggle').addEventListener('change', function () {
+    document.getElementById('no-tax-section').style.display = this.checked ? 'block' : 'none';
+  });
+
+  function getMultiplier() {
+    var sel = document.getElementById('ot-multiplier').value;
+    if (sel === 'custom') return parseFloat(document.getElementById('custom-mult').value) || 1.5;
+    return parseFloat(sel);
+  }
+
+  function calculate() {
+    var rate     = parseFloat(document.getElementById('hourly-rate').value);
+    var regHrs   = parseFloat(document.getElementById('regular-hours').value);
+    var otHrs    = parseFloat(document.getElementById('overtime-hours').value);
+    var mult     = getMultiplier();
+    var currency = document.getElementById('ot-currency').value;
+    var errEl    = document.getElementById('ot-error');
+
+    if (isNaN(rate) || rate <= 0) { errEl.textContent = 'Please enter a valid hourly rate.'; errEl.style.display = 'block'; return; }
+    if (isNaN(regHrs) || regHrs < 0) { errEl.textContent = 'Regular hours must be 0 or more.'; errEl.style.display = 'block'; return; }
+    if (isNaN(otHrs) || otHrs < 0) { errEl.textContent = 'Overtime hours must be 0 or more.'; errEl.style.display = 'block'; return; }
+    errEl.style.display = 'none';
+
+    var fmt  = function (v) { return MS.formatCurrency(v, currency); };
+    var otRate   = rate * mult;
+    var regPay   = rate * regHrs;
+    var otPay    = otRate * otHrs;
+    var total    = regPay + otPay;
+
+    document.getElementById('res-regular').textContent = fmt(regPay);
+    document.getElementById('res-ot').textContent      = fmt(otPay);
+    document.getElementById('res-total').textContent   = fmt(total);
+
+    var tbody = document.getElementById('ot-detail-body');
+    tbody.innerHTML = [
+      row('Hourly Rate', fmt(rate)),
+      row('Regular Hours', regHrs + ' hrs'),
+      row('Regular Pay (' + regHrs + ' × ' + fmt(rate) + ')', fmt(regPay)),
+      row('Overtime Rate (' + mult + '× × ' + fmt(rate) + ')', fmt(otRate) + '/hr'),
+      row('Overtime Hours', otHrs + ' hrs'),
+      row('Overtime Pay (' + otHrs + ' × ' + fmt(otRate) + ')', fmt(otPay)),
+      '<tr class="total"><td>Total Gross Pay</td><td>' + fmt(total) + '</td></tr>',
+    ].join('');
+
+    // No-tax section
+    var taxEst = otPay * 0.22;
+    document.getElementById('res-ot-tax').textContent = fmt(taxEst);
+    document.getElementById('res-ot-net').textContent = fmt(otPay);
+    document.getElementById('no-tax-section').style.display =
+      document.getElementById('no-tax-toggle').checked ? 'block' : 'none';
+
+    document.getElementById('ot-results').style.display = 'block';
+    document.getElementById('ot-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function row(label, value) {
+    return '<tr><td>' + label + '</td><td>' + value + '</td></tr>';
+  }
+
+  function resetForm() {
+    ['hourly-rate','regular-hours','overtime-hours','custom-mult'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('ot-multiplier').value = '1.5';
+    document.getElementById('custom-mult-group').style.display = 'none';
+    document.getElementById('ot-results').style.display = 'none';
+    document.getElementById('ot-error').style.display = 'none';
+  }
+
+  MS.initFAQ();
+})();
+</script>
+</body>
+</html>
