@@ -27,27 +27,24 @@
   ];
 
   /* ── Logo assets ───────────────────────── */
-  // Flat stopwatch icon: crown + face circle + single hand + pivot dot, all #10b981
+  // Square icon: rounded-rect border + bold $ in #10b981, inline SVG
   var LOGO_SVG = [
-    '<svg width="26" height="30" viewBox="0 0 26 30" fill="none"',
+    '<svg width="28" height="28" viewBox="0 0 28 28" fill="none"',
     ' xmlns="http://www.w3.org/2000/svg" aria-hidden="true">',
-    // Crown (top button)
-    '<rect x="8.5" y="0" width="9" height="3" rx="1.5" fill="#10b981"/>',
-    // Stem connecting crown to face
-    '<rect x="12" y="2.5" width="2" height="3" fill="#10b981"/>',
-    // Watch face circle
-    '<circle cx="13" cy="19" r="10.5" stroke="#10b981" stroke-width="1.75"/>',
-    // Minute hand pointing straight up (12 o\'clock)
-    '<line x1="13" y1="19" x2="13" y2="11" stroke="#10b981"',
-    ' stroke-width="2" stroke-linecap="round"/>',
-    // Centre pivot dot
-    '<circle cx="13" cy="19" r="1.5" fill="#10b981"/>',
+    '<rect x="1.5" y="1.5" width="25" height="25" rx="6"',
+    ' stroke="#10b981" stroke-width="1.75"/>',
+    '<text x="14" y="20" text-anchor="middle"',
+    ' font-family="Inter,system-ui,sans-serif"',
+    ' font-weight="700" font-size="15" fill="#10b981">$</text>',
     '</svg>',
   ].join('');
 
-  // "Money" white/400 · "Stopwatch" green/600
-  var LOGO_TEXT = '<span style="font-weight:400;color:#fff;">Money</span>' +
-                  '<span style="font-weight:600;color:#10b981;">Stopwatch</span>';
+  // Wordmark: "Money" white/600 · "Stopwatch" green/600 · Inter 20px −0.03em
+  var LOGO_TEXT = '<span style="font-family:Inter,system-ui,sans-serif;font-size:20px;' +
+    'letter-spacing:-0.03em;line-height:1;display:flex;gap:0;">' +
+    '<span style="color:#fff;font-weight:600;">Money</span>' +
+    '<span style="color:#10b981;font-weight:600;">&thinsp;Stopwatch</span>' +
+    '</span>';
 
   /* ── Resolve root path ─────────────────── */
   // Detects if current page is inside a subdirectory (paycheck-calculator/)
