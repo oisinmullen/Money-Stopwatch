@@ -27,18 +27,14 @@
   ];
 
   /* ── Resolve root path ─────────────────── */
-  // Works for both root pages and /paycheck-calculator/ sub-pages
-  function rootPath() {
-    const depth = currentPath().split('/').length - 2;
-    if (depth <= 0) return '/';
-    return '../'.repeat(depth);
-  }
-
+  // Detects if current page is inside a subdirectory (paycheck-calculator/)
+  // and uses that to build correct relative paths — works on both
+  // a custom domain (moneystopwatch.com/index.html) and
+  // GitHub Pages (oisinmullen.github.io/Money-Stopwatch/index.html).
   function resolveHref(href) {
-    // For sub-pages we strip leading slash and prefix with relative path
-    const root = rootPath();
-    if (root === '/') return href;
-    return root + href.replace(/^\//, '');
+    var inSubDir = currentPath().indexOf('/paycheck-calculator/') !== -1;
+    var path = href.replace(/^\//, ''); // strip leading slash
+    return inSubDir ? ('../' + path) : path;
   }
 
   /* ── Build Header ─────────────────────── */
