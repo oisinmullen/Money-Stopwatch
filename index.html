@@ -48,7 +48,7 @@
     <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
 
     <!-- Setup card -->
-    <div class="card" id="setup-card">
+    <div class="card calculator-card" id="setup-card">
       <h2 style="font-size:1.15rem;margin-bottom:1.25rem;">Configure Your Pay</h2>
       <div class="form-grid">
         <div class="form-group">
@@ -80,7 +80,7 @@
           <input type="number" id="hours-per-week" value="40" min="1" max="168" step="1">
         </div>
       </div>
-      <div style="margin-top:1.25rem;" class="btn-row">
+      <div class="button-row">
         <button class="btn btn-primary btn-lg" id="btn-start">▶ Start</button>
         <button class="btn btn-ghost btn-lg" id="btn-pause" disabled>⏸ Pause</button>
         <button class="btn btn-danger btn-lg" id="btn-reset" disabled>↺ Reset</button>
@@ -105,16 +105,32 @@
 
     <div class="card mt-3" id="stats-card" style="display:none;">
       <h3 style="margin-bottom:1rem;font-size:1rem;">Earnings Breakdown</h3>
-      <table class="results-table">
-        <tbody>
-          <tr><td>Per Second</td><td id="stat-sec">—</td></tr>
-          <tr><td>Per Minute</td><td id="stat-min">—</td></tr>
-          <tr><td>Per Hour</td><td id="stat-hr">—</td></tr>
-          <tr><td>Per Day (8 h)</td><td id="stat-day">—</td></tr>
-          <tr><td>Per Week</td><td id="stat-wk">—</td></tr>
-          <tr class="total"><td>Per Year</td><td id="stat-yr">—</td></tr>
-        </tbody>
-      </table>
+      <div class="stats-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-card">
+          <div class="stat-label">Per Second</div>
+          <div class="stat-value" id="stat-sec">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Minute</div>
+          <div class="stat-value" id="stat-min">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Hour</div>
+          <div class="stat-value" id="stat-hr">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Day (8 h)</div>
+          <div class="stat-value" id="stat-day">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Week</div>
+          <div class="stat-value" id="stat-wk">—</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Per Year</div>
+          <div class="stat-value" style="color:var(--accent);" id="stat-yr">—</div>
+        </div>
+      </div>
     </div>
 
     <!-- How It Works -->

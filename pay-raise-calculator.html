@@ -59,7 +59,7 @@
     <!-- ADSENSE SLOT: leaderboard above calculator -->
     <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
 
-    <div class="card">
+    <div class="card calculator-card">
       <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Salary Details</h2>
 
       <div class="form-grid">
@@ -126,18 +126,18 @@
     <div class="card mt-3" id="raise-results" style="display:none;">
       <h3 style="margin-bottom:1.25rem;">Your Raise Breakdown</h3>
 
-      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
-        <div class="result-highlight">
-          <div class="label">New Annual Salary</div>
-          <div class="amount" id="r-new-annual">—</div>
+      <div class="stats-row">
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">New Annual Salary</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-new-annual">—</div>
         </div>
-        <div class="result-highlight">
-          <div class="label">Annual Increase</div>
-          <div class="amount" style="color:#10b981;" id="r-annual-inc">—</div>
+        <div class="stat-card">
+          <div class="stat-label">Annual Increase</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-annual-inc">—</div>
         </div>
-        <div class="result-highlight">
-          <div class="label">Percentage Change</div>
-          <div class="amount" style="color:#10b981;" id="r-pct-change">—</div>
+        <div class="stat-card">
+          <div class="stat-label">Percentage Change</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-pct-change">—</div>
         </div>
       </div>
 

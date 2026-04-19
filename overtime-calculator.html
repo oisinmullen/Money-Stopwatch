@@ -67,7 +67,7 @@
     <!-- ADSENSE SLOT: leaderboard above calculator -->
     <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
 
-    <div class="card">
+    <div class="card calculator-card">
       <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Pay Details</h2>
       <div class="form-grid">
         <div class="form-group">
@@ -108,7 +108,7 @@
       </div>
 
       <div style="margin-top:1.25rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
-        <div class="toggle-group">
+        <div class="checkbox-group">
           <label class="toggle">
             <input type="checkbox" id="no-tax-toggle">
             <span class="toggle-slider"></span>
@@ -128,18 +128,18 @@
     <div class="card mt-3" id="ot-results" style="display:none;">
       <h3 style="margin-bottom:1rem;">Your Pay Breakdown</h3>
 
-      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
-        <div class="result-highlight">
-          <div class="label">Regular Pay</div>
-          <div class="amount" id="res-regular">—</div>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Regular Pay</div>
+          <div class="stat-value" id="res-regular">—</div>
         </div>
-        <div class="result-highlight">
-          <div class="label">Overtime Pay</div>
-          <div class="amount" id="res-ot">—</div>
+        <div class="stat-card">
+          <div class="stat-label">Overtime Pay</div>
+          <div class="stat-value" id="res-ot">—</div>
         </div>
-        <div class="result-highlight">
-          <div class="label">Total Pay</div>
-          <div class="amount" id="res-total">—</div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Total Pay</div>
+          <div class="stat-value" style="color:var(--accent);" id="res-total">—</div>
         </div>
       </div>
 
@@ -150,14 +150,14 @@
       <div id="no-tax-section" style="display:none;margin-top:1.5rem;">
         <h4 style="margin-bottom:.75rem;font-size:.95rem;">If Overtime Were Tax-Free</h4>
         <p style="font-size:.85rem;color:var(--muted);margin-bottom:.75rem;">This is hypothetical — US federal law taxes all wages equally. But here's how your take-home would look:</p>
-        <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
-          <div class="result-highlight">
-            <div class="label">Est. Tax on OT (22% bracket)</div>
-            <div class="amount" id="res-ot-tax" style="color:var(--red)">—</div>
+        <div class="stats-row" style="grid-template-columns:repeat(2,1fr);">
+          <div class="stat-card">
+            <div class="stat-label">Est. Tax on OT (22% bracket)</div>
+            <div class="stat-value" style="color:var(--red);" id="res-ot-tax">—</div>
           </div>
-          <div class="result-highlight">
-            <div class="label">OT Take-Home (No Tax)</div>
-            <div class="amount" id="res-ot-net">—</div>
+          <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+            <div class="stat-label" style="color:var(--accent);">OT Take-Home (No Tax)</div>
+            <div class="stat-value" style="color:var(--accent);" id="res-ot-net">—</div>
           </div>
         </div>
       </div>

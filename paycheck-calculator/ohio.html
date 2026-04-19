@@ -43,7 +43,7 @@
       <a href="illinois.html"   class="btn btn-ghost btn-sm">Illinois</a>
     </div>
 
-    <div class="card">
+    <div class="card calculator-card">
       <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
       <div class="form-grid">
         <div class="form-group">
@@ -82,18 +82,18 @@
     <div class="card mt-3" id="oh-results" style="display:none;">
       <h3 style="margin-bottom:1.25rem;">Your Ohio Paycheck Breakdown</h3>
 
-      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;">
-        <div class="result-highlight">
-          <div class="label">Gross Pay</div>
-          <div class="amount" id="r-oh-gross">—</div>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Gross Pay</div>
+          <div class="stat-value" id="r-oh-gross">—</div>
         </div>
-        <div class="result-highlight">
-          <div class="label">Total Deductions</div>
-          <div class="amount" style="color:var(--red);" id="r-oh-ded">—</div>
+        <div class="stat-card">
+          <div class="stat-label">Total Deductions</div>
+          <div class="stat-value" style="color:var(--red);" id="r-oh-ded">—</div>
         </div>
-        <div class="result-highlight">
-          <div class="label">Net Take-Home</div>
-          <div class="amount" id="r-oh-net">—</div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Net Take-Home</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-oh-net">—</div>
         </div>
       </div>
 
