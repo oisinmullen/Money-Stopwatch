@@ -203,21 +203,21 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
   line-height: 1;
 }
 
-.nav-dropdown:hover .nav-arrow,
 .nav-dropdown.open .nav-arrow {
   transform: rotate(180deg);
 }
 
 .nav-dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-6px);
   min-width: 230px;
   background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: .45rem;
+  /* padding-top creates the 12px visual gap; rest keeps original spacing */
+  padding: 12px .45rem .45rem;
   opacity: 0;
   visibility: hidden;
   transition: opacity .18s ease, transform .18s ease, visibility .18s;
@@ -226,7 +226,16 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
   pointer-events: none;
 }
 
-.nav-dropdown:hover .nav-dropdown-menu,
+/* Invisible hover bridge fills the gap between trigger and menu */
+.nav-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
 .nav-dropdown.open .nav-dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -1245,9 +1254,6 @@ select {
   }
 
   .nav-dropdown.open .nav-dropdown-menu { display: block; }
-
-  /* disable CSS hover on mobile */
-  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; }
 
   .nav-toggle { display: flex; }
 

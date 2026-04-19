@@ -211,10 +211,29 @@
         });
       }
 
-      // Mobile dropdown triggers — tap to expand sub-menus
+      // Desktop hover with 150ms hide delay — prevents flash-close when
+      // crossing the gap between the trigger and the dropdown menu.
+      document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
+        var hideTimer = null;
+
+        dd.addEventListener('mouseenter', function () {
+          if (window.innerWidth <= 720) return;
+          if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+          dd.classList.add('open');
+        });
+
+        dd.addEventListener('mouseleave', function () {
+          if (window.innerWidth <= 720) return;
+          hideTimer = setTimeout(function () {
+            dd.classList.remove('open');
+            hideTimer = null;
+          }, 150);
+        });
+      });
+
+      // Mobile dropdown triggers — tap to toggle sub-menus
       document.querySelectorAll('.nav-dropdown-trigger').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-          // Only intercept on mobile (nav has flex-direction:column)
           var isMobile = window.innerWidth <= 720;
           if (!isMobile) return;
           e.stopPropagation();
@@ -223,11 +242,14 @@
         });
       });
 
-      // Close nav when a link inside it is clicked (mobile)
+      // Close nav + all dropdowns when a link inside is clicked
       if (nav) {
         nav.addEventListener('click', function (e) {
           if (e.target.tagName === 'A') {
             nav.classList.remove('open');
+            document.querySelectorAll('.nav-dropdown.open').forEach(function (dd) {
+              dd.classList.remove('open');
+            });
             if (toggle) toggle.setAttribute('aria-expanded', 'false');
           }
         });
