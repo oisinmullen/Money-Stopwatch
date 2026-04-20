@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wisconsin Paycheck Calculator — Free Take-Home Pay Calculator | MoneyStopwatch</title>
+  <meta name="description" content="Use our free Wisconsin paycheck calculator to calculate your take-home pay after federal and Wisconsin state taxes. Instant results for 2025.">
+  <meta property="og:title" content="Wisconsin Paycheck Calculator — Free Take-Home Pay Calculator | MoneyStopwatch">
+  <meta property="og:description" content="Use our free Wisconsin paycheck calculator to calculate your take-home pay after federal and Wisconsin state taxes. Instant results for 2025.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/paycheck-calculator/wisconsin.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/paycheck-calculator/wisconsin.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Wisconsin Paycheck Calculator</h1>
+      <p>Calculate your Wisconsin take-home pay after federal taxes, FICA, and Wisconsin state income tax.</p>
+    </div>
+
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <div style="margin-bottom:1.5rem;">
+      <a href="index.html" class="btn btn-ghost btn-sm">← All State Calculators</a>
+    </div>
+
+    <div class="card calculator-card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="wi-gross">Gross Pay ($)</label>
+          <input type="number" id="wi-gross" placeholder="e.g. 5000" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="wi-freq">Pay Frequency</label>
+          <select id="wi-freq">
+            <option value="52">Weekly (52×/year)</option>
+            <option value="26">Bi-weekly (26×/year)</option>
+            <option value="24">Semi-monthly (24×/year)</option>
+            <option value="12" selected>Monthly (12×/year)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="wi-status">Filing Status</label>
+          <select id="wi-status">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="hoh">Head of Household</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="wi-401k">401(k) Contribution (%)</label>
+          <input type="number" id="wi-401k" placeholder="e.g. 6" min="0" max="23" step="0.5" value="0">
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-wi">Calculate Take-Home</button>
+        <button class="btn btn-ghost" id="btn-reset-wi">Reset</button>
+      </div>
+    </div>
+
+    <div class="card mt-3" id="wi-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Wisconsin Paycheck Breakdown</h3>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Gross Pay</div>
+          <div class="stat-value" id="r-wi-gross">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Deductions</div>
+          <div class="stat-value" style="color:var(--red);" id="r-wi-ded">—</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Net Take-Home</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-wi-net">—</div>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="breakdown-row">
+          <span class="row-label">Gross Pay</span>
+          <span class="row-value" id="b-wi-gross">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Federal Income Tax</span>
+          <span class="row-value" id="b-wi-fed">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Social Security (6.2%)</span>
+          <span class="row-value" id="b-wi-ss">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Medicare (1.45%)</span>
+          <span class="row-value" id="b-wi-mc">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Wisconsin State Income Tax</span>
+          <span class="row-value" id="b-wi-state">—</span>
+        </div>
+        <div class="breakdown-row deduction" id="b-wi-401k-row" style="display:none;">
+          <span class="row-label">401(k) Contribution</span>
+          <span class="row-value" id="b-wi-401k">—</span>
+        </div>
+        <div class="breakdown-row total">
+          <span class="row-label">Net Take-Home Pay</span>
+          <span class="row-value" id="b-wi-net">—</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2025 tax rates. Results are for informational purposes only and not tax advice.</p>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <div class="card mt-3">
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Wisconsin Tax Brackets 2025</h2>
+      <table class="results-table"><thead><tr style="color:var(--muted);font-size:.8rem;"><td>Income (Single)</td><td>Rate</td></tr></thead><tbody>
+        <tr><td>$0 – $14,320</td><td>3.5%</td></tr>
+        <tr><td>$14,321 – $28,640</td><td>4.4%</td></tr>
+        <tr><td>$28,641 – $315,310</td><td>5.3%</td></tr>
+        <tr><td>Over $315,310</td><td>7.65%</td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var FEDERAL_STD_DED = { single: 15000, married: 30000, hoh: 22500 };
+  var FEDERAL_BRACKETS = {
+    single:  [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]],
+    married: [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]],
+    hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
+  };
+
+  var WI_STD_DED = { single: 12760, married: 23620, hoh: 12760 };
+  var WI_BRACKETS = {
+    single:  [[14320,0.035],[28640,0.044],[315310,0.053],[Infinity,0.0765]],
+    married: [[19090,0.035],[38190,0.044],[420420,0.053],[Infinity,0.0765]],
+    hoh:     [[14320,0.035],[28640,0.044],[315310,0.053],[Infinity,0.0765]]
+  };
+
+  function calcBracketTax(income, brackets) {
+    var tax = 0, prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= prev) break;
+      tax += (Math.min(income, cap) - prev) * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+
+  document.getElementById('btn-calc-wi').addEventListener('click', calculate);
+  document.getElementById('btn-reset-wi').addEventListener('click', resetForm);
+
+  function calculate() {
+    var gross  = parseFloat(document.getElementById('wi-gross').value);
+    var freq   = parseInt(document.getElementById('wi-freq').value);
+    var status = document.getElementById('wi-status').value;
+    var k401   = parseFloat(document.getElementById('wi-401k').value) || 0;
+    if (isNaN(gross) || gross <= 0) return;
+
+    var annual     = gross * freq;
+    var k401Amt    = annual * (k401 / 100);
+    var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
+    var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
+    var ss         = Math.min(annual, 176100) * 0.062;
+    var medicare   = annual * 0.0145;
+    var wiTaxable  = Math.max(0, annual - k401Amt - WI_STD_DED[status]);
+    var stateT     = calcBracketTax(wiTaxable, WI_BRACKETS[status]);
+    var totalDed   = fedTax + ss + medicare + stateT + k401Amt;
+    var netAnnual  = annual - totalDed;
+
+    var div = function (v) { return v / freq; };
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+    var neg = function (v) { return '-' + fmt(div(v)); };
+
+    document.getElementById('r-wi-gross').textContent = fmt(div(annual));
+    document.getElementById('r-wi-ded').textContent   = '-' + fmt(div(totalDed));
+    document.getElementById('r-wi-net').textContent   = fmt(div(netAnnual));
+
+    document.getElementById('b-wi-gross').textContent = fmt(div(annual));
+    document.getElementById('b-wi-fed').textContent   = neg(fedTax);
+    document.getElementById('b-wi-ss').textContent    = neg(ss);
+    document.getElementById('b-wi-mc').textContent    = neg(medicare);
+    document.getElementById('b-wi-state').textContent = neg(stateT);
+    document.getElementById('b-wi-net').textContent   = fmt(div(netAnnual));
+
+    if (k401 > 0) {
+      document.getElementById('b-wi-401k-row').style.display = 'flex';
+      document.getElementById('b-wi-401k').textContent = neg(k401Amt);
+    } else {
+      document.getElementById('b-wi-401k-row').style.display = 'none';
+    }
+
+    document.getElementById('wi-results').style.display = 'block';
+    document.getElementById('wi-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetForm() {
+    document.getElementById('wi-gross').value = '';
+    document.getElementById('wi-401k').value = '0';
+    document.getElementById('wi-results').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>

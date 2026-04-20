@@ -35,6 +35,7 @@
     { label: 'Florida',     href: '/paycheck-calculator/florida.html' },
     { label: 'Ohio',        href: '/paycheck-calculator/ohio.html' },
     { label: 'Illinois',    href: '/paycheck-calculator/illinois.html' },
+    { label: 'View All 50 States →', href: '/paycheck-calculator/index.html' },
   ];
 
   var NAV_GUIDES = [

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New York Paycheck Calculator — Free Take-Home Pay Calculator | MoneyStopwatch</title>
+  <meta name="description" content="Use our free New York paycheck calculator to calculate your take-home pay after federal and New York state taxes. Instant results for 2025.">
+  <meta property="og:title" content="New York Paycheck Calculator — Free Take-Home Pay Calculator | MoneyStopwatch">
+  <meta property="og:description" content="Use our free New York paycheck calculator to calculate your take-home pay after federal and New York state taxes. Instant results for 2025.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/paycheck-calculator/new-york.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/paycheck-calculator/new-york.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>New York Paycheck Calculator</h1>
+      <p>Calculate your New York take-home pay after federal taxes, FICA, and New York state income tax.</p>
+    </div>
+
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+
+    <div style="margin-bottom:1.5rem;">
+      <a href="index.html" class="btn btn-ghost btn-sm">← All State Calculators</a>
+    </div>
+
+    <div class="card calculator-card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="ny-gross">Gross Pay ($)</label>
+          <input type="number" id="ny-gross" placeholder="e.g. 5000" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="ny-freq">Pay Frequency</label>
+          <select id="ny-freq">
+            <option value="52">Weekly (52×/year)</option>
+            <option value="26">Bi-weekly (26×/year)</option>
+            <option value="24">Semi-monthly (24×/year)</option>
+            <option value="12" selected>Monthly (12×/year)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ny-status">Filing Status</label>
+          <select id="ny-status">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="hoh">Head of Household</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="ny-401k">401(k) Contribution (%)</label>
+          <input type="number" id="ny-401k" placeholder="e.g. 6" min="0" max="23" step="0.5" value="0">
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-ny">Calculate Take-Home</button>
+        <button class="btn btn-ghost" id="btn-reset-ny">Reset</button>
+      </div>
+    </div>
+
+    <div class="card mt-3" id="ny-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your New York Paycheck Breakdown</h3>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Gross Pay</div>
+          <div class="stat-value" id="r-ny-gross">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Deductions</div>
+          <div class="stat-value" style="color:var(--red);" id="r-ny-ded">—</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Net Take-Home</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-ny-net">—</div>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="breakdown-row">
+          <span class="row-label">Gross Pay</span>
+          <span class="row-value" id="b-ny-gross">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Federal Income Tax</span>
+          <span class="row-value" id="b-ny-fed">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Social Security (6.2%)</span>
+          <span class="row-value" id="b-ny-ss">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Medicare (1.45%)</span>
+          <span class="row-value" id="b-ny-mc">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">New York State Income Tax</span>
+          <span class="row-value" id="b-ny-state">—</span>
+        </div>
+        <div class="breakdown-row deduction" id="b-ny-401k-row" style="display:none;">
+          <span class="row-label">401(k) Contribution</span>
+          <span class="row-value" id="b-ny-401k">—</span>
+        </div>
+        <div class="breakdown-row total">
+          <span class="row-label">Net Take-Home Pay</span>
+          <span class="row-value" id="b-ny-net">—</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2025 NY state tax brackets and federal standard deduction. NYC residents pay an additional city income tax (3.078%–3.876%) not reflected here.</p>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+
+    <div class="card mt-3">
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">New York Tax Brackets 2025</h2>
+      <table class="results-table"><thead><tr style="color:var(--muted);font-size:.8rem;"><td>Income (Single)</td><td>Rate</td></tr></thead><tbody>
+        <tr><td>$0 – $17,150</td><td>4%</td></tr>
+        <tr><td>$17,151 – $23,600</td><td>4.5%</td></tr>
+        <tr><td>$23,601 – $27,900</td><td>5.25%</td></tr>
+        <tr><td>$27,901 – $161,550</td><td>5.5%</td></tr>
+        <tr><td>$161,551 – $323,200</td><td>6%</td></tr>
+        <tr><td>$323,201 – $2,155,350</td><td>6.85%</td></tr>
+        <tr><td>Over $2,155,350</td><td>9.65% – 10.9%</td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var FEDERAL_STD_DED = { single: 15000, married: 30000, hoh: 22500 };
+  var FEDERAL_BRACKETS = {
+    single:  [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]],
+    married: [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]],
+    hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
+  };
+
+  var NY_STD_DED = { single: 8000, married: 16050, hoh: 11200 };
+  var NY_BRACKETS = {
+    single:  [[17150,0.04],[23600,0.045],[27900,0.0525],[161550,0.055],[323200,0.06],[2155350,0.0685],[5000000,0.0965],[25000000,0.103],[Infinity,0.109]],
+    married: [[27900,0.04],[47450,0.045],[177650,0.0525],[323200,0.055],[2155350,0.06],[5000000,0.0685],[25000000,0.0965],[Infinity,0.103]],
+    hoh:     [[17150,0.04],[23600,0.045],[27900,0.0525],[161550,0.055],[323200,0.06],[2155350,0.0685],[5000000,0.0965],[25000000,0.103],[Infinity,0.109]]
+  };
+
+  function calcBracketTax(income, brackets) {
+    var tax = 0, prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= prev) break;
+      tax += (Math.min(income, cap) - prev) * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+
+  document.getElementById('btn-calc-ny').addEventListener('click', calculate);
+  document.getElementById('btn-reset-ny').addEventListener('click', resetForm);
+
+  function calculate() {
+    var gross  = parseFloat(document.getElementById('ny-gross').value);
+    var freq   = parseInt(document.getElementById('ny-freq').value);
+    var status = document.getElementById('ny-status').value;
+    var k401   = parseFloat(document.getElementById('ny-401k').value) || 0;
+    if (isNaN(gross) || gross <= 0) return;
+
+    var annual     = gross * freq;
+    var k401Amt    = annual * (k401 / 100);
+    var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
+    var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
+    var ss         = Math.min(annual, 176100) * 0.062;
+    var medicare   = annual * 0.0145;
+    var nyTaxable  = Math.max(0, annual - k401Amt - NY_STD_DED[status]);
+    var stateT     = calcBracketTax(nyTaxable, NY_BRACKETS[status]);
+    var totalDed   = fedTax + ss + medicare + stateT + k401Amt;
+    var netAnnual  = annual - totalDed;
+
+    var div = function (v) { return v / freq; };
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+    var neg = function (v) { return '-' + fmt(div(v)); };
+
+    document.getElementById('r-ny-gross').textContent = fmt(div(annual));
+    document.getElementById('r-ny-ded').textContent   = '-' + fmt(div(totalDed));
+    document.getElementById('r-ny-net').textContent   = fmt(div(netAnnual));
+
+    document.getElementById('b-ny-gross').textContent = fmt(div(annual));
+    document.getElementById('b-ny-fed').textContent   = neg(fedTax);
+    document.getElementById('b-ny-ss').textContent    = neg(ss);
+    document.getElementById('b-ny-mc').textContent    = neg(medicare);
+    document.getElementById('b-ny-state').textContent = neg(stateT);
+    document.getElementById('b-ny-net').textContent   = fmt(div(netAnnual));
+
+    if (k401 > 0) {
+      document.getElementById('b-ny-401k-row').style.display = 'flex';
+      document.getElementById('b-ny-401k').textContent = neg(k401Amt);
+    } else {
+      document.getElementById('b-ny-401k-row').style.display = 'none';
+    }
+
+    document.getElementById('ny-results').style.display = 'block';
+    document.getElementById('ny-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetForm() {
+    document.getElementById('ny-gross').value = '';
+    document.getElementById('ny-401k').value = '0';
+    document.getElementById('ny-results').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>

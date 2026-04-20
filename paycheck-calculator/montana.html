@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montana Paycheck Calculator — Free Take-Home Pay Calculator | MoneyStopwatch</title>
+  <meta name="description" content="Use our free Montana paycheck calculator to calculate your take-home pay after federal and Montana state taxes. Instant results for 2025.">
+  <meta property="og:title" content="Montana Paycheck Calculator — Free Take-Home Pay Calculator | MoneyStopwatch">
+  <meta property="og:description" content="Use our free Montana paycheck calculator to calculate your take-home pay after federal and Montana state taxes. Instant results for 2025.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/paycheck-calculator/montana.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/paycheck-calculator/montana.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div id="site-header-slot"></div>
+<main class="main-content">
+  <div class="container">
+    <div class="page-hero">
+      <h1>Montana Paycheck Calculator</h1>
+      <p>Calculate your Montana take-home pay after federal taxes, FICA, and Montana state income tax.</p>
+    </div>
+    <div class="ad-slot ad-slot--leaderboard" aria-hidden="true">Advertisement</div>
+    <div style="margin-bottom:1.5rem;"><a href="index.html" class="btn btn-ghost btn-sm">← All State Calculators</a></div>
+    <div class="card calculator-card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Enter Your Gross Pay</h2>
+      <div class="form-grid">
+        <div class="form-group"><label for="mt-gross">Gross Pay ($)</label><input type="number" id="mt-gross" placeholder="e.g. 4500" min="0" step="0.01"></div>
+        <div class="form-group"><label for="mt-freq">Pay Frequency</label><select id="mt-freq"><option value="52">Weekly (52×/year)</option><option value="26">Bi-weekly (26×/year)</option><option value="24">Semi-monthly (24×/year)</option><option value="12" selected>Monthly (12×/year)</option></select></div>
+        <div class="form-group"><label for="mt-status">Filing Status</label><select id="mt-status"><option value="single">Single</option><option value="married">Married Filing Jointly</option><option value="hoh">Head of Household</option></select></div>
+        <div class="form-group"><label for="mt-401k">401(k) Contribution (%)</label><input type="number" id="mt-401k" placeholder="e.g. 6" min="0" max="23" step="0.5" value="0"></div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-mt">Calculate Take-Home</button>
+        <button class="btn btn-ghost" id="btn-reset-mt">Reset</button>
+      </div>
+    </div>
+    <div class="card mt-3" id="mt-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Montana Paycheck Breakdown</h3>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Gross Pay</div><div class="stat-value" id="r-mt-gross">—</div></div>
+        <div class="stat-card"><div class="stat-label">Total Deductions</div><div class="stat-value" style="color:var(--red);" id="r-mt-ded">—</div></div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);"><div class="stat-label" style="color:var(--accent);">Net Take-Home</div><div class="stat-value" style="color:var(--accent);" id="r-mt-net">—</div></div>
+      </div>
+      <div class="breakdown-section">
+        <div class="breakdown-row"><span class="row-label">Gross Pay</span><span class="row-value" id="b-mt-gross">—</span></div>
+        <div class="breakdown-row deduction"><span class="row-label">Federal Income Tax</span><span class="row-value" id="b-mt-fed">—</span></div>
+        <div class="breakdown-row deduction"><span class="row-label">Social Security (6.2%)</span><span class="row-value" id="b-mt-ss">—</span></div>
+        <div class="breakdown-row deduction"><span class="row-label">Medicare (1.45%)</span><span class="row-value" id="b-mt-mc">—</span></div>
+        <div class="breakdown-row deduction"><span class="row-label">Montana State Income Tax</span><span class="row-value" id="b-mt-state">—</span></div>
+        <div class="breakdown-row deduction" id="b-mt-401k-row" style="display:none;"><span class="row-label">401(k) Contribution</span><span class="row-value" id="b-mt-401k">—</span></div>
+        <div class="breakdown-row total"><span class="row-label">Net Take-Home Pay</span><span class="row-value" id="b-mt-net">—</span></div>
+      </div>
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2025 tax rates. Results are for informational purposes only and not tax advice.</p>
+      </div>
+    </div>
+    <div class="ad-slot ad-slot--rectangle mt-3" aria-hidden="true">Advertisement</div>
+    <div class="card mt-3">
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Montana Tax Brackets 2025</h2>
+      <table class="results-table"><thead><tr style="color:var(--muted);font-size:.8rem;"><td>Income</td><td>Rate</td></tr></thead><tbody>
+        <tr><td>$0 – $20,500</td><td>4.7%</td></tr>
+        <tr><td>Over $20,500</td><td>5.9%</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</main>
+<div id="site-footer-slot"></div>
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+  var FEDERAL_STD_DED = { single: 15000, married: 30000, hoh: 22500 };
+  var FEDERAL_BRACKETS = {
+    single:  [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]],
+    married: [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]],
+    hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
+  };
+  var MT_STD_DED = { single: 14600, married: 29200, hoh: 21900 };
+  var MT_BRACKETS = [[20500,0.047],[Infinity,0.059]];
+  function calcBracketTax(income, brackets) {
+    var tax = 0, prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= prev) break;
+      tax += (Math.min(income, cap) - prev) * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+  document.getElementById('btn-calc-mt').addEventListener('click', calculate);
+  document.getElementById('btn-reset-mt').addEventListener('click', resetForm);
+  function calculate() {
+    var gross  = parseFloat(document.getElementById('mt-gross').value);
+    var freq   = parseInt(document.getElementById('mt-freq').value);
+    var status = document.getElementById('mt-status').value;
+    var k401   = parseFloat(document.getElementById('mt-401k').value) || 0;
+    if (isNaN(gross) || gross <= 0) return;
+    var annual     = gross * freq;
+    var k401Amt    = annual * (k401 / 100);
+    var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
+    var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
+    var ss         = Math.min(annual, 176100) * 0.062;
+    var medicare   = annual * 0.0145;
+    var mtTaxable  = Math.max(0, annual - k401Amt - MT_STD_DED[status]);
+    var stateT     = calcBracketTax(mtTaxable, MT_BRACKETS);
+    var totalDed   = fedTax + ss + medicare + stateT + k401Amt;
+    var netAnnual  = annual - totalDed;
+    var div = function (v) { return v / freq; };
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+    var neg = function (v) { return '-' + fmt(div(v)); };
+    document.getElementById('r-mt-gross').textContent = fmt(div(annual));
+    document.getElementById('r-mt-ded').textContent   = '-' + fmt(div(totalDed));
+    document.getElementById('r-mt-net').textContent   = fmt(div(netAnnual));
+    document.getElementById('b-mt-gross').textContent = fmt(div(annual));
+    document.getElementById('b-mt-fed').textContent   = neg(fedTax);
+    document.getElementById('b-mt-ss').textContent    = neg(ss);
+    document.getElementById('b-mt-mc').textContent    = neg(medicare);
+    document.getElementById('b-mt-state').textContent = neg(stateT);
+    document.getElementById('b-mt-net').textContent   = fmt(div(netAnnual));
+    if (k401 > 0) { document.getElementById('b-mt-401k-row').style.display = 'flex'; document.getElementById('b-mt-401k').textContent = neg(k401Amt); } else { document.getElementById('b-mt-401k-row').style.display = 'none'; }
+    document.getElementById('mt-results').style.display = 'block';
+    document.getElementById('mt-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function resetForm() {
+    document.getElementById('mt-gross').value = '';
+    document.getElementById('mt-401k').value = '0';
+    document.getElementById('mt-results').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>
