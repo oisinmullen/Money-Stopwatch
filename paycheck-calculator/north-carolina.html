@@ -131,8 +131,12 @@
         <tr><td>Federal Income Tax</td><td>10% – 37%</td></tr>
         <tr><td>Social Security</td><td>6.2%</td></tr>
         <tr><td>Medicare</td><td>1.45%</td></tr>
-        <tr><td>NC State Income Tax</td><td>4.75% flat (2025)</td></tr>
+        <tr><td>NC State Income Tax</td><td>3.99% flat (2026)</td></tr>
       </tbody></table>
+    </div>
+
+    <div class="card mt-3" style="background:rgba(255,255,255,.02);border-color:var(--border);">
+      <p style="font-size:.8rem;color:var(--muted2);margin:0;">Tax rates shown are based on the latest available data but may not reflect the most recent legislative changes. Always verify current rates at your state&#39;s official revenue department website before making financial decisions.</p>
     </div>
 
   </div>
@@ -152,7 +156,7 @@
     hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
   };
 
-  // North Carolina flat tax 4.75% (2025)
+  // North Carolina flat tax 3.99% (2026)
 
   function calcBracketTax(income, brackets) {
     var tax = 0, prev = 0;
@@ -182,7 +186,7 @@
     var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
     var ss         = Math.min(annual, 176100) * 0.062;
     var medicare   = annual * 0.0145;
-    var stateT = (annual - k401Amt) * 0.0475;
+    var stateT = (annual - k401Amt) * 0.0399;
     var totalDed   = fedTax + ss + medicare + stateT + k401Amt;
     var netAnnual  = annual - totalDed;
 

@@ -29,7 +29,12 @@
 
     <div class="page-hero">
       <h1>Louisiana Paycheck Calculator</h1>
-      <p>Calculate your Louisiana take-home pay after federal taxes, FICA, and Louisiana state income tax.</p>
+      <p>Louisiana has a <strong style="color:var(--accent)">flat 3% state income tax</strong> (effective January 1, 2025) — calculate your take-home pay with this simple rate.</p>
+    </div>
+
+    <div class="card" style="border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.04);margin-bottom:1.5rem;">
+      <h2 style="font-size:1rem;color:var(--accent);margin-bottom:.4rem;">Louisiana Flat Tax: 3%</h2>
+      <p style="font-size:.9rem;color:var(--muted);margin:0;">Louisiana taxes all income at a flat 3% rate (effective January 1, 2025), after a standard deduction of $12,500 (single) or $25,000 (married).</p>
     </div>
 
     <div style="margin-bottom:1.5rem;">
@@ -126,12 +131,16 @@
     </div>
 
     <div class="card mt-3">
-      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Louisiana Tax Brackets 2025</h2>
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Louisiana Tax Rate 2025</h2>
       <table class="results-table"><thead><tr style="color:var(--muted);font-size:.8rem;"><td>Income</td><td>Rate</td></tr></thead><tbody>
-        <tr><td>$0 – $12,500</td><td>3%</td></tr>
-        <tr><td>$12,501 – $50,000</td><td>4%</td></tr>
-        <tr><td>Over $50,000</td><td>6%</td></tr>
+        <tr><td>Up to standard deduction</td><td>0%</td></tr>
+        <tr><td>Above standard deduction</td><td>3% flat</td></tr>
       </tbody></table>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:.75rem;">Standard deduction: $12,500 (single / HOH), $25,000 (married). Effective January 1, 2025.</p>
+    </div>
+
+    <div class="card mt-3" style="background:rgba(255,255,255,.02);border-color:var(--border);">
+      <p style="font-size:.8rem;color:var(--muted2);margin:0;">Tax rates shown are based on the latest available data but may not reflect the most recent legislative changes. Always verify current rates at your state&#39;s official revenue department website before making financial decisions.</p>
     </div>
 
   </div>
@@ -151,8 +160,8 @@
     hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
   };
 
-  var LA_STD_DED = { single: 4500, married: 9000, hoh: 4500 };
-  var LA_BRACKETS = [[12500,0.03],[50000,0.04],[Infinity,0.06]];
+  var LA_STD_DED = { single: 12500, married: 25000, hoh: 12500 };
+  var LA_RATE = 0.03;
 
   function calcBracketTax(income, brackets) {
     var tax = 0, prev = 0;
@@ -183,7 +192,7 @@
     var ss         = Math.min(annual, 176100) * 0.062;
     var medicare   = annual * 0.0145;
     var laTaxable = Math.max(0, annual - k401Amt - LA_STD_DED[status]);
-    var stateT = calcBracketTax(laTaxable, LA_BRACKETS);
+    var stateT = laTaxable * LA_RATE;
     var totalDed   = fedTax + ss + medicare + stateT + k401Amt;
     var netAnnual  = annual - totalDed;
 
