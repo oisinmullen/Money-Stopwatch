@@ -40,7 +40,7 @@
 
   var NAV_GUIDES = [
     { label: 'How to Ask for a Raise',   href: '/how-to-ask-for-a-raise.html' },
-    { label: 'How to Negotiate Salary',  href: '/salary-negotiation-email.html' },
+    { label: 'How to Negotiate Salary',  href: '/how-to-negotiate-salary.html' },
   ];
 
   /* ── Logo assets ───────────────────────── */
