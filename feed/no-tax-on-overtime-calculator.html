@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Tax on Overtime Calculator | MoneyStopwatch</title>
+  <meta name="description" content="Use our free no tax on overtime calculator to see exactly how much more money you'd take home each paycheck and year if the overtime tax exemption passes.">
+  <meta property="og:title" content="No Tax on Overtime Calculator | MoneyStopwatch">
+  <meta property="og:description" content="Use our free no tax on overtime calculator to see exactly how much more money you'd take home each paycheck and year if the overtime tax exemption passes.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/feed/no-tax-on-overtime-calculator.html">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://www.moneystopwatch.com/feed/no-tax-on-overtime-calculator.html">
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "No Tax on Overtime Calculator — How Much Would You Save?",
+    "description": "Use our free no tax on overtime calculator to see exactly how much more money you'd take home each paycheck and year if the overtime tax exemption passes.",
+    "datePublished": "2026-04-24",
+    "dateModified": "2026-04-24",
+    "author": { "@type": "Organization", "name": "MoneyStopwatch" },
+    "publisher": { "@type": "Organization", "name": "MoneyStopwatch", "url": "https://www.moneystopwatch.com" },
+    "url": "https://www.moneystopwatch.com/feed/no-tax-on-overtime-calculator.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is overtime taxed currently?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Overtime wages are taxed at your marginal federal income tax rate — the same rate as your highest bracket of regular wages. You also pay Social Security (6.2%) and Medicare (1.45%) on all wages including overtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the no-tax-on-overtime calculator work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Enter your hourly rate, overtime hours per week, and filing status. The calculator estimates your current tax on overtime and compares it to what you'd owe under the proposed exemption (federal income tax only removed). The difference is your potential savings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the calculator include state taxes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The calculator focuses on federal income tax savings only, since the no-tax-on-overtime proposal is a federal measure. State income taxes would still apply in most states, reducing your total savings from what the federal calculator shows."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container container--narrow">
+
+    <div style="margin-bottom:1.5rem;">
+      <a href="index.html" class="btn btn-ghost btn-sm">← The Feed</a>
+    </div>
+
+    <div class="feed-article-header">
+      <span class="feed-card-tag">Calculator</span>
+      <h1 style="font-size:2rem;line-height:1.2;margin:.5rem 0 .75rem;">No Tax on Overtime Calculator</h1>
+      <p style="color:var(--muted);font-size:.9rem;">April 24, 2026 &nbsp;·&nbsp; 5 min read</p>
+    </div>
+
+    <!-- Status note -->
+    <div class="card mb-3" style="border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.04);">
+      <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:#f59e0b;">Note:</strong> No-tax-on-overtime has not yet been enacted. This calculator shows what your savings <em>would be</em> if the proposal passes in its current form. Overtime wages remain taxable under current law.</p>
+    </div>
+
+    <!-- Calculator card -->
+    <div class="card calculator-card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Your Overtime Tax Savings Estimate</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="c-rate">Regular Hourly Rate ($)</label>
+          <input type="number" id="c-rate" placeholder="e.g. 20" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="c-hours">Overtime Hours per Week</label>
+          <input type="number" id="c-hours" placeholder="e.g. 8" min="0" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="c-status">Filing Status</label>
+          <select id="c-status">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="hoh">Head of Household</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c-reg">Regular Hours per Week</label>
+          <input type="number" id="c-reg" placeholder="e.g. 40" min="0" step="0.5" value="40">
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc">Calculate Savings</button>
+        <button class="btn btn-ghost" id="btn-reset">Reset</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your Results</h3>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Annual Overtime Pay</div>
+          <div class="stat-value" id="r-annual-ot">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Current Federal Tax on OT</div>
+          <div class="stat-value" style="color:var(--red);" id="r-current-tax">—</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Annual Tax Savings</div>
+          <div class="stat-value" style="color:var(--accent);" id="r-savings">—</div>
+        </div>
+      </div>
+
+      <div class="breakdown-section">
+        <div class="breakdown-row">
+          <span class="row-label">Regular Annual Pay</span>
+          <span class="row-value" id="b-reg-pay">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="row-label">Annual Overtime Pay</span>
+          <span class="row-value" id="b-ot-pay">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="row-label">Your Federal Tax Bracket</span>
+          <span class="row-value" id="b-bracket">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Current Tax on Overtime</span>
+          <span class="row-value" id="b-current-tax">—</span>
+        </div>
+        <div class="breakdown-row deduction">
+          <span class="row-label">Tax Under Exemption (FICA only)</span>
+          <span class="row-value" id="b-fica-tax">—</span>
+        </div>
+        <div class="breakdown-row total">
+          <span class="row-label">Annual Savings (Federal Income Tax)</span>
+          <span class="row-value" id="b-savings">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="row-label">Monthly Savings</span>
+          <span class="row-value" id="b-monthly">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="row-label">Per-Paycheck Savings (Bi-weekly)</span>
+          <span class="row-value" id="b-percheck">—</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Savings shown are federal income tax only. FICA taxes (7.65%) and state income taxes would still apply to overtime under the current proposal. Estimates use 2025 federal tax brackets and standard deduction.</p>
+      </div>
+    </div>
+
+
+    <div class="feed-article-body">
+
+      <h2>How the No-Tax-on-Overtime Calculator Works</h2>
+
+      <p>This calculator estimates how much federal income tax you currently pay on overtime wages — and how much you'd save if the overtime tax exemption becomes law.</p>
+
+      <p>Here's the logic:</p>
+
+      <ol>
+        <li>We calculate your total annual income (regular pay + overtime pay at 1.5× rate)</li>
+        <li>We apply the 2025 standard deduction and federal tax brackets to estimate your marginal rate</li>
+        <li>We calculate the federal income tax currently applied to your overtime earnings</li>
+        <li>Under the exemption, only FICA (7.65%) would apply to overtime — so we subtract federal income tax from that calculation</li>
+        <li>The difference is your estimated annual and per-paycheck savings</li>
+      </ol>
+
+      <h2>Why Your Savings May Differ</h2>
+
+      <p>This calculator gives a useful estimate, but your actual savings will depend on several factors not included here:</p>
+
+      <ul>
+        <li><strong>401(k) and pre-tax deductions:</strong> These reduce your taxable income, which could lower your effective bracket and the savings calculation.</li>
+        <li><strong>State income taxes:</strong> Most states do not have an overtime exemption. You would still pay state income tax on overtime in states like California, New York, and others.</li>
+        <li><strong>Income caps:</strong> Some versions of the proposal include caps above which the exemption phases out. Higher earners may receive partial or no benefit.</li>
+        <li><strong>Definition of qualifying overtime:</strong> The final law may include specific definitions of what qualifies as overtime. Not all overtime pay may be covered in every scenario.</li>
+      </ul>
+
+      <h2>Real-World Examples</h2>
+
+      <p>To help put the numbers in perspective, here are a few typical scenarios:</p>
+
+      <p><strong>Warehouse worker, $17/hr, 10 hours overtime/week:</strong><br>
+      Annual overtime pay: ~$13,260. At the 12% bracket, federal tax savings would be approximately $1,591/year, or about $133/month.</p>
+
+      <p><strong>Hospital nurse, $38/hr, 8 hours overtime/week:</strong><br>
+      Annual overtime pay: ~$23,712. At the 22% bracket, federal tax savings would be approximately $5,217/year, or about $435/month.</p>
+
+      <p><strong>Construction supervisor, $28/hr, 12 hours overtime/week:</strong><br>
+      Annual overtime pay: ~$26,208. At the 22% bracket, federal tax savings would be approximately $5,766/year, or about $481/month.</p>
+
+      <h2>What Happens to FICA Under the Proposal?</h2>
+
+      <p>FICA — Social Security (6.2%) and Medicare (1.45%) — would still apply to overtime pay under the current proposal. The total FICA rate of 7.65% would continue to be withheld from all wages, including overtime.</p>
+
+      <p>This is an important distinction. "No tax on overtime" means no <em>federal income</em> tax. It does not mean completely tax-free overtime. For a worker in the 22% bracket, the difference under the exemption would be:</p>
+
+      <ul>
+        <li><strong>Now:</strong> 22% (federal income tax) + 7.65% (FICA) = 29.65% total federal tax on overtime</li>
+        <li><strong>Under the exemption:</strong> 0% federal income tax + 7.65% (FICA) = 7.65% total federal tax on overtime</li>
+      </ul>
+
+      <p>That's a reduction of 22 percentage points on the federal tax burden — a meaningful change for anyone who regularly works overtime hours.</p>
+
+      <!-- FAQ Section -->
+      <div class="card mt-3">
+        <h2 style="font-size:1.1rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">How is overtime taxed currently? <span class="faq-icon">+</span></div>
+            <div class="faq-answer">Overtime wages are taxed at your marginal federal income tax rate — the same rate as your highest bracket of regular wages. You also pay Social Security (6.2%) and Medicare (1.45%) on all wages including overtime.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How does the no-tax-on-overtime calculator work? <span class="faq-icon">+</span></div>
+            <div class="faq-answer">Enter your hourly rate, overtime hours per week, and filing status. The calculator estimates your current tax on overtime and compares it to what you'd owe under the proposed exemption (federal income tax only removed). The difference is your potential savings.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Does the calculator include state taxes? <span class="faq-icon">+</span></div>
+            <div class="faq-answer">No. The calculator focuses on federal income tax savings only, since the no-tax-on-overtime proposal is a federal measure. State income taxes would still apply in most states, reducing your total savings from what the federal calculator shows.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Related articles -->
+    <div class="feed-related">
+      <h2>Related Articles</h2>
+      <div class="feed-related-grid">
+        <a class="feed-card" href="no-tax-on-overtime-explained.html">
+          <span class="feed-card-tag">Explainer</span>
+          <div class="feed-card-title">No Tax on Overtime, Explained</div>
+          <div class="feed-card-meta"><span>April 24, 2026</span></div>
+        </a>
+        <a class="feed-card" href="when-does-no-tax-on-overtime-start.html">
+          <span class="feed-card-tag">Timeline</span>
+          <div class="feed-card-title">When Does No Tax on Overtime Start?</div>
+          <div class="feed-card-meta"><span>April 24, 2026</span></div>
+        </a>
+        <a class="feed-card" href="did-no-tax-on-overtime-pass.html">
+          <span class="feed-card-tag">Status Update</span>
+          <div class="feed-card-title">Did No Tax on Overtime Pass?</div>
+          <div class="feed-card-meta"><span>April 24, 2026</span></div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="card mt-3" style="background:rgba(255,255,255,.02);border-color:var(--border);">
+      <p style="font-size:.8rem;color:var(--muted2);margin:0;">This calculator and article are for informational purposes only and do not constitute tax, legal, or financial advice. Estimates are based on 2025 federal tax brackets and the current form of the no-tax-on-overtime proposal, which has not yet been enacted into law. Verify current rules with a qualified tax professional or IRS.gov.</p>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  MS.initFAQ();
+
+  var FEDERAL_STD_DED = { single: 15000, married: 30000, hoh: 22500 };
+  var FEDERAL_BRACKETS = {
+    single:  [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]],
+    married: [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]],
+    hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
+  };
+
+  function calcBracketTax(income, brackets) {
+    var tax = 0, prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= prev) break;
+      tax += (Math.min(income, cap) - prev) * rate;
+      prev = cap;
+      if (income <= cap) break;
+    }
+    return tax;
+  }
+
+  function getMarginalRate(income, brackets) {
+    var prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var cap = brackets[i][0], rate = brackets[i][1];
+      if (income <= cap) return rate;
+      prev = cap;
+    }
+    return brackets[brackets.length - 1][1];
+  }
+
+  document.getElementById('btn-calc').addEventListener('click', calculate);
+  document.getElementById('btn-reset').addEventListener('click', function () {
+    document.getElementById('c-rate').value = '';
+    document.getElementById('c-hours').value = '';
+    document.getElementById('c-reg').value = '40';
+    document.getElementById('results').style.display = 'none';
+  });
+
+  function calculate() {
+    var rate   = parseFloat(document.getElementById('c-rate').value);
+    var otHrs  = parseFloat(document.getElementById('c-hours').value);
+    var regHrs = parseFloat(document.getElementById('c-reg').value) || 40;
+    var status = document.getElementById('c-status').value;
+    if (isNaN(rate) || isNaN(otHrs) || rate <= 0 || otHrs <= 0) return;
+
+    var annualReg = rate * regHrs * 52;
+    var annualOT  = rate * 1.5 * otHrs * 52;
+    var annualTotal = annualReg + annualOT;
+
+    var brackets = FEDERAL_BRACKETS[status];
+    var stdDed   = FEDERAL_STD_DED[status];
+
+    // Current tax (with overtime)
+    var taxableWithOT  = Math.max(0, annualTotal - stdDed);
+    var totalTaxWithOT = calcBracketTax(taxableWithOT, brackets);
+
+    // Tax without overtime income (hypothetical — just regular pay)
+    var taxableNoOT  = Math.max(0, annualReg - stdDed);
+    var totalTaxNoOT = calcBracketTax(taxableNoOT, brackets);
+
+    // Tax currently attributable to overtime = difference
+    var currentOTTax = totalTaxWithOT - totalTaxNoOT;
+
+    // FICA on overtime (always owed)
+    var ficaOnOT = annualOT * 0.0765;
+
+    // Federal income tax savings
+    var savings  = currentOTTax;
+    var monthly  = savings / 12;
+    var percheck = savings / 26;
+
+    // Marginal rate
+    var marginal = getMarginalRate(taxableWithOT, brackets);
+
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+
+    document.getElementById('r-annual-ot').textContent  = fmt(annualOT);
+    document.getElementById('r-current-tax').textContent = '-' + fmt(currentOTTax);
+    document.getElementById('r-savings').textContent     = fmt(savings);
+
+    document.getElementById('b-reg-pay').textContent    = fmt(annualReg);
+    document.getElementById('b-ot-pay').textContent     = fmt(annualOT);
+    document.getElementById('b-bracket').textContent    = Math.round(marginal * 100) + '%';
+    document.getElementById('b-current-tax').textContent = '-' + fmt(currentOTTax);
+    document.getElementById('b-fica-tax').textContent   = '-' + fmt(ficaOnOT);
+    document.getElementById('b-savings').textContent    = '+' + fmt(savings);
+    document.getElementById('b-monthly').textContent    = '+' + fmt(monthly);
+    document.getElementById('b-percheck').textContent   = '+' + fmt(percheck);
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+})();
+</script>
+</body>
+</html>

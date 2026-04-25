@@ -11,10 +11,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ohio Paycheck Calculator 2024 — Take-Home Pay After OH State Tax</title>
-  <meta name="description" content="Free Ohio paycheck calculator 2024. Calculate your take-home pay after federal income tax, FICA, and Ohio state income tax brackets.">
-  <meta property="og:title" content="Ohio Paycheck Calculator 2024 — Take-Home Pay After OH State Tax">
-  <meta property="og:description" content="Free Ohio paycheck calculator 2024. Calculate your take-home pay after federal income tax, FICA, and Ohio state income tax brackets.">
+  <title>Ohio Paycheck Calculator | MoneyStopwatch</title>
+  <meta name="description" content="Free Ohio paycheck calculator 2026. Calculate your take-home pay after federal income tax, FICA, and Ohio's flat 2.75% state income tax on income above $26,050.">
+  <meta property="og:title" content="Ohio Paycheck Calculator | MoneyStopwatch">
+  <meta property="og:description" content="Free Ohio paycheck calculator 2026. Calculate your take-home pay after federal income tax, FICA, and Ohio's flat 2.75% state income tax on income above $26,050.">
   <meta property="og:url" content="https://www.moneystopwatch.com/paycheck-calculator/ohio.html">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://www.moneystopwatch.com/paycheck-calculator/ohio.html">
@@ -29,7 +29,12 @@
 
     <div class="page-hero">
       <h1>Ohio Paycheck Calculator</h1>
-      <p>Calculate your Ohio take-home pay after federal taxes, FICA, and Ohio state income tax.</p>
+      <p>Ohio has a <strong style="color:var(--accent)">flat 2.75% state income tax</strong> on income above $26,050 (2026 tax year) — calculate your take-home pay below.</p>
+    </div>
+
+    <div class="card" style="border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.04);margin-bottom:1.5rem;">
+      <h2 style="font-size:1rem;color:var(--accent);margin-bottom:.4rem;">Ohio Flat Tax: 2.75%</h2>
+      <p style="font-size:.9rem;color:var(--muted);margin:0;">Ohio taxes income above $26,050 at a flat 2.75% rate (2026 tax year). Income at or below $26,050 is not taxed at the state level.</p>
     </div>
 
     <!-- State nav -->
@@ -126,24 +131,26 @@
       </div>
 
       <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
-        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2024 Ohio tax brackets and federal standard deduction. Many Ohio municipalities also levy a local income tax (typically 1–3%) not reflected here.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Estimates based on 2026 Ohio flat tax rate and 2025 federal standard deduction. Many Ohio municipalities also levy a local income tax (typically 1–3%) not reflected here.</p>
       </div>
     </div>
 
     <div class="card mt-3">
-      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Ohio Tax Brackets 2024</h2>
+      <h2 style="font-size:1.15rem;margin-bottom:.75rem;">Ohio Tax Rate 2026</h2>
       <table class="results-table">
         <thead>
           <tr style="color:var(--muted);font-size:.8rem;"><td>Income Range</td><td>Rate</td></tr>
         </thead>
         <tbody>
           <tr><td>$0 – $26,050</td><td>0%</td></tr>
-          <tr><td>$26,051 – $100,000</td><td>2.765%</td></tr>
-          <tr><td>$100,001 – $115,300</td><td>3.226%</td></tr>
-          <tr><td>Over $115,300</td><td>3.688%</td></tr>
+          <tr><td>Over $26,050</td><td>2.75% flat</td></tr>
         </tbody>
       </table>
-      <p style="font-size:.82rem;color:var(--muted);margin-top:.75rem;">Ohio also has a $20 personal exemption credit per filer.</p>
+      <p style="font-size:.82rem;color:var(--muted);margin-top:.75rem;">Ohio also applies a $20 personal exemption credit per filer.</p>
+    </div>
+
+    <div class="card mt-3" style="background:rgba(255,255,255,.02);border-color:var(--border);">
+      <p style="font-size:.8rem;color:var(--muted2);margin:0;">Tax rates shown are based on the latest available data but may not reflect the most recent legislative changes. Always verify current rates at your state&#39;s official revenue department website before making financial decisions.</p>
     </div>
 
   </div>
@@ -156,15 +163,15 @@
 (function () {
   'use strict';
 
-  var FEDERAL_STD_DED = { single: 14600, married: 29200, hoh: 21900 };
+  var FEDERAL_STD_DED = { single: 15000, married: 30000, hoh: 22500 };
   var FEDERAL_BRACKETS = {
-    single:  [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]],
-    married: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]],
-    hoh:     [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+    single:  [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]],
+    married: [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]],
+    hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
   };
 
-  // Ohio 2024 brackets (on Ohio AGI)
-  var OH_BRACKETS = [[26050,0],[100000,0.02765],[115300,0.03226],[Infinity,0.03688]];
+  // Ohio 2026: flat 2.75% on income above $26,050
+  var OH_BRACKETS = [[26050,0],[Infinity,0.0275]];
 
   function calcBracketTax(income, brackets) {
     var tax = 0, prev = 0;
@@ -192,7 +199,7 @@
     var k401Amt    = annual * (k401 / 100);
     var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
     var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
-    var ss         = Math.min(annual, 168600) * 0.062;
+    var ss         = Math.min(annual, 176100) * 0.062;
     var medicare   = annual * 0.0145;
     var ohState    = calcBracketTax(annual - k401Amt, OH_BRACKETS) - 20; // $20 personal credit
     ohState        = Math.max(0, ohState);
