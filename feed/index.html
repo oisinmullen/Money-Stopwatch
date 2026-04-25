@@ -139,68 +139,15 @@
       <p style="color:#888;font-size:1rem;margin-top:.35rem;line-height:1.5;">Tax changes, overtime rules, and pay laws — explained in plain English.</p>
     </div>
 
-    <!-- Trending banner -->
-    <a class="feed-trending-v2" href="no-tax-on-overtime-explained.html">
-      <span class="feed-trending-v2-badge">Trending</span>
-      <span class="feed-trending-v2-title">No Tax on Overtime: What It Actually Means for Your Paycheck</span>
-    </a>
+    <!-- Trending banner (populated by JS) -->
+    <div id="trending-slot"></div>
 
     <hr class="feed-divider">
 
     <div class="feed-section-label">Latest</div>
 
-    <!-- Article grid -->
-    <div class="feed-grid-v2">
-
-      <a class="feed-card-v2" href="no-tax-on-overtime-explained.html">
-        <div>
-          <span class="feed-card-v2-tag">Explainer</span>
-          <div class="feed-card-v2-title">No Tax on Overtime, Explained</div>
-          <div class="feed-card-v2-excerpt">What the proposal actually means, who it affects, and how much extra money it could put in your paycheck.</div>
-        </div>
-        <div class="feed-card-v2-footer">
-          <span class="feed-card-v2-meta">April 24, 2026 · 8 min read</span>
-          <span class="feed-card-v2-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="feed-card-v2" href="when-does-no-tax-on-overtime-start.html">
-        <div>
-          <span class="feed-card-v2-tag">Timeline</span>
-          <div class="feed-card-v2-title">When Does No Tax on Overtime Start?</div>
-          <div class="feed-card-v2-excerpt">The legislative timeline and the earliest realistic date overtime workers could see a change in their paychecks.</div>
-        </div>
-        <div class="feed-card-v2-footer">
-          <span class="feed-card-v2-meta">April 24, 2026 · 7 min read</span>
-          <span class="feed-card-v2-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="feed-card-v2" href="did-no-tax-on-overtime-pass.html">
-        <div>
-          <span class="feed-card-v2-tag">Status Update</span>
-          <div class="feed-card-v2-title">Did No Tax on Overtime Pass?</div>
-          <div class="feed-card-v2-excerpt">Current status of the proposal — what's been signed, what's still in debate, and what it means right now.</div>
-        </div>
-        <div class="feed-card-v2-footer">
-          <span class="feed-card-v2-meta">April 24, 2026 · 6 min read</span>
-          <span class="feed-card-v2-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="feed-card-v2" href="no-tax-on-overtime-calculator.html">
-        <div>
-          <span class="feed-card-v2-tag">Calculator</span>
-          <div class="feed-card-v2-title">No Tax on Overtime Calculator</div>
-          <div class="feed-card-v2-excerpt">Enter your hourly rate and overtime hours to see exactly how much more you'd take home if the exemption passes.</div>
-        </div>
-        <div class="feed-card-v2-footer">
-          <span class="feed-card-v2-meta">April 24, 2026 · 5 min read</span>
-          <span class="feed-card-v2-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
+    <!-- Article grid (populated by JS) -->
+    <div class="feed-grid-v2" id="stories-grid"></div>
 
     <div class="card mt-3" style="background:rgba(255,255,255,.02);border-color:var(--border);">
       <p style="font-size:.8rem;color:var(--muted2);margin:0;">Content is for informational purposes only and does not constitute tax, legal, or financial advice. Tax law changes frequently — verify current rules with a qualified professional or official government sources.</p>
@@ -212,5 +159,71 @@
 <div id="site-footer-slot"></div>
 
 <script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+  var STORE_KEY = 'feed_stories';
+
+  var FALLBACK = [
+    { id: 4, title: 'No Tax on Overtime, Explained', category: 'Explainer', excerpt: 'What the proposal actually means, who it affects, and how much extra money it could put in your paycheck.', readTime: '8 min read', url: 'no-tax-on-overtime-explained.html', featured: true, date: '2026-04-24' },
+    { id: 3, title: 'When Does No Tax on Overtime Start?', category: 'Timeline', excerpt: 'The legislative timeline and the earliest realistic date overtime workers could see a change in their paychecks.', readTime: '7 min read', url: 'when-does-no-tax-on-overtime-start.html', featured: false, date: '2026-04-24' },
+    { id: 2, title: 'Did No Tax on Overtime Pass?', category: 'Status Update', excerpt: 'Current status of the proposal — what\'s been signed, what\'s still in debate, and what it means right now.', readTime: '6 min read', url: 'did-no-tax-on-overtime-pass.html', featured: false, date: '2026-04-24' },
+    { id: 1, title: 'No Tax on Overtime Calculator', category: 'Calculator', excerpt: 'Enter your hourly rate and overtime hours to see exactly how much more you\'d take home if the exemption passes.', readTime: '5 min read', url: 'no-tax-on-overtime-calculator.html', featured: false, date: '2026-04-24' }
+  ];
+
+  function getStories() {
+    try {
+      var s = JSON.parse(localStorage.getItem(STORE_KEY));
+      return (s && s.length) ? s : null;
+    } catch (e) { return null; }
+  }
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function fmtDate(iso) {
+    var d = new Date(iso + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function render(stories) {
+    var sorted = stories.slice().sort(function (a, b) { return b.id - a.id; });
+    var featured = null;
+    for (var i = 0; i < sorted.length; i++) {
+      if (sorted[i].featured) { featured = sorted[i]; break; }
+    }
+    if (!featured) featured = sorted[0];
+
+    // Trending banner
+    document.getElementById('trending-slot').innerHTML =
+      '<a class="feed-trending-v2" href="' + esc(featured.url) + '">' +
+        '<span class="feed-trending-v2-badge">Trending</span>' +
+        '<span class="feed-trending-v2-title">' + esc(featured.title) + '</span>' +
+      '</a>';
+
+    // Grid — all stories except the featured one
+    var rest = sorted.filter(function (s) { return s.id !== featured.id; });
+    document.getElementById('stories-grid').innerHTML = rest.map(function (s) {
+      var meta = fmtDate(s.date) + (s.readTime ? ' · ' + s.readTime : '');
+      return '<a class="feed-card-v2" href="' + esc(s.url) + '">' +
+        '<div>' +
+          '<span class="feed-card-v2-tag">' + esc(s.category) + '</span>' +
+          '<div class="feed-card-v2-title">' + esc(s.title) + '</div>' +
+          '<div class="feed-card-v2-excerpt">' + esc(s.excerpt) + '</div>' +
+        '</div>' +
+        '<div class="feed-card-v2-footer">' +
+          '<span class="feed-card-v2-meta">' + esc(meta) + '</span>' +
+          '<span class="feed-card-v2-arrow">&#8594;</span>' +
+        '</div>' +
+      '</a>';
+    }).join('');
+  }
+
+  render(getStories() || FALLBACK);
+})();
+</script>
 </body>
 </html>

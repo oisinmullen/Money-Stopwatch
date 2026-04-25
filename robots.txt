@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /feed/admin/
 
 Sitemap: https://www.moneystopwatch.com/sitemap.xml
