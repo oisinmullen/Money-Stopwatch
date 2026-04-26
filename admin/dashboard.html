@@ -353,6 +353,38 @@
       font-size: 0.88rem;
     }
 
+    /* ── Product cards ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .product-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .product-card-title {
+      font-weight: 700;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+    .product-card-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .admin-header { padding: 0 16px; }
@@ -501,11 +533,47 @@
 
     </section>
 
+    <!-- ══ GUIDES ══ -->
     <section class="tab-panel" id="panel-guides">
-      <div class="placeholder">
-        <h2>Guides</h2>
-        <p>Add and manage PDF products.</p>
+
+      <p class="section-heading">Add PDF Product</p>
+      <div class="form-card">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="g-title">Product Title</label>
+            <input type="text" id="g-title" placeholder="e.g. The Salary Negotiation Playbook">
+          </div>
+          <div class="form-group full">
+            <label for="g-desc">Description</label>
+            <textarea id="g-desc" placeholder="What's inside — 1 or 2 sentences"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="g-price">Price</label>
+            <input type="text" id="g-price" placeholder="e.g. $9">
+          </div>
+          <div class="form-group">
+            <label for="g-url">Payment URL</label>
+            <input type="text" id="g-url" placeholder="Gumroad or Stripe link">
+          </div>
+          <div class="form-group">
+            <label for="g-cat">Category</label>
+            <select id="g-cat">
+              <option value="Salary">Salary</option>
+              <option value="Negotiation">Negotiation</option>
+              <option value="Tax and Overtime">Tax and Overtime</option>
+              <option value="Money Tips">Money Tips</option>
+              <option value="Paycheck">Paycheck</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary" id="addProductBtn">Add Product</button>
       </div>
+
+      <p class="section-heading">Live Products</p>
+      <div id="productsList">
+        <div class="empty-note">No products yet — add your first PDF product above.</div>
+      </div>
+
     </section>
 
     <section class="tab-panel" id="panel-keywords">
@@ -674,6 +742,82 @@
 
       /* ── Initial render ─────────────────── */
       renderStories();
+
+      /* ════════════════════════════════════════
+         GUIDES TAB
+         ════════════════════════════════════════ */
+      var PRODUCTS_KEY = 'ms_pdf_products';
+
+      function loadProducts() {
+        try { return JSON.parse(localStorage.getItem(PRODUCTS_KEY) || '[]'); }
+        catch (e) { return []; }
+      }
+
+      function saveProducts(arr) {
+        localStorage.setItem(PRODUCTS_KEY, JSON.stringify(arr));
+      }
+
+      function renderProducts() {
+        var products = loadProducts();
+        var container = document.getElementById('productsList');
+
+        if (!products.length) {
+          container.innerHTML = '<div class="empty-note">No products yet — add your first PDF product above.</div>';
+          return;
+        }
+
+        container.innerHTML = '<div class="products-grid">' +
+          products.map(function (p) {
+            return '<div class="product-card">' +
+              '<div class="product-card-title">' + esc(p.title) + '</div>' +
+              (p.description ? '<div style="font-size:.85rem;color:var(--muted);line-height:1.5">' + esc(p.description) + '</div>' : '') +
+              '<div class="product-card-price">' + esc(p.price) + '</div>' +
+              '<div class="product-card-footer">' +
+                '<span class="badge badge-cat">' + esc(p.category) + '</span>' +
+                '<button class="btn-sm danger" data-prod-delete="' + p.id + '">Delete</button>' +
+              '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>';
+      }
+
+      /* ── Add product ────────────────────── */
+      document.getElementById('addProductBtn').addEventListener('click', function () {
+        var title = document.getElementById('g-title').value.trim();
+        var desc  = document.getElementById('g-desc').value.trim();
+        var price = document.getElementById('g-price').value.trim();
+        var url   = document.getElementById('g-url').value.trim();
+        var cat   = document.getElementById('g-cat').value;
+
+        if (!title || !price) {
+          alert('Product Title and Price are required.');
+          return;
+        }
+
+        var products = loadProducts();
+        products.push({ id: Date.now(), title: title, description: desc,
+          price: price, paymentUrl: url, category: cat });
+        saveProducts(products);
+
+        document.getElementById('g-title').value = '';
+        document.getElementById('g-desc').value  = '';
+        document.getElementById('g-price').value = '';
+        document.getElementById('g-url').value   = '';
+
+        renderProducts();
+      });
+
+      /* ── Delete product (delegated) ─────── */
+      document.getElementById('productsList').addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-prod-delete]');
+        if (!btn) return;
+        if (!confirm('Delete this product?')) return;
+        var id = parseInt(btn.dataset.prodDelete, 10);
+        saveProducts(loadProducts().filter(function (p) { return p.id !== id; }));
+        renderProducts();
+      });
+
+      renderProducts();
 
     })();
   </script>
