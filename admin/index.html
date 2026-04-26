@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — MoneyStopwatch</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0f0f0f;
+      --bg2:     #141414;
+      --bg3:     #1a1a1a;
+      --border:  #2a2a2a;
+      --accent:  #10b981;
+      --accent2: #059669;
+      --text:    #e5e7eb;
+      --muted:   #9ca3af;
+      --white:   #ffffff;
+      --red:     #ef4444;
+      --radius:  10px;
+      --radius-lg: 12px;
+      --shadow:  0 4px 24px rgba(0,0,0,.5);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-wrap {
+      width: 100%;
+      max-width: 400px;
+      padding: 24px;
+    }
+    .login-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+    .logo-wordmark {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      display: flex;
+      gap: 0;
+    }
+    .logo-money    { color: #fff; font-weight: 600; }
+    .logo-watch    { color: #10b981; font-weight: 600; }
+    .login-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow);
+    }
+    .login-heading {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .field-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    input[type="password"] {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.72rem 1rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .15s;
+    }
+    input[type="password"]:focus { border-color: var(--accent); }
+    .btn-login {
+      display: block;
+      width: 100%;
+      margin-top: 1.25rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-login:hover { background: var(--accent2); }
+    .error-msg {
+      display: none;
+      margin-top: 0.8rem;
+      color: var(--red);
+      font-size: 0.875rem;
+      text-align: center;
+      font-weight: 500;
+    }
+    .error-msg.visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <a class="login-logo" href="https://www.moneystopwatch.com" target="_blank" rel="noopener">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="25" height="25" rx="6" stroke="#10b981" stroke-width="1.75"/>
+        <text x="14" y="20" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="15" fill="#10b981">$</text>
+      </svg>
+      <span class="logo-wordmark">
+        <span class="logo-money">Money</span><span class="logo-watch">&thinsp;Stopwatch</span>
+      </span>
+    </a>
+    <div class="login-card">
+      <p class="login-heading">Admin Login</p>
+      <label class="field-label" for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+      <button class="btn-login" id="loginBtn">Login</button>
+      <p class="error-msg" id="errorMsg">Incorrect password. Please try again.</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      'use strict';
+      var TOKEN_KEY = 'ms_admin_token';
+
+      if (sessionStorage.getItem(TOKEN_KEY)) {
+        window.location.href = '/admin/dashboard.html';
+        return;
+      }
+
+      function doLogin() {
+        var pw = document.getElementById('password').value;
+        var err = document.getElementById('errorMsg');
+        if (pw === 'MSadmin2026') {
+          sessionStorage.setItem(TOKEN_KEY, btoa(Date.now().toString()));
+          window.location.href = '/admin/dashboard.html';
+        } else {
+          err.classList.add('visible');
+          document.getElementById('password').value = '';
+          document.getElementById('password').focus();
+        }
+      }
+
+      document.getElementById('loginBtn').addEventListener('click', doLogin);
+      document.getElementById('password').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') doLogin();
+        document.getElementById('errorMsg').classList.remove('visible');
+      });
+    })();
+  </script>
+</body>
+</html>
