@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Admin — MoneyStopwatch</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0f0f0f;
+      --bg2:       #141414;
+      --bg3:       #1a1a1a;
+      --border:    #2a2a2a;
+      --accent:    #10b981;
+      --accent2:   #059669;
+      --text:      #e5e7eb;
+      --muted:     #9ca3af;
+      --muted2:    #6b7280;
+      --white:     #ffffff;
+      --red:       #ef4444;
+      --radius:    10px;
+      --radius-lg: 12px;
+      --shadow:    0 4px 24px rgba(0,0,0,.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Admin Header ── */
+    .admin-header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .admin-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-wordmark {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 19px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      display: flex;
+      gap: 0;
+    }
+    .logo-money { color: #fff; font-weight: 600; }
+    .logo-watch { color: #10b981; font-weight: 600; }
+
+    .admin-badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 18px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .btn-logout:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* ── Tab Bar ── */
+    .tab-bar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      padding: 0 28px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      flex-shrink: 0;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 15px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color .15s, border-color .15s;
+      flex-shrink: 0;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── Tab Content ── */
+    .tab-content {
+      flex: 1;
+      padding: 40px 28px 60px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .placeholder {
+      background: var(--bg3);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .placeholder h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .placeholder p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .admin-header { padding: 0 16px; }
+      .tab-bar { padding: 0 16px; }
+      .tab-content { padding: 24px 16px 40px; }
+      .tab-btn { padding: 13px 14px; font-size: 0.83rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-left">
+      <a class="admin-logo" href="https://www.moneystopwatch.com" target="_blank" rel="noopener" title="Open site">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="25" height="25" rx="6" stroke="#10b981" stroke-width="1.75"/>
+          <text x="14" y="20" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="15" fill="#10b981">$</text>
+        </svg>
+        <span class="logo-wordmark">
+          <span class="logo-money">Money</span><span class="logo-watch">&thinsp;Stopwatch</span>
+        </span>
+      </a>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </header>
+
+  <!-- Tab Bar -->
+  <nav class="tab-bar" aria-label="Dashboard sections">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="feed">The Feed</button>
+    <button class="tab-btn" data-tab="guides">Guides</button>
+    <button class="tab-btn" data-tab="keywords">Keywords</button>
+    <button class="tab-btn" data-tab="seo">SEO Health</button>
+  </nav>
+
+  <!-- Tab Panels -->
+  <main class="tab-content">
+
+    <section class="tab-panel active" id="panel-overview">
+      <div class="placeholder">
+        <h2>Overview</h2>
+        <p>Site snapshot, quick stats, and action links.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panel-feed">
+      <div class="placeholder">
+        <h2>The Feed</h2>
+        <p>Publish and manage feed stories.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panel-guides">
+      <div class="placeholder">
+        <h2>Guides</h2>
+        <p>Add and manage PDF products.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panel-keywords">
+      <div class="placeholder">
+        <h2>Keywords</h2>
+        <p>Keyword tracking table and 4-week content plan.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panel-seo">
+      <div class="placeholder">
+        <h2>SEO Health</h2>
+        <p>Checklist and notes.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var TOKEN_KEY = 'ms_admin_token';
+
+      /* Auth guard */
+      if (!sessionStorage.getItem(TOKEN_KEY)) {
+        window.location.replace('/admin/index.html');
+      }
+
+      /* Logout */
+      document.getElementById('logoutBtn').addEventListener('click', function () {
+        sessionStorage.removeItem(TOKEN_KEY);
+        window.location.href = '/admin/index.html';
+      });
+
+      /* Tab switching */
+      var btns   = document.querySelectorAll('.tab-btn');
+      var panels = document.querySelectorAll('.tab-panel');
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b)   { b.classList.remove('active'); });
+          panels.forEach(function (p) { p.classList.remove('active'); });
+
+          btn.classList.add('active');
+          var panel = document.getElementById('panel-' + btn.dataset.tab);
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
