@@ -385,6 +385,140 @@
       margin-top: auto;
     }
 
+    /* ── Keywords table ── */
+    .kw-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+    }
+    .kw-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg3);
+      font-size: 0.875rem;
+    }
+    .kw-table th {
+      background: var(--bg2);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted2);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .kw-table th:last-child { cursor: default; }
+    .kw-table th:hover:not(:last-child) { color: var(--text); }
+    .kw-table th.sorted { color: var(--accent); }
+    .sort-icon { margin-left: 3px; font-size: 0.62rem; opacity: 0.7; }
+    .kw-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .kw-table tr:last-child td { border-bottom: none; }
+    .kw-table tr:hover td { background: rgba(255,255,255,.025); }
+    .kd-green { color: #10b981; font-weight: 700; }
+    .kd-amber { color: #f59e0b; font-weight: 700; }
+    .kd-red   { color: #ef4444; font-weight: 700; }
+    .badge-ranking { background: rgba(16,185,129,.15); color: #10b981; }
+    .badge-target  { background: rgba(96,165,250,.15);  color: #60a5fa; }
+    .notes-input {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 4px 7px;
+      width: 100%;
+      min-width: 130px;
+      outline: none;
+      transition: border-color .15s, background .15s;
+    }
+    .notes-input:focus {
+      background: var(--bg2);
+      border-color: var(--accent);
+    }
+
+    /* ── Add keyword inline form ── */
+    .add-kw-form {
+      display: none;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      margin-bottom: 32px;
+    }
+    .add-kw-form.open { display: block; }
+    .add-kw-form .form-grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+    .form-row-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn-cancel {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.875rem;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .btn-cancel:hover { border-color: var(--text); color: var(--text); }
+
+    /* ── Content plan ── */
+    .plan-section { margin-top: 36px; }
+    .week-block { margin-bottom: 18px; }
+    .week-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 9px;
+    }
+    .plan-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 15px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 6px;
+    }
+    .plan-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .plan-task-label { font-size: 0.9rem; }
+    .plan-row.done .plan-task-label {
+      text-decoration: line-through;
+      color: var(--muted2);
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .admin-header { padding: 0 16px; }
@@ -576,11 +710,63 @@
 
     </section>
 
+    <!-- ══ KEYWORDS ══ -->
     <section class="tab-panel" id="panel-keywords">
-      <div class="placeholder">
-        <h2>Keywords</h2>
-        <p>Keyword tracking table and 4-week content plan.</p>
+
+      <div class="kw-controls">
+        <p class="section-heading" style="margin-bottom:0">Keyword Tracker</p>
+        <button class="btn-sm" id="toggleAddKw">+ Add Keyword</button>
       </div>
+
+      <div class="add-kw-form" id="addKwForm">
+        <div class="form-grid add-kw-form">
+          <div class="form-group">
+            <label for="kw-keyword">Keyword</label>
+            <input type="text" id="kw-keyword" placeholder="e.g. overtime pay rules">
+          </div>
+          <div class="form-group">
+            <label for="kw-volume">Monthly Volume</label>
+            <input type="text" id="kw-volume" placeholder="e.g. 12000">
+          </div>
+          <div class="form-group">
+            <label for="kw-kd">KD</label>
+            <input type="text" id="kw-kd" placeholder="0–100">
+          </div>
+          <div class="form-group">
+            <label for="kw-status">Status</label>
+            <select id="kw-status">
+              <option value="Target">Target</option>
+              <option value="Ranking">Ranking</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-actions">
+          <button class="btn-primary" style="margin-top:0" id="saveKwBtn">Save Keyword</button>
+          <button class="btn-cancel" id="cancelKwBtn">Cancel</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="kw-table" id="kwTable">
+          <thead>
+            <tr>
+              <th data-col="keyword">Keyword<span class="sort-icon">↕</span></th>
+              <th data-col="volume">Volume<span class="sort-icon">↕</span></th>
+              <th data-col="kd">KD<span class="sort-icon">↕</span></th>
+              <th data-col="status">Status<span class="sort-icon">↕</span></th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="kwTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="plan-section">
+        <p class="section-heading">4-Week Content Plan</p>
+        <div id="contentPlan"></div>
+      </div>
+
     </section>
 
     <section class="tab-panel" id="panel-seo">
@@ -818,6 +1004,205 @@
       });
 
       renderProducts();
+
+      /* ════════════════════════════════════════
+         KEYWORDS TAB
+         ════════════════════════════════════════ */
+
+      var KW_KEY   = 'ms_keywords';
+      var PLAN_KEY = 'ms_content_plan';
+
+      var DEFAULT_KW = [
+        { id:  1, keyword: 'no tax on overtime',           volume: 179000, kd:  8, status: 'Target',  notes: '' },
+        { id:  2, keyword: 'overtime calculator',           volume:  17000, kd: 13, status: 'Ranking', notes: '' },
+        { id:  3, keyword: 'time and a half calculator',    volume:   9800, kd:  6, status: 'Ranking', notes: '' },
+        { id:  4, keyword: 'pay raise calculator',          volume:   8500, kd: 18, status: 'Ranking', notes: '' },
+        { id:  5, keyword: 'how to read a pay stub',        volume:  27000, kd:  2, status: 'Target',  notes: '' },
+        { id:  6, keyword: 'california paycheck calculator',volume:  23000, kd: 33, status: 'Ranking', notes: '' },
+        { id:  7, keyword: 'florida paycheck calculator',   volume:  22000, kd: 29, status: 'Ranking', notes: '' },
+        { id:  8, keyword: 'how to ask for a raise',        volume:  44000, kd: 11, status: 'Target',  notes: '' },
+        { id:  9, keyword: 'salary negotiation email',      volume:   1800, kd:  0, status: 'Target',  notes: '' },
+        { id: 10, keyword: 'how to negotiate salary',       volume:  26000, kd:  3, status: 'Target',  notes: '' },
+        { id: 11, keyword: 'no tax on overtime calculator', volume:  11000, kd:  6, status: 'Target',  notes: '' },
+        { id: 12, keyword: 'florida minimum wage',          volume:  40000, kd: 23, status: 'Target',  notes: '' },
+        { id: 13, keyword: 'texas minimum wage',            volume:  35000, kd: 24, status: 'Target',  notes: '' }
+      ];
+
+      var DEFAULT_PLAN = [
+        { id:  1, week: 1, task: 'No tax on overtime explained',           done: false },
+        { id:  2, week: 1, task: 'When does no tax on overtime start',     done: false },
+        { id:  3, week: 1, task: 'Did no tax on overtime pass',            done: false },
+        { id:  4, week: 2, task: 'How to read a pay stub',                 done: false },
+        { id:  5, week: 2, task: 'What is net pay',                        done: false },
+        { id:  6, week: 2, task: 'What is gross pay',                      done: false },
+        { id:  7, week: 3, task: 'How to negotiate salary',                done: false },
+        { id:  8, week: 3, task: 'How to ask for a raise',                 done: false },
+        { id:  9, week: 3, task: 'Salary negotiation email templates',     done: false },
+        { id: 10, week: 4, task: 'Florida minimum wage 2025',              done: false },
+        { id: 11, week: 4, task: 'Texas minimum wage 2025',                done: false },
+        { id: 12, week: 4, task: 'Arizona minimum wage 2025',              done: false }
+      ];
+
+      var WEEK_LABELS = {
+        1: 'Week 1 — No Tax on Overtime',
+        2: 'Week 2 — Paycheck Explainers',
+        3: 'Week 3 — Salary Guides',
+        4: 'Week 4 — Minimum Wage by State'
+      };
+
+      function loadKw() {
+        var raw = localStorage.getItem(KW_KEY);
+        if (!raw) { localStorage.setItem(KW_KEY, JSON.stringify(DEFAULT_KW)); return DEFAULT_KW.slice(); }
+        try { return JSON.parse(raw); } catch (e) { return DEFAULT_KW.slice(); }
+      }
+      function saveKw(arr) { localStorage.setItem(KW_KEY, JSON.stringify(arr)); }
+
+      function loadPlan() {
+        var raw = localStorage.getItem(PLAN_KEY);
+        if (!raw) { localStorage.setItem(PLAN_KEY, JSON.stringify(DEFAULT_PLAN)); return DEFAULT_PLAN.slice(); }
+        try { return JSON.parse(raw); } catch (e) { return DEFAULT_PLAN.slice(); }
+      }
+      function savePlan(arr) { localStorage.setItem(PLAN_KEY, JSON.stringify(arr)); }
+
+      function fmtVol(v) {
+        if (v >= 1000) return (v / 1000).toFixed(v % 1000 === 0 ? 0 : 1) + 'K';
+        return String(v);
+      }
+      function kdClass(kd) {
+        return kd < 15 ? 'kd-green' : kd <= 30 ? 'kd-amber' : 'kd-red';
+      }
+
+      /* ── Sortable table ─────────────────── */
+      var kwSort = { col: 'volume', dir: 'desc' };
+
+      function renderKwTable() {
+        var kws = loadKw().slice().sort(function (a, b) {
+          var av = a[kwSort.col], bv = b[kwSort.col];
+          if (typeof av === 'string') { av = av.toLowerCase(); bv = (bv || '').toLowerCase(); }
+          if (av < bv) return kwSort.dir === 'asc' ? -1 : 1;
+          if (av > bv) return kwSort.dir === 'asc' ?  1 : -1;
+          return 0;
+        });
+
+        document.querySelectorAll('#kwTable th[data-col]').forEach(function (th) {
+          var icon = th.querySelector('.sort-icon');
+          if (th.dataset.col === kwSort.col) {
+            th.classList.add('sorted');
+            icon.textContent = kwSort.dir === 'asc' ? '▲' : '▼';
+          } else {
+            th.classList.remove('sorted');
+            icon.textContent = '↕';
+          }
+        });
+
+        document.getElementById('kwTableBody').innerHTML = kws.map(function (kw) {
+          return '<tr>' +
+            '<td>' + esc(kw.keyword) + '</td>' +
+            '<td>' + fmtVol(kw.volume) + '</td>' +
+            '<td class="' + kdClass(kw.kd) + '">' + kw.kd + '</td>' +
+            '<td><span class="badge ' + (kw.status === 'Ranking' ? 'badge-ranking' : 'badge-target') + '">' + esc(kw.status) + '</span></td>' +
+            '<td><input class="notes-input" type="text" value="' + esc(kw.notes || '') + '" placeholder="Add note…" data-kw-id="' + kw.id + '"></td>' +
+            '<td><button class="btn-sm danger" data-kw-delete="' + kw.id + '">Delete</button></td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      /* ── Sort on header click ───────────── */
+      document.getElementById('kwTable').addEventListener('click', function (e) {
+        var th = e.target.closest('th[data-col]');
+        if (!th) return;
+        var col = th.dataset.col;
+        kwSort.dir = (kwSort.col === col && kwSort.dir === 'desc') ? 'asc' : 'desc';
+        kwSort.col = col;
+        renderKwTable();
+      });
+
+      /* ── Save notes on focusout ─────────── */
+      document.getElementById('kwTableBody').addEventListener('focusout', function (e) {
+        var inp = e.target.closest('.notes-input');
+        if (!inp) return;
+        var id  = parseInt(inp.dataset.kwId, 10);
+        var kws = loadKw();
+        var kw  = kws.find(function (k) { return k.id === id; });
+        if (kw && kw.notes !== inp.value) { kw.notes = inp.value; saveKw(kws); }
+      });
+
+      /* ── Delete keyword ─────────────────── */
+      document.getElementById('kwTableBody').addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-kw-delete]');
+        if (!btn) return;
+        if (!confirm('Delete this keyword?')) return;
+        var id = parseInt(btn.dataset.kwDelete, 10);
+        saveKw(loadKw().filter(function (k) { return k.id !== id; }));
+        renderKwTable();
+      });
+
+      /* ── Add keyword form ───────────────── */
+      var addKwForm = document.getElementById('addKwForm');
+      document.getElementById('toggleAddKw').addEventListener('click', function () {
+        addKwForm.classList.toggle('open');
+        if (addKwForm.classList.contains('open')) document.getElementById('kw-keyword').focus();
+      });
+      document.getElementById('cancelKwBtn').addEventListener('click', function () {
+        addKwForm.classList.remove('open');
+        clearKwForm();
+      });
+      document.getElementById('saveKwBtn').addEventListener('click', function () {
+        var keyword = document.getElementById('kw-keyword').value.trim();
+        if (!keyword) { alert('Keyword is required.'); return; }
+        var volume  = parseInt(document.getElementById('kw-volume').value.replace(/[^0-9]/g, ''), 10) || 0;
+        var kd      = Math.min(100, Math.max(0, parseInt(document.getElementById('kw-kd').value, 10) || 0));
+        var status  = document.getElementById('kw-status').value;
+        var kws     = loadKw();
+        kws.push({ id: Date.now(), keyword: keyword, volume: volume, kd: kd, status: status, notes: '' });
+        saveKw(kws);
+        clearKwForm();
+        addKwForm.classList.remove('open');
+        renderKwTable();
+      });
+      function clearKwForm() {
+        document.getElementById('kw-keyword').value = '';
+        document.getElementById('kw-volume').value  = '';
+        document.getElementById('kw-kd').value      = '';
+        document.getElementById('kw-status').value  = 'Target';
+      }
+
+      /* ── Content plan ───────────────────── */
+      function renderPlan() {
+        var plan      = loadPlan();
+        var container = document.getElementById('contentPlan');
+        var html      = '';
+        [1, 2, 3, 4].forEach(function (w) {
+          var tasks = plan.filter(function (t) { return t.week === w; });
+          html += '<div class="week-block">' +
+            '<div class="week-label">' + esc(WEEK_LABELS[w]) + '</div>' +
+            tasks.map(function (t) {
+              return '<div class="plan-row' + (t.done ? ' done' : '') + '" id="pr-' + t.id + '">' +
+                '<input type="checkbox"' + (t.done ? ' checked' : '') + ' data-plan-id="' + t.id + '">' +
+                '<span class="plan-task-label">' + esc(t.task) + '</span>' +
+              '</div>';
+            }).join('') +
+          '</div>';
+        });
+        container.innerHTML = html;
+      }
+
+      document.getElementById('contentPlan').addEventListener('change', function (e) {
+        var cb = e.target.closest('input[data-plan-id]');
+        if (!cb) return;
+        var id   = parseInt(cb.dataset.planId, 10);
+        var plan = loadPlan();
+        var item = plan.find(function (t) { return t.id === id; });
+        if (item) {
+          item.done = cb.checked;
+          savePlan(plan);
+          var row = document.getElementById('pr-' + id);
+          if (row) row.classList.toggle('done', cb.checked);
+        }
+      });
+
+      renderKwTable();
+      renderPlan();
 
     })();
   </script>
