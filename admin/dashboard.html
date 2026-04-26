@@ -166,12 +166,201 @@
       font-size: 0.95rem;
     }
 
+    /* ── Overview ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted2);
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      word-break: break-all;
+    }
+    .stat-value.green { color: var(--accent); }
+    .quick-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn-quick {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 9px 16px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .btn-quick:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Section headings ── */
+    .section-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .panel-divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    /* ── Forms ── */
+    .form-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group textarea,
+    .form-group select {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color .15s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 76px; }
+    .form-group select option { background: var(--bg3); }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding-top: 22px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .checkbox-row span {
+      font-size: 0.875rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .btn-primary {
+      display: inline-block;
+      margin-top: 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 26px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-primary:hover { background: var(--accent2); }
+
+    /* ── Story cards ── */
+    .stories-list { display: flex; flex-direction: column; gap: 10px; }
+    .story-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .story-info { flex: 1; min-width: 0; }
+    .story-title {
+      font-weight: 600;
+      color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .story-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .badge-cat      { background: rgba(16,185,129,.14); color: var(--accent); }
+    .badge-featured { background: rgba(245,158,11,.14);  color: #f59e0b; }
+    .meta-date { font-size: 0.8rem; color: var(--muted2); }
+    .story-actions { display: flex; gap: 7px; flex-shrink: 0; align-items: center; }
+    .btn-sm {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 5px 11px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+      white-space: nowrap;
+    }
+    .btn-sm:hover       { border-color: var(--accent); color: var(--accent); }
+    .btn-sm.danger:hover{ border-color: var(--red);    color: var(--red); }
+    .btn-sm:disabled    { opacity: 0.4; cursor: default; }
+    .empty-note {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--muted2);
+      font-size: 0.88rem;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .admin-header { padding: 0 16px; }
       .tab-bar { padding: 0 16px; }
       .tab-content { padding: 24px 16px 40px; }
       .tab-btn { padding: 13px 14px; font-size: 0.83rem; }
+      .story-card { flex-direction: column; }
+      .story-actions { flex-direction: row; }
     }
   </style>
 </head>
@@ -206,18 +395,110 @@
   <!-- Tab Panels -->
   <main class="tab-content">
 
+    <!-- ══ OVERVIEW ══ -->
     <section class="tab-panel active" id="panel-overview">
-      <div class="placeholder">
-        <h2>Overview</h2>
-        <p>Site snapshot, quick stats, and action links.</p>
+
+      <div class="overview-grid">
+        <div class="stat-card">
+          <div class="stat-label">Site</div>
+          <div class="stat-value">moneystopwatch.com</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Status</div>
+          <div class="stat-value green">● Live</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Domain</div>
+          <div class="stat-value">Connected</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Hosting</div>
+          <div class="stat-value">GitHub Pages</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Google Analytics</div>
+          <div class="stat-value">G-RT5SXH6N7D</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">AdSense</div>
+          <div class="stat-value">ca-pub-4538737580937479</div>
+        </div>
       </div>
+
+      <p class="section-heading">Quick Actions</p>
+      <div class="quick-actions">
+        <a class="btn-quick" href="https://www.moneystopwatch.com" target="_blank" rel="noopener">
+          ↗ Open Site
+        </a>
+        <a class="btn-quick" href="https://analytics.google.com" target="_blank" rel="noopener">
+          📊 Google Analytics
+        </a>
+        <a class="btn-quick" href="https://search.google.com/search-console" target="_blank" rel="noopener">
+          🔍 Search Console
+        </a>
+        <a class="btn-quick" href="https://ahrefs.com" target="_blank" rel="noopener">
+          📈 Ahrefs
+        </a>
+        <a class="btn-quick" href="https://github.com/oisinmullen/Money-Stopwatch" target="_blank" rel="noopener">
+          🐙 GitHub Repo
+        </a>
+      </div>
+
     </section>
 
+    <!-- ══ THE FEED ══ -->
     <section class="tab-panel" id="panel-feed">
-      <div class="placeholder">
-        <h2>The Feed</h2>
-        <p>Publish and manage feed stories.</p>
+
+      <p class="section-heading">Publish New Story</p>
+      <div class="form-card">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="f-title">Story Title</label>
+            <input type="text" id="f-title" placeholder="e.g. No Tax on Overtime: What It Means for Your Paycheck">
+          </div>
+          <div class="form-group">
+            <label for="f-cat">Category</label>
+            <select id="f-cat">
+              <option value="Explainer">Explainer</option>
+              <option value="Timeline">Timeline</option>
+              <option value="Calculator">Calculator</option>
+              <option value="News">News</option>
+              <option value="Guide">Guide</option>
+              <option value="Trending">Trending</option>
+              <option value="Status Update">Status Update</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-readtime">Read Time</label>
+            <input type="text" id="f-readtime" placeholder="e.g. 4 min read">
+          </div>
+          <div class="form-group full">
+            <label for="f-excerpt">Excerpt</label>
+            <textarea id="f-excerpt" placeholder="1–2 sentences shown on the feed card"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="f-url">Article URL</label>
+            <input type="text" id="f-url" placeholder="/feed/no-tax-on-overtime.html">
+          </div>
+          <div class="form-group">
+            <label for="f-date">Date</label>
+            <input type="date" id="f-date">
+          </div>
+          <div class="form-group">
+            <div class="checkbox-row">
+              <input type="checkbox" id="f-featured">
+              <span>Set as Featured</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" id="publishBtn">Publish Story</button>
       </div>
+
+      <p class="section-heading">Live Stories</p>
+      <div class="stories-list" id="storiesList">
+        <div class="empty-note">No stories yet — publish your first story above.</div>
+      </div>
+
     </section>
 
     <section class="tab-panel" id="panel-guides">
@@ -247,20 +528,20 @@
     (function () {
       'use strict';
 
+      /* ── Auth guard ─────────────────────── */
       var TOKEN_KEY = 'ms_admin_token';
-
-      /* Auth guard */
       if (!sessionStorage.getItem(TOKEN_KEY)) {
         window.location.replace('/admin/index.html');
+        return;
       }
 
-      /* Logout */
+      /* ── Logout ─────────────────────────── */
       document.getElementById('logoutBtn').addEventListener('click', function () {
         sessionStorage.removeItem(TOKEN_KEY);
         window.location.href = '/admin/index.html';
       });
 
-      /* Tab switching */
+      /* ── Tab switching ──────────────────── */
       var btns   = document.querySelectorAll('.tab-btn');
       var panels = document.querySelectorAll('.tab-panel');
 
@@ -268,12 +549,131 @@
         btn.addEventListener('click', function () {
           btns.forEach(function (b)   { b.classList.remove('active'); });
           panels.forEach(function (p) { p.classList.remove('active'); });
-
           btn.classList.add('active');
           var panel = document.getElementById('panel-' + btn.dataset.tab);
           if (panel) panel.classList.add('active');
         });
       });
+
+      /* ── Helpers ────────────────────────── */
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function today() {
+        return new Date().toISOString().slice(0, 10);
+      }
+
+      /* ── localStorage helpers ───────────── */
+      var FEED_KEY = 'ms_feed_stories';
+
+      function loadStories() {
+        try { return JSON.parse(localStorage.getItem(FEED_KEY) || '[]'); }
+        catch (e) { return []; }
+      }
+
+      function saveStories(arr) {
+        localStorage.setItem(FEED_KEY, JSON.stringify(arr));
+      }
+
+      /* ── Set date default ───────────────── */
+      document.getElementById('f-date').value = today();
+
+      /* ── Render stories list ────────────── */
+      function renderStories() {
+        var stories = loadStories().slice().sort(function (a, b) {
+          return (b.date || '').localeCompare(a.date || '');
+        });
+        var container = document.getElementById('storiesList');
+
+        if (!stories.length) {
+          container.innerHTML = '<div class="empty-note">No stories yet — publish your first story above.</div>';
+          return;
+        }
+
+        container.innerHTML = stories.map(function (s) {
+          return '<div class="story-card">' +
+            '<div class="story-info">' +
+              '<div class="story-title">' + esc(s.title) + '</div>' +
+              '<div class="story-meta">' +
+                '<span class="badge badge-cat">' + esc(s.category) + '</span>' +
+                (s.featured ? '<span class="badge badge-featured">Featured</span>' : '') +
+                '<span class="meta-date">' + esc(s.date) + '</span>' +
+                (s.readTime ? '<span class="meta-date">· ' + esc(s.readTime) + '</span>' : '') +
+              '</div>' +
+            '</div>' +
+            '<div class="story-actions">' +
+              '<button class="btn-sm" data-action="feature" data-id="' + s.id + '"' + (s.featured ? ' disabled' : '') + '>' +
+                (s.featured ? 'Featured' : 'Set as Featured') +
+              '</button>' +
+              '<button class="btn-sm danger" data-action="delete" data-id="' + s.id + '">Delete</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+
+      /* ── Publish story ──────────────────── */
+      document.getElementById('publishBtn').addEventListener('click', function () {
+        var title    = document.getElementById('f-title').value.trim();
+        var category = document.getElementById('f-cat').value;
+        var excerpt  = document.getElementById('f-excerpt').value.trim();
+        var readTime = document.getElementById('f-readtime').value.trim();
+        var url      = document.getElementById('f-url').value.trim();
+        var featured = document.getElementById('f-featured').checked;
+        var date     = document.getElementById('f-date').value || today();
+
+        if (!title || !url) {
+          alert('Story Title and Article URL are required.');
+          return;
+        }
+
+        var stories = loadStories();
+        if (featured) {
+          stories.forEach(function (s) { s.featured = false; });
+        }
+        stories.push({ id: Date.now(), title: title, category: category,
+          excerpt: excerpt, readTime: readTime, url: url,
+          featured: featured, date: date });
+        saveStories(stories);
+
+        /* reset form */
+        document.getElementById('f-title').value    = '';
+        document.getElementById('f-excerpt').value  = '';
+        document.getElementById('f-readtime').value = '';
+        document.getElementById('f-url').value      = '';
+        document.getElementById('f-featured').checked = false;
+        document.getElementById('f-date').value     = today();
+
+        renderStories();
+      });
+
+      /* ── Story list actions (delegated) ─── */
+      document.getElementById('storiesList').addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        var id  = parseInt(btn.dataset.id, 10);
+        var act = btn.dataset.action;
+
+        if (act === 'feature') {
+          var stories = loadStories();
+          stories.forEach(function (s) { s.featured = (s.id === id); });
+          saveStories(stories);
+          renderStories();
+        }
+
+        if (act === 'delete') {
+          if (!confirm('Delete this story?')) return;
+          saveStories(loadStories().filter(function (s) { return s.id !== id; }));
+          renderStories();
+        }
+      });
+
+      /* ── Initial render ─────────────────── */
+      renderStories();
 
     })();
   </script>
