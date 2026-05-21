@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money News & Guides — MoneyStopwatch Feed</title>
+  <meta name="description" content="The latest money guides, tax explainers, and paycheck calculators from MoneyStopwatch. Get clear answers on overtime, pay raises, and take-home pay.">
+  <meta property="og:title" content="Money News & Guides — MoneyStopwatch Feed">
+  <meta property="og:description" content="The latest money guides, tax explainers, and paycheck calculators from MoneyStopwatch.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/feed/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/feed/">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .feed-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .feed-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      text-decoration: none;
+      transition: border-color .15s, background .15s;
+    }
+    .feed-card:hover {
+      border-color: var(--accent);
+      background: rgba(16,185,129,.04);
+    }
+    .feed-card-cat {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--accent);
+    }
+    .feed-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.35;
+    }
+    .feed-card-excerpt {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .feed-card-meta {
+      font-size: .75rem;
+      color: var(--muted2);
+      display: flex;
+      gap: .75rem;
+      margin-top: .25rem;
+    }
+    .feed-card.featured {
+      border-color: rgba(16,185,129,.35);
+      background: rgba(16,185,129,.04);
+    }
+    .feed-card.featured .feed-card-title {
+      font-size: 1.15rem;
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Money <span class="hero-accent">Feed</span></h1>
+      <p>Guides, explainers, and calculators to help you understand your paycheck.</p>
+    </div>
+
+    <!--
+      STATIC FALLBACK — visible to search engine crawlers without JavaScript.
+      The JS block below replaces #feed-static with dynamic content from localStorage
+      once the page has loaded in a browser.
+    -->
+    <div id="feed-static">
+      <div class="feed-grid">
+
+        <a href="/feed/no-tax-on-overtime-explained.html" class="feed-card featured">
+          <div class="feed-card-cat">Explainer</div>
+          <div class="feed-card-title">No Tax on Overtime, Explained</div>
+          <div class="feed-card-excerpt">What the proposal actually means, who it affects, and how much extra money it could put in your paycheck.</div>
+          <div class="feed-card-meta">
+            <span>April 24, 2026</span>
+            <span>8 min read</span>
+          </div>
+        </a>
+
+        <a href="/feed/when-does-no-tax-on-overtime-start.html" class="feed-card">
+          <div class="feed-card-cat">Timeline</div>
+          <div class="feed-card-title">When Does No Tax on Overtime Start?</div>
+          <div class="feed-card-excerpt">The legislative timeline and the earliest realistic date overtime workers could see a change in their paychecks.</div>
+          <div class="feed-card-meta">
+            <span>April 24, 2026</span>
+            <span>7 min read</span>
+          </div>
+        </a>
+
+        <a href="/feed/did-no-tax-on-overtime-pass.html" class="feed-card">
+          <div class="feed-card-cat">Status Update</div>
+          <div class="feed-card-title">Did No Tax on Overtime Pass?</div>
+          <div class="feed-card-excerpt">Current status of the proposal — what has been signed, what is still in debate, and what it means right now.</div>
+          <div class="feed-card-meta">
+            <span>April 24, 2026</span>
+            <span>6 min read</span>
+          </div>
+        </a>
+
+        <a href="/feed/no-tax-on-overtime-calculator.html" class="feed-card">
+          <div class="feed-card-cat">Calculator</div>
+          <div class="feed-card-title">No Tax on Overtime Calculator</div>
+          <div class="feed-card-excerpt">Enter your hourly rate and overtime hours to see exactly how much more you would take home if overtime is tax-free.</div>
+          <div class="feed-card-meta">
+            <span>April 24, 2026</span>
+            <span>3 min read</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var LS_KEY = 'ms_feed_stories';
+
+  function loadStories() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return [];
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (_) { return []; }
+  }
+
+  function formatDate(iso) {
+    try {
+      var d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    } catch (_) { return iso; }
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function buildCard(story) {
+    var cls = 'feed-card' + (story.featured ? ' featured' : '');
+    return [
+      '<a href="' + escHtml(story.url) + '" class="' + cls + '">',
+      '<div class="feed-card-cat">' + escHtml(story.category) + '</div>',
+      '<div class="feed-card-title">' + escHtml(story.title) + '</div>',
+      '<div class="feed-card-excerpt">' + escHtml(story.excerpt) + '</div>',
+      '<div class="feed-card-meta">',
+      '<span>' + escHtml(formatDate(story.date)) + '</span>',
+      '<span>' + escHtml(story.readTime) + '</span>',
+      '</div>',
+      '</a>',
+    ].join('');
+  }
+
+  var stories = loadStories();
+  if (stories.length > 0) {
+    var grid = '<div class="feed-grid">' + stories.map(buildCard).join('') + '</div>';
+    document.getElementById('feed-static').innerHTML = grid;
+  }
+})();
+</script>
+</body>
+</html>
