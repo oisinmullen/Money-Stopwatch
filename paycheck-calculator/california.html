@@ -12,9 +12,9 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4538737580937479" crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>California Paycheck Calculator 2025 — Take-Home Pay After Taxes</title>
+  <title>California Paycheck Calculator | MoneyStopwatch</title>
   <meta name="description" content="Free California paycheck calculator. Calculate your take-home pay after federal income tax, FICA, California state income tax, and SDI deductions.">
-  <meta property="og:title" content="California Paycheck Calculator 2025 — Take-Home Pay After Taxes">
+  <meta property="og:title" content="California Paycheck Calculator | MoneyStopwatch">
   <meta property="og:description" content="Free California paycheck calculator. Calculate your take-home pay after federal income tax, FICA, California state income tax, and SDI deductions.">
   <meta property="og:url" content="https://www.moneystopwatch.com/paycheck-calculator/california.html">
   <meta property="og:type" content="website">
@@ -179,7 +179,7 @@
       </div>
 
       <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
-        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> These are estimates based on 2024 tax brackets and standard deductions. Actual taxes may vary based on deductions, credits, and other income. SDI rate reflects 2024 rate with no wage ceiling.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> These are estimates based on 2025 tax brackets and standard deductions. Actual taxes may vary based on deductions, credits, and other income. SDI rate reflects the current rate with no wage ceiling.</p>
       </div>
     </div>
 
@@ -189,10 +189,10 @@
       <table class="results-table">
         <tbody>
           <tr><td>Federal Income Tax</td><td>10% – 37% (progressive brackets)</td></tr>
-          <tr><td>Social Security</td><td>6.2% (up to $168,600 wage base)</td></tr>
+          <tr><td>Social Security</td><td>6.2% (up to $176,100 wage base)</td></tr>
           <tr><td>Medicare</td><td>1.45% (+ 0.9% over $200k)</td></tr>
           <tr><td>CA State Income Tax</td><td>1% – 13.3% (progressive)</td></tr>
-          <tr><td>CA SDI</td><td>1.1% (no wage ceiling in 2024)</td></tr>
+          <tr><td>CA SDI</td><td>1.1% (no wage ceiling)</td></tr>
         </tbody>
       </table>
     </div>
@@ -207,16 +207,16 @@
 (function () {
   'use strict';
 
-  /* ── Federal tax brackets 2024 (standard deduction applied) ── */
-  var FEDERAL_STD_DED = { single: 14600, married: 29200, hoh: 21900 };
+  /* ── Federal tax brackets 2025 (standard deduction applied) ── */
+  var FEDERAL_STD_DED = { single: 15000, married: 30000, hoh: 22500 };
 
   var FEDERAL_BRACKETS = {
-    single:  [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]],
-    married: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]],
-    hoh:     [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+    single:  [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]],
+    married: [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]],
+    hoh:     [[17000,0.10],[64850,0.12],[103350,0.22],[197300,0.24],[250500,0.32],[626350,0.35],[Infinity,0.37]]
   };
 
-  /* ── CA brackets 2024 (single) ── */
+  /* ── CA brackets 2025 ── */
   var CA_STD_DED = { single: 5202, married: 10404, hoh: 10404 };
 
   var CA_BRACKETS = {
@@ -255,7 +255,7 @@
     var k401Amt    = annual * (k401 / 100);
     var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
     var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
-    var ss         = Math.min(annual, 168600) * 0.062;
+    var ss         = Math.min(annual, 176100) * 0.062;
     var medicare   = annual * 0.0145;
     var caAnnual   = annual - k401Amt; // CA taxes pre-tax 401k too (state doesn't recognize)
     var caTaxable  = Math.max(0, caAnnual - CA_STD_DED[status]);

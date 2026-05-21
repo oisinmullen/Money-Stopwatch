@@ -70,7 +70,8 @@
   // a custom domain (moneystopwatch.com/index.html) and
   // GitHub Pages (oisinmullen.github.io/Money-Stopwatch/index.html).
   function resolveHref(href) {
-    var inSubDir = currentPath().indexOf('/paycheck-calculator/') !== -1;
+    var p = currentPath();
+    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1;
     var path = href.replace(/^\//, ''); // strip leading slash
     return inSubDir ? ('../' + path) : path;
   }

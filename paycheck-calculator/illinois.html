@@ -12,9 +12,9 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4538737580937479" crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Illinois Paycheck Calculator 2025 — Flat 4.95% State Income Tax</title>
+  <title>Illinois Paycheck Calculator | MoneyStopwatch</title>
   <meta name="description" content="Free Illinois paycheck calculator. Illinois has a flat 4.95% state income tax. Calculate take-home pay after federal tax, FICA, and Illinois state tax.">
-  <meta property="og:title" content="Illinois Paycheck Calculator 2025 — Flat 4.95% State Income Tax">
+  <meta property="og:title" content="Illinois Paycheck Calculator | MoneyStopwatch">
   <meta property="og:description" content="Free Illinois paycheck calculator. Illinois has a flat 4.95% state income tax. Calculate take-home pay after federal tax, FICA, and Illinois state tax.">
   <meta property="og:url" content="https://www.moneystopwatch.com/paycheck-calculator/illinois.html">
   <meta property="og:type" content="website">
@@ -181,7 +181,7 @@
       </div>
 
       <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
-        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Illinois allows a personal exemption of $2,425 per filer (2024). This calculator applies that exemption. Chicago and some other IL municipalities levy additional local income taxes not shown here.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> Illinois allows a personal exemption of $2,425 per filer (2025). This calculator applies that exemption. Chicago and some other IL municipalities levy additional local income taxes not shown here.</p>
       </div>
     </div>
 
@@ -190,7 +190,7 @@
       <table class="results-table">
         <tbody>
           <tr><td>Federal Income Tax</td><td>10% – 37% (progressive brackets)</td></tr>
-          <tr><td>Social Security</td><td>6.2% (up to $168,600 wage base)</td></tr>
+          <tr><td>Social Security</td><td>6.2% (up to $176,100 wage base)</td></tr>
           <tr><td>Medicare</td><td>1.45% (+ 0.9% over $200k)</td></tr>
           <tr><td>IL State Income Tax</td><td><strong>4.95% flat rate</strong></td></tr>
           <tr><td>IL Personal Exemption</td><td>$2,425 per filer</td></tr>
@@ -243,7 +243,7 @@
     var k401Amt    = annual * (k401 / 100);
     var fedTaxable = Math.max(0, annual - k401Amt - FEDERAL_STD_DED[status]);
     var fedTax     = calcBracketTax(fedTaxable, FEDERAL_BRACKETS[status]);
-    var ss         = Math.min(annual, 168600) * 0.062;
+    var ss         = Math.min(annual, 176100) * 0.062;
     var medicare   = annual * 0.0145;
     // Illinois: flat 4.95% after personal exemption; 401k contributions are NOT exempt from IL state tax
     var ilTaxable  = Math.max(0, annual - IL_EXEMPTION[status]);

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4538737580937479" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Tax on Overtime Calculator | MoneyStopwatch</title>
+  <meta name="description" content="Calculate extra take-home pay under the no-tax-on-overtime deduction. Enter hourly rate, overtime hours, and tax bracket to see your annual federal tax savings.">
+  <meta property="og:title" content="No Tax on Overtime Calculator | MoneyStopwatch">
+  <meta property="og:description" content="Calculate how much more take-home pay you get under the no-tax-on-overtime deduction. Enter your hourly rate, overtime hours, and tax bracket to see your savings.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/feed/no-tax-on-overtime-calculator.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/feed/no-tax-on-overtime-calculator.html">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div style="margin-bottom:1rem;">
+      <a href="index.html" class="btn btn-ghost btn-sm">&#8592; Back to Feed</a>
+    </div>
+
+    <div class="page-hero">
+      <h1>No Tax on Overtime Calculator</h1>
+      <p>Enter your hourly rate and overtime hours to see exactly how much more you take home under the federal overtime tax deduction (One Big Beautiful Bill Act, July 2025).</p>
+    </div>
+
+    <div class="card" style="border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.04);margin-bottom:1.5rem;">
+      <h2 style="font-size:1rem;color:var(--accent);margin-bottom:.4rem;">How This Works</h2>
+      <p style="font-size:.92rem;margin:0;">The no-tax-on-overtime deduction allows qualifying workers to exclude overtime pay from their federal taxable income. This calculator estimates how much less federal income tax you owe and how much extra take-home pay you receive as a result.</p>
+    </div>
+
+    <!-- Calculator -->
+    <div class="card calculator-card">
+      <h2 style="font-size:1.1rem;margin-bottom:1.25rem;">Your Overtime Details</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="nto-rate">Hourly Rate ($)</label>
+          <input type="number" id="nto-rate" placeholder="e.g. 22.50" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="nto-ot-hrs">Overtime Hours / Week</label>
+          <input type="number" id="nto-ot-hrs" placeholder="e.g. 8" min="0" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="nto-weeks">Weeks of Overtime / Year</label>
+          <input type="number" id="nto-weeks" placeholder="e.g. 20" min="1" max="52" step="1" value="20">
+        </div>
+        <div class="form-group">
+          <label for="nto-bracket">Federal Tax Bracket</label>
+          <select id="nto-bracket">
+            <option value="0.10">10%</option>
+            <option value="0.12">12%</option>
+            <option value="0.22" selected>22%</option>
+            <option value="0.24">24%</option>
+            <option value="0.32">32%</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="nto-mult">Overtime Multiplier</label>
+          <select id="nto-mult">
+            <option value="1.5" selected>1.5× — Time and a Half</option>
+            <option value="2">2× — Double Time</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row mt-3">
+        <button class="btn btn-primary btn-lg" id="btn-calc-nto">Calculate Savings</button>
+        <button class="btn btn-ghost" id="btn-reset-nto">Reset</button>
+      </div>
+      <p id="nto-error" style="color:var(--red);font-size:.85rem;margin-top:.5rem;display:none;"></p>
+    </div>
+
+    <!-- Results -->
+    <div class="card mt-3" id="nto-results" style="display:none;">
+      <h3 style="margin-bottom:1.25rem;">Your No-Tax-on-Overtime Savings</h3>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Annual Overtime Pay</div>
+          <div class="stat-value" id="nto-annual-ot">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Federal Tax Saved</div>
+          <div class="stat-value" style="color:var(--accent);" id="nto-tax-saved">—</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Extra Take-Home / Year</div>
+          <div class="stat-value" style="color:var(--accent);" id="nto-extra-annual">—</div>
+        </div>
+      </div>
+
+      <table class="results-table" id="nto-detail-table">
+        <tbody id="nto-detail-body"></tbody>
+      </table>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(16,185,129,.04);border-radius:var(--radius);border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:.82rem;color:var(--muted);margin:0;"><strong style="color:var(--accent);">Note:</strong> This is an estimate based on your selected federal tax bracket. Actual savings depend on your full tax situation, applicable income caps, state tax rules, and final IRS guidance. FICA taxes (Social Security and Medicare) still apply to overtime pay and are not affected by this deduction.</p>
+      </div>
+    </div>
+
+    <!-- Explainer -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">About the No-Tax-on-Overtime Deduction</h2>
+      <p>The One Big Beautiful Bill Act, signed in July 2025, established a federal deduction for overtime wages. Qualifying workers — generally non-exempt hourly employees and salaried workers who receive FLSA overtime — can deduct overtime pay from their federal taxable income.</p>
+      <p>The deduction is for <strong>federal income tax only</strong>. Social Security (6.2%) and Medicare (1.45%) taxes still apply to all earned wages including overtime. State income tax treatment varies by state.</p>
+      <p>For tax year 2025, workers will claim the deduction on their federal tax return filed in early 2026. For later years, updated IRS withholding guidance should allow employers to reduce withholding on overtime pay during the year so workers see the benefit in each paycheck.</p>
+    </div>
+
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What counts as overtime for this deduction? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">The deduction applies to overtime compensation paid under the Fair Labor Standards Act — the premium pay for hours worked beyond 40 in a workweek. This is the overtime portion (the extra 0.5× or more above regular pay), not your full wages for overtime hours.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Does the deduction reduce FICA taxes? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">No. Social Security (6.2%) and Medicare (1.45%) taxes apply to all earned income including overtime. The deduction only reduces federal income tax.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Are there income limits for the deduction? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Yes, the legislation includes income caps to target the benefit at middle-income workers. High earners above the threshold do not qualify for the full deduction. Check the latest IRS guidance for the specific thresholds.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  document.getElementById('btn-calc-nto').addEventListener('click', calculate);
+  document.getElementById('btn-reset-nto').addEventListener('click', resetForm);
+
+  function calculate() {
+    var rate    = parseFloat(document.getElementById('nto-rate').value);
+    var otHrs   = parseFloat(document.getElementById('nto-ot-hrs').value);
+    var weeks   = parseFloat(document.getElementById('nto-weeks').value) || 20;
+    var bracket = parseFloat(document.getElementById('nto-bracket').value);
+    var mult    = parseFloat(document.getElementById('nto-mult').value);
+    var errEl   = document.getElementById('nto-error');
+
+    if (isNaN(rate) || rate <= 0) { errEl.textContent = 'Please enter a valid hourly rate.'; errEl.style.display = 'block'; return; }
+    if (isNaN(otHrs) || otHrs <= 0) { errEl.textContent = 'Please enter overtime hours greater than 0.'; errEl.style.display = 'block'; return; }
+    errEl.style.display = 'none';
+
+    var fmt = function (v) { return MS.formatCurrency(v, 'USD'); };
+
+    var otRatePerHr = rate * mult;
+    var weeklyOt    = otRatePerHr * otHrs;
+    var annualOt    = weeklyOt * weeks;
+    var taxSaved    = annualOt * bracket;
+    var extraPerWk  = weeklyOt * bracket;
+    var extraPerMo  = (annualOt * bracket) / 12;
+
+    document.getElementById('nto-annual-ot').textContent  = fmt(annualOt);
+    document.getElementById('nto-tax-saved').textContent  = '+' + fmt(taxSaved);
+    document.getElementById('nto-extra-annual').textContent = '+' + fmt(taxSaved);
+
+    var tbody = document.getElementById('nto-detail-body');
+    tbody.innerHTML = [
+      row('Hourly Rate', fmt(rate) + '/hr'),
+      row('Overtime Multiplier', mult + '×'),
+      row('Overtime Rate', fmt(otRatePerHr) + '/hr'),
+      row('Overtime Hours / Week', otHrs + ' hrs'),
+      row('Weeks of Overtime', weeks + ' weeks'),
+      row('Weekly Overtime Pay', fmt(weeklyOt)),
+      row('Annual Overtime Pay', fmt(annualOt)),
+      row('Federal Tax Bracket', (bracket * 100).toFixed(0) + '%'),
+      row('Federal Tax Saved (annual)', fmt(taxSaved)),
+      row('Extra Take-Home / Week', '+' + fmt(extraPerWk)),
+      row('Extra Take-Home / Month', '+' + fmt(extraPerMo)),
+      '<tr class="total"><td>Extra Take-Home / Year</td><td>+' + fmt(taxSaved) + '</td></tr>',
+    ].join('');
+
+    document.getElementById('nto-results').style.display = 'block';
+    document.getElementById('nto-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function row(label, value) {
+    return '<tr><td>' + label + '</td><td>' + value + '</td></tr>';
+  }
+
+  function resetForm() {
+    ['nto-rate', 'nto-ot-hrs'].forEach(function (id) {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('nto-weeks').value = '20';
+    document.getElementById('nto-results').style.display = 'none';
+    document.getElementById('nto-error').style.display = 'none';
+  }
+
+  if (typeof MS !== 'undefined' && MS.initFAQ) MS.initFAQ();
+})();
+</script>
+</body>
+</html>
