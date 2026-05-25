@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4538737580937479" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billable Hours Calculator — Track What Your Time Is Worth | MoneyStopwatch</title>
+  <meta name="description" content="Free billable hours calculator. Enter your hourly rate and hours worked to calculate total billable amount, daily earnings, and meeting costs instantly.">
+  <meta property="og:title" content="Billable Hours Calculator — Track What Your Time Is Worth | MoneyStopwatch">
+  <meta property="og:description" content="Free billable hours calculator. Enter your hourly rate and hours worked to calculate total billable amount, daily earnings, and meeting costs instantly.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/billable-hours-calculator.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/billable-hours-calculator.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Billable Hours Calculator",
+      "description": "Calculate total billable amounts, per-minute and per-second earnings, daily and weekly rates, and meeting costs with a live ticking counter.",
+      "url": "https://www.moneystopwatch.com/billable-hours-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I calculate billable hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To calculate billable hours, multiply your hourly rate by the number of hours worked. For example, if your rate is $150/hour and you worked 3.5 hours, your billable amount is $150 × 3.5 = $525. Track time in decimal format — 30 minutes is 0.5 hours, 15 minutes is 0.25 hours. Most billing software and invoicing tools accept decimal hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a standard billable rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Billable rates vary widely by profession. Lawyers typically bill $200–$600/hour, consultants $100–$400/hour, freelance designers and developers $75–$250/hour, and accountants $100–$300/hour. A common rule of thumb for freelancers is to set your billable rate at 2–3× your equivalent full-time hourly salary to account for taxes, benefits, overhead, and non-billable time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an average meeting cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A one-hour meeting with 5 attendees each earning $75/hour costs $375 in combined salary alone — and that does not include lost productivity. A 90-minute executive meeting with 10 people at $150/hour average costs $2,250. Use the Meeting Cost Mode above to calculate the exact cost of any meeting based on your team's actual salary."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between billable and non-billable hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Billable hours are time spent directly on client work that you can charge for — project execution, client calls, deliverables. Non-billable hours are everything else: internal meetings, admin tasks, sales calls, training, and networking. Most professionals bill 60–80% of their working hours; the rest is overhead. Tracking both lets you see your true effective hourly rate."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    /* ── Mode toggle ──────────────────────── */
+    .mode-tabs {
+      display: flex;
+      gap: .4rem;
+      margin-bottom: 1.5rem;
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: .3rem;
+    }
+    .mode-tab {
+      flex: 1;
+      padding: .55rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: .875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      transition: background .15s, color .15s;
+    }
+    .mode-tab.active {
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* ── Live cost display ─────────────────── */
+    .meeting-cost-display {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin: 1.25rem 0;
+    }
+    .meeting-cost-display .cost-value {
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-weight: 800;
+      color: var(--red);
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+    .meeting-cost-display .cost-label {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: .4rem;
+    }
+    .meeting-cost-display .cost-time {
+      font-size: .8rem;
+      color: var(--muted2);
+      margin-top: .35rem;
+    }
+
+    /* ── Share button ──────────────────────── */
+    .share-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-top: .85rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .share-url-preview {
+      font-size: .72rem;
+      color: var(--muted2);
+      word-break: break-all;
+      text-align: center;
+      margin-top: .5rem;
+    }
+
+    /* ── Billable live ticker ──────────────── */
+    .billable-live {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .3rem;
+    }
+    .billable-live-label {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 600;
+    }
+    .billable-live-value {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+    .billable-live-sub {
+      font-size: .75rem;
+      color: var(--muted2);
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container container--narrow">
+
+    <div class="page-hero">
+      <h1>Billable Hours <span class="hero-accent">Calculator</span></h1>
+      <p>Calculate exactly what your time is worth — or see the real cost of a meeting ticking up in real time.</p>
+    </div>
+
+    <div class="card calculator-card">
+      <!-- Mode tabs -->
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab active" id="tab-billable" role="tab" aria-selected="true">💼 Billable Hours</button>
+        <button class="mode-tab" id="tab-meeting" role="tab" aria-selected="false">📅 Meeting Cost</button>
+      </div>
+
+      <!-- ══ BILLABLE HOURS MODE ══ -->
+      <div id="panel-billable">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="bh-rate">Your Hourly Rate ($)</label>
+            <input type="number" id="bh-rate" placeholder="e.g. 125.00" min="0" step="0.01">
+          </div>
+          <div class="form-group">
+            <label for="bh-hours">Hours Worked</label>
+            <input type="number" id="bh-hours" placeholder="e.g. 2.5" min="0" step="0.25">
+          </div>
+          <div class="form-group">
+            <label for="bh-currency">Currency</label>
+            <select id="bh-currency">
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+              <option value="CAD">CAD — Canadian Dollar</option>
+              <option value="AUD">AUD — Australian Dollar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row mt-3">
+          <button class="btn btn-primary btn-lg" id="bh-btn-calc">Calculate</button>
+          <button class="btn btn-ghost" id="bh-btn-reset">Reset</button>
+        </div>
+        <p id="bh-error" style="color:var(--red);font-size:.85rem;margin-top:.5rem;display:none;"></p>
+
+        <!-- Billable results -->
+        <div id="bh-results" style="display:none;margin-top:1.5rem;">
+          <div class="stats-row" style="grid-template-columns:repeat(2,1fr);margin-bottom:1rem;">
+            <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+              <div class="stat-label" style="color:var(--accent);">Total Billable</div>
+              <div class="stat-value" style="color:var(--accent);" id="bh-total">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Daily Rate (8 h)</div>
+              <div class="stat-value" id="bh-daily">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Weekly Rate (40 h)</div>
+              <div class="stat-value" id="bh-weekly">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Per Minute</div>
+              <div class="stat-value" id="bh-per-min">—</div>
+            </div>
+          </div>
+
+          <!-- Live per-second ticker -->
+          <div class="billable-live">
+            <div class="billable-live-label">Live — Earnings per second</div>
+            <div class="billable-live-value" id="bh-live-display">$0.00</div>
+            <div class="billable-live-sub" id="bh-live-sub">Running since you hit Calculate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ MEETING COST MODE ══ -->
+      <div id="panel-meeting" style="display:none;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="mt-attendees">Number of Attendees</label>
+            <input type="number" id="mt-attendees" placeholder="e.g. 6" min="1" step="1">
+          </div>
+          <div class="form-group">
+            <label for="mt-salary">Avg Hourly Salary / Person ($)</label>
+            <input type="number" id="mt-salary" placeholder="e.g. 75" min="0" step="1">
+          </div>
+          <div class="form-group">
+            <label for="mt-hours">Meeting Duration — Hours</label>
+            <input type="number" id="mt-hours" placeholder="e.g. 1" min="0" step="1" value="1">
+          </div>
+          <div class="form-group">
+            <label for="mt-mins">Meeting Duration — Minutes</label>
+            <input type="number" id="mt-mins" placeholder="e.g. 30" min="0" max="59" step="1" value="0">
+          </div>
+        </div>
+
+        <div class="btn-row mt-3">
+          <button class="btn btn-primary btn-lg" id="mt-btn-start">▶ Start Counter</button>
+          <button class="btn btn-ghost" id="mt-btn-stop">⏹ Stop</button>
+          <button class="btn btn-ghost" id="mt-btn-reset">Reset</button>
+        </div>
+        <p id="mt-error" style="color:var(--red);font-size:.85rem;margin-top:.5rem;display:none;"></p>
+
+        <!-- Meeting live cost display -->
+        <div id="mt-results" style="display:none;margin-top:1.5rem;">
+          <div class="meeting-cost-display">
+            <div class="cost-label">Total Meeting Cost</div>
+            <div class="cost-value" id="mt-live-cost">$0.00</div>
+            <div class="cost-time" id="mt-live-time">0m 00s elapsed</div>
+          </div>
+
+          <div class="stats-row" style="grid-template-columns:repeat(3,1fr);margin-top:1rem;">
+            <div class="stat-card">
+              <div class="stat-label">Max Cost (full duration)</div>
+              <div class="stat-value" id="mt-total-max">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Cost per Minute</div>
+              <div class="stat-value" id="mt-per-min">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Cost per Attendee</div>
+              <div class="stat-value" id="mt-per-person">—</div>
+            </div>
+          </div>
+
+          <!-- Share button -->
+          <div class="share-row">
+            <button class="btn btn-ghost" id="mt-btn-share">🔗 Share this meeting cost</button>
+          </div>
+          <div class="share-url-preview" id="mt-share-preview"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to calculate billable hours -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:.85rem;">How to Calculate Billable Hours</h2>
+      <p>Calculating billable hours accurately is the foundation of professional invoicing. The core formula is simple: <strong>Total Billable Amount = Hourly Rate × Hours Worked</strong>. If your rate is $150/hour and you spent 3 hours and 45 minutes on a project, convert the minutes to a decimal (45 ÷ 60 = 0.75), giving you 3.75 hours. Your invoice amount is $150 × 3.75 = $562.50.</p>
+      <p>For more precise tracking, record your time in increments — many professionals round to the nearest 6 minutes (0.1 hours) or 15 minutes (0.25 hours). The key is consistency: pick an increment and stick with it for all clients so your invoices are defensible.</p>
+      <p>Don't forget to separate billable from non-billable time. Client calls, project execution, and deliverable revisions are typically billable. Admin tasks, internal meetings, and prospecting are usually not. Keeping a clear split helps you see your true utilization rate — the percentage of working hours you can actually invoice. Most consultants and freelancers aim for a 65–80% utilization rate. If you're consistently below 60%, it's time to either raise your rate or cut down on overhead.</p>
+    </div>
+
+    <!-- What is a fair billable rate -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:.85rem;">What Is a Fair Billable Rate?</h2>
+      <p>A fair billable rate covers not just your time but all the costs that employment normally absorbs: employer-side taxes, health insurance, retirement contributions, software and equipment, professional development, and the non-billable time you spend on admin and sales. A common freelancer formula is to take the equivalent full-time salary for your role, divide by 2,080 hours (a standard work year), and then multiply by 2 to 3 to arrive at a market-rate billable figure.</p>
+      <p>For example, a designer whose equivalent salary is $80,000/year earns roughly $38.50/hour as an employee. Multiplied by 2.5, a fair billable rate is approximately $96–$100/hour. Adjust upward for specialized skills, tight deadlines, or a limited client pool. Rates for lawyers, engineers, and senior consultants routinely exceed $200–$400/hour because demand outpaces supply and the downside risk of errors is high.</p>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">How do I calculate billable hours? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Multiply your hourly rate by the hours worked. For example, $150/hour × 3.5 hours = $525. Track time in decimal format — 30 minutes is 0.5 hours, 15 minutes is 0.25 hours. Enter your rate and hours in the Billable Hours tab above and the calculator does the math instantly, including your daily rate, weekly rate, and a live per-second earnings ticker.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What is a standard billable rate? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Billable rates vary widely by profession and experience. Lawyers typically charge $200–$600/hour, consultants $100–$400/hour, freelance developers and designers $75–$250/hour, and accountants $100–$300/hour. For freelancers, a useful rule of thumb is to charge 2–3× your equivalent full-time hourly wage to account for taxes, benefits, non-billable overhead, and the absence of employer contributions.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How much does an average meeting cost? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">A one-hour meeting with 5 attendees earning $75/hour costs $375 in combined salary alone — not counting lost productivity or follow-up time. A 90-minute executive meeting with 10 people at $150/hour average costs $2,250. Use the Meeting Cost Mode above to calculate the real cost of any meeting and share the ticking counter with your team as a reminder that meetings have a price tag.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What is the difference between billable and non-billable hours? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Billable hours are time you can charge a client for — project work, client calls, revisions, and deliverables. Non-billable hours are overhead you absorb: admin tasks, internal meetings, sales calls, and training. Most professionals bill 60–80% of their working hours. The gap between billable and non-billable is your overhead rate. Keeping this low by batching admin and reducing unnecessary meetings directly increases your effective hourly earnings.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related tools -->
+    <div class="cta-box mt-3">
+      <h2>See Your Earnings Tick Up in Real Time</h2>
+      <p>Start the money counter and watch exactly how much you earn every second of your working day.</p>
+      <a href="money-counter-online.html" class="btn btn-primary btn-lg">Open Money Counter →</a>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── Mode switching ───────────────────────── */
+  var tabBillable = document.getElementById('tab-billable');
+  var tabMeeting  = document.getElementById('tab-meeting');
+  var panelBill   = document.getElementById('panel-billable');
+  var panelMeet   = document.getElementById('panel-meeting');
+
+  function setMode(mode) {
+    if (mode === 'billable') {
+      tabBillable.classList.add('active');
+      tabMeeting.classList.remove('active');
+      panelBill.style.display = '';
+      panelMeet.style.display = 'none';
+      stopMeeting();
+    } else {
+      tabMeeting.classList.add('active');
+      tabBillable.classList.remove('active');
+      panelMeet.style.display = '';
+      panelBill.style.display = 'none';
+      stopBillable();
+    }
+  }
+
+  tabBillable.addEventListener('click', function () { setMode('billable'); });
+  tabMeeting.addEventListener('click',  function () { setMode('meeting'); });
+
+  /* ── BILLABLE HOURS MODE ─────────────────── */
+  var bhTimer    = null;
+  var bhRunning  = false;
+  var bhStart    = 0;
+  var bhRatePerSec = 0;
+
+  document.getElementById('bh-btn-calc').addEventListener('click', function () {
+    var rate = parseFloat(document.getElementById('bh-rate').value);
+    var hrs  = parseFloat(document.getElementById('bh-hours').value);
+    var cur  = document.getElementById('bh-currency').value;
+    var err  = document.getElementById('bh-error');
+
+    if (isNaN(rate) || rate <= 0) { err.textContent = 'Please enter a valid hourly rate.'; err.style.display = 'block'; return; }
+    if (isNaN(hrs)  || hrs <= 0)  { err.textContent = 'Please enter hours worked greater than 0.'; err.style.display = 'block'; return; }
+    err.style.display = 'none';
+
+    var fmt = function (v) { return MS.formatCurrency(v, cur); };
+    document.getElementById('bh-total').textContent    = fmt(rate * hrs);
+    document.getElementById('bh-daily').textContent    = fmt(rate * 8);
+    document.getElementById('bh-weekly').textContent   = fmt(rate * 40);
+    document.getElementById('bh-per-min').textContent  = fmt(rate / 60);
+    document.getElementById('bh-results').style.display = '';
+
+    /* Live per-second ticker */
+    stopBillable();
+    bhRatePerSec = rate / 3600;
+    bhStart  = Date.now();
+    bhRunning = true;
+    bhTimer = setInterval(function () {
+      var elapsed = (Date.now() - bhStart) / 1000;
+      document.getElementById('bh-live-display').textContent = fmt(bhRatePerSec * elapsed);
+      document.getElementById('bh-live-sub').textContent = 'Running for ' + MS.formatTime(elapsed);
+    }, 80);
+  });
+
+  document.getElementById('bh-btn-reset').addEventListener('click', function () {
+    stopBillable();
+    document.getElementById('bh-rate').value  = '';
+    document.getElementById('bh-hours').value = '';
+    document.getElementById('bh-results').style.display = 'none';
+    document.getElementById('bh-error').style.display = 'none';
+    document.getElementById('bh-live-display').textContent = MS.formatCurrency(0, 'USD');
+    document.getElementById('bh-live-sub').textContent = 'Running since you hit Calculate';
+  });
+
+  function stopBillable() {
+    bhRunning = false;
+    clearInterval(bhTimer);
+    bhTimer = null;
+  }
+
+  /* ── MEETING COST MODE ───────────────────── */
+  var mtTimer    = null;
+  var mtRunning  = false;
+  var mtCostPerSec = 0;
+  var mtStartTime  = 0;
+  var mtElapsed    = 0;
+
+  document.getElementById('mt-btn-start').addEventListener('click', startMeeting);
+  document.getElementById('mt-btn-stop').addEventListener('click', stopMeeting);
+  document.getElementById('mt-btn-reset').addEventListener('click', resetMeeting);
+
+  function getMeetingParams() {
+    return {
+      attendees: parseInt(document.getElementById('mt-attendees').value) || 0,
+      salary:    parseFloat(document.getElementById('mt-salary').value)  || 0,
+      hours:     parseInt(document.getElementById('mt-hours').value)     || 0,
+      mins:      parseInt(document.getElementById('mt-mins').value)      || 0
+    };
+  }
+
+  function startMeeting() {
+    var p = getMeetingParams();
+    var err = document.getElementById('mt-error');
+
+    if (p.attendees < 1) { err.textContent = 'Please enter at least 1 attendee.'; err.style.display = 'block'; return; }
+    if (p.salary <= 0)   { err.textContent = 'Please enter an average hourly salary.'; err.style.display = 'block'; return; }
+    if (p.hours === 0 && p.mins === 0) { err.textContent = 'Please enter a meeting duration.'; err.style.display = 'block'; return; }
+    err.style.display = 'none';
+
+    var totalHours = p.hours + (p.mins / 60);
+    var totalCost  = p.attendees * p.salary * totalHours;
+    var costPerMin = p.attendees * p.salary / 60;
+    mtCostPerSec   = p.attendees * p.salary / 3600;
+
+    document.getElementById('mt-total-max').textContent  = MS.formatCurrency(totalCost, 'USD');
+    document.getElementById('mt-per-min').textContent    = MS.formatCurrency(costPerMin, 'USD');
+    document.getElementById('mt-per-person').textContent = MS.formatCurrency(p.salary * totalHours, 'USD');
+    document.getElementById('mt-results').style.display  = '';
+
+    stopMeeting();
+    mtStartTime = Date.now();
+    mtRunning = true;
+    mtTimer = setInterval(function () {
+      mtElapsed = (Date.now() - mtStartTime) / 1000;
+      document.getElementById('mt-live-cost').textContent = MS.formatCurrency(mtCostPerSec * mtElapsed, 'USD');
+      document.getElementById('mt-live-time').textContent = MS.formatTime(mtElapsed) + ' elapsed';
+    }, 80);
+
+    buildShareURL(p);
+  }
+
+  function stopMeeting() {
+    mtRunning = false;
+    clearInterval(mtTimer);
+    mtTimer = null;
+  }
+
+  function resetMeeting() {
+    stopMeeting();
+    mtElapsed = 0;
+    document.getElementById('mt-attendees').value = '';
+    document.getElementById('mt-salary').value    = '';
+    document.getElementById('mt-hours').value     = '1';
+    document.getElementById('mt-mins').value      = '0';
+    document.getElementById('mt-results').style.display  = 'none';
+    document.getElementById('mt-error').style.display    = 'none';
+    document.getElementById('mt-share-preview').textContent = '';
+    document.getElementById('mt-live-cost').textContent  = '$0.00';
+    document.getElementById('mt-live-time').textContent  = '0m 00s elapsed';
+  }
+
+  /* ── Share URL ─────────────────────────────── */
+  function buildShareURL(p) {
+    var base = window.location.origin + window.location.pathname;
+    var url  = base + '?mode=meeting&a=' + p.attendees + '&r=' + p.salary + '&h=' + p.hours + '&m=' + p.mins;
+    document.getElementById('mt-share-preview').textContent = url;
+    document.getElementById('mt-btn-share').onclick = function () {
+      MS.copyText(url, this);
+    };
+  }
+
+  /* ── Read URL params on load ─────────────── */
+  (function readParams() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('mode') === 'meeting') {
+      setMode('meeting');
+      var a = params.get('a'), r = params.get('r'), h = params.get('h'), m = params.get('m');
+      if (a) document.getElementById('mt-attendees').value = a;
+      if (r) document.getElementById('mt-salary').value    = r;
+      if (h) document.getElementById('mt-hours').value     = h;
+      if (m) document.getElementById('mt-mins').value      = m;
+      if (a && r && (h || m)) {
+        /* slight delay so components.js finishes injecting the header */
+        setTimeout(startMeeting, 200);
+      }
+    }
+  })();
+
+  MS.initFAQ();
+})();
+</script>
+</body>
+</html>
