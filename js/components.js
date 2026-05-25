@@ -25,9 +25,11 @@
 
   // Dropdown menus
   var NAV_CALCULATORS = [
-    { label: 'Overtime Calculator',      href: '/overtime-calculator.html' },
-    { label: 'Time and a Half',          href: '/time-and-a-half-calculator.html' },
-    { label: 'Pay Raise Calculator',     href: '/pay-raise-calculator.html' },
+    { label: 'Money Counter Online',      href: '/money-counter-online.html' },
+    { label: 'Billable Hours Calculator', href: '/billable-hours-calculator.html' },
+    { label: 'Overtime Calculator',       href: '/overtime-calculator.html' },
+    { label: 'Time and a Half',           href: '/time-and-a-half-calculator.html' },
+    { label: 'Pay Raise Calculator',      href: '/pay-raise-calculator.html' },
     { label: 'Salary Increase Calculator', href: '/pay-raise-calculator.html' },
     { type: 'divider' },
     { type: 'group', label: 'Paycheck Calculators' },
