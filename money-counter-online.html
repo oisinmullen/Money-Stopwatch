@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4538737580937479" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Counter Online — Free Real-Time Cash Counter | MoneyStopwatch</title>
+  <meta name="description" content="Free money counter online. Watch your earnings tick up to the penny in real time. Enter your wage or salary and see exactly how much you earn every second.">
+  <meta property="og:title" content="Money Counter Online — Free Real-Time Cash Counter | MoneyStopwatch">
+  <meta property="og:description" content="Free money counter online. Watch your earnings tick up to the penny in real time. Enter your wage or salary and see exactly how much you earn every second.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/money-counter-online.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/money-counter-online.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Money Counter Online",
+      "description": "Free real-time money counter. Enter your hourly rate or annual salary and watch your earnings tick up to the penny every second.",
+      "url": "https://www.moneystopwatch.com/money-counter-online.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a money counter online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An online money counter is a free web tool that converts your hourly rate or annual salary into a real-time earnings display. You enter your pay, press Start, and the counter ticks up to the penny — showing exactly how much money you have earned since you started the clock."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the money counter work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The counter divides your annual salary by the number of seconds in a year (about 31.6 million) to calculate your per-second earnings rate. It then updates your running total every 50 milliseconds so the display appears smooth and continuous. For hourly workers, it first converts your rate to an annual figure using your hours-per-week setting."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this money counter free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — this money counter is completely free to use with no sign-up, no account, and no download required. It runs entirely in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this as a cash clock?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A cash clock and a money counter are the same concept — a real-time display of your earnings as time passes. Enter your rate, press Start, and use it as a live cash clock during your shift. You can pause it and resume when you take breaks."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Money Counter <span class="hero-accent">Online</span></h1>
+      <p>Enter your pay rate, press Start, and watch your cash accumulate to the penny in real time.</p>
+    </div>
+
+    <!-- Calculator -->
+    <div class="card calculator-card" id="mc-setup-card">
+      <h2 style="font-size:1.15rem;margin-bottom:1.25rem;">Configure Your Pay</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="mc-pay-type">Pay Type</label>
+          <select id="mc-pay-type">
+            <option value="hourly">Hourly</option>
+            <option value="annual">Annual Salary</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mc-pay-rate">Pay Rate</label>
+          <input type="number" id="mc-pay-rate" placeholder="e.g. 25.00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="mc-currency">Currency</label>
+          <select id="mc-currency">
+            <option value="USD">USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="JPY">JPY — Japanese Yen</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="MXN">MXN — Mexican Peso</option>
+          </select>
+        </div>
+        <div class="form-group" id="mc-hpw-group">
+          <label for="mc-hours-per-week">Hours Per Week</label>
+          <input type="number" id="mc-hours-per-week" value="40" min="1" max="168" step="1">
+        </div>
+      </div>
+      <div class="button-row">
+        <button class="btn btn-primary btn-lg" id="mc-btn-start">▶ Start</button>
+        <button class="btn btn-ghost btn-lg" id="mc-btn-pause" disabled>⏸ Pause</button>
+        <button class="btn btn-danger btn-lg" id="mc-btn-reset" disabled>↺ Reset</button>
+      </div>
+      <p id="mc-error" class="text-sm" style="color:var(--red);margin-top:.6rem;display:none;"></p>
+    </div>
+
+    <!-- Counter display -->
+    <div class="counter-display mt-3" id="mc-counter-display">
+      <div class="counter-value" id="mc-counter-value">$0.00</div>
+      <div class="counter-label">Total Earned</div>
+      <div class="counter-time" id="mc-counter-time">0m 00s elapsed</div>
+      <div id="mc-status-badge" class="status-badge idle">
+        <span class="pulse" id="mc-pulse-dot"></span>
+        <span id="mc-status-text">Idle — enter your rate above</span>
+      </div>
+    </div>
+
+    <!-- Earnings breakdown -->
+    <div class="card mt-3" id="mc-stats-card" style="display:none;">
+      <h3 style="margin-bottom:1rem;font-size:1rem;">Earnings Breakdown</h3>
+      <div class="stats-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-card">
+          <div class="stat-label">Per Second</div>
+          <div class="stat-value" id="mc-stat-sec">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Minute</div>
+          <div class="stat-value" id="mc-stat-min">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Hour</div>
+          <div class="stat-value" id="mc-stat-hr">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Day (8 h)</div>
+          <div class="stat-value" id="mc-stat-day">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Per Week</div>
+          <div class="stat-value" id="mc-stat-wk">—</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(16,185,129,.35);">
+          <div class="stat-label" style="color:var(--accent);">Per Year</div>
+          <div class="stat-value" style="color:var(--accent);" id="mc-stat-yr">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What is a money counter -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:.85rem;">What is a Money Counter Online?</h2>
+      <p>A money counter online is a free browser-based tool that turns your wage or salary into a live, ticking display showing exactly how much cash you're earning as each second passes. Instead of doing the math yourself — dividing your annual salary by hours, then minutes, then seconds — the counter does it all automatically and animates the result in real time.</p>
+      <p>You simply enter your hourly rate or annual salary, choose a currency, and press Start. The counter immediately begins accumulating at your personal earnings rate, updating every fraction of a second so the display flows smoothly. It works equally well as a cash clock during a work shift, a motivational tool during a long task, or a simple way to visualize the true value of your time. Use the Pause button for breaks so only actual working time is counted. Everything runs in your browser — no account needed.</p>
+    </div>
+
+    <!-- How It Works -->
+    <div class="section mt-4">
+      <h2 style="text-align:center;margin-bottom:1.5rem;">How It Works</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Enter Your Pay</h3>
+          <p>Type in your hourly rate or annual salary and set your hours per week.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Choose Currency</h3>
+          <p>Select from USD, EUR, GBP, CAD, AUD, JPY, INR, or MXN.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Press Start</h3>
+          <p>Hit Start and the money counter begins ticking immediately in real time.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3>Watch It Grow</h3>
+          <p>Your cash total ticks up to the penny every second as time passes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card mt-3">
+      <h2 style="font-size:1.2rem;margin-bottom:1rem;">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What is a money counter online? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">An online money counter is a free web tool that converts your hourly rate or annual salary into a real-time earnings display. You enter your pay, press Start, and the counter ticks up to the penny — showing exactly how much money you have earned since you started the clock. It's useful for visualizing the value of your time, tracking earnings during a shift, or simply as a motivational tool.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How does the money counter work? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">The counter divides your annual salary by the number of seconds in a year (about 31.6 million) to calculate your per-second earnings rate. It then updates your running total every 50 milliseconds so the display appears smooth and continuous. For hourly workers, it first converts your hourly rate to an annual figure using your hours-per-week setting before calculating the per-second rate.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is this money counter free? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Yes — this money counter is completely free to use with no sign-up, no account required, and no download needed. It runs entirely in your browser using JavaScript. There are no premium features or paywalls.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I use this as a cash clock? <span class="faq-icon">+</span></div>
+          <div class="faq-answer">Yes. A cash clock and a money counter online are the same concept — a real-time display of your earnings as time passes. Enter your hourly rate, press Start, and use it as a live cash clock during your shift. Press Pause when you take a break so only actual working time accumulates, then hit Start again to resume exactly where you left off.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link to related tools -->
+    <div class="section mt-4">
+      <h2 style="margin-bottom:1rem;">More Free Pay Calculators</h2>
+      <div class="tools-grid">
+        <a href="billable-hours-calculator.html" class="tool-card">
+          <div class="tool-card-icon">🧾</div>
+          <h3>Billable Hours Calculator</h3>
+          <p>Track billable time and calculate total earnings, plus a viral meeting cost counter</p>
+        </a>
+        <a href="overtime-calculator.html" class="tool-card">
+          <div class="tool-card-icon">⏱️</div>
+          <h3>Overtime Calculator</h3>
+          <p>Calculate regular + overtime pay with custom multipliers</p>
+        </a>
+        <a href="pay-raise-calculator.html" class="tool-card">
+          <div class="tool-card-icon">📈</div>
+          <h3>Pay Raise Calculator</h3>
+          <p>See how much a raise adds to your annual, monthly, and hourly pay</p>
+        </a>
+        <a href="paycheck-calculator/california.html" class="tool-card">
+          <div class="tool-card-icon">📋</div>
+          <h3>Paycheck Calculators</h3>
+          <p>Take-home pay after taxes for all 50 US states</p>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var ratePerSecond = 0;
+  var totalEarned   = 0;
+  var elapsedSec    = 0;
+  var timerID       = null;
+  var lastTick      = null;
+  var running       = false;
+  var currency      = 'USD';
+
+  var elValue   = document.getElementById('mc-counter-value');
+  var elTime    = document.getElementById('mc-counter-time');
+  var elBadge   = document.getElementById('mc-status-badge');
+  var elStatus  = document.getElementById('mc-status-text');
+  var elPulse   = document.getElementById('mc-pulse-dot');
+  var elStart   = document.getElementById('mc-btn-start');
+  var elPause   = document.getElementById('mc-btn-pause');
+  var elReset   = document.getElementById('mc-btn-reset');
+  var elError   = document.getElementById('mc-error');
+  var elStats   = document.getElementById('mc-stats-card');
+
+  function computeRate() {
+    var type = document.getElementById('mc-pay-type').value;
+    var rate = parseFloat(document.getElementById('mc-pay-rate').value) || 0;
+    var hpw  = parseFloat(document.getElementById('mc-hours-per-week').value) || 40;
+    currency = document.getElementById('mc-currency').value;
+    if (rate <= 0) return 0;
+    var perYear = (type === 'hourly') ? rate * hpw * 52 : rate;
+    return perYear / (365.25 * 24 * 3600);
+  }
+
+  function tick() {
+    var now = Date.now();
+    var dt  = (now - lastTick) / 1000;
+    lastTick = now;
+    totalEarned += ratePerSecond * dt;
+    elapsedSec  += dt;
+    elValue.textContent = MS.formatCurrency(totalEarned, currency);
+    elTime.textContent  = MS.formatTime(elapsedSec) + ' elapsed';
+  }
+
+  function start() {
+    ratePerSecond = computeRate();
+    if (ratePerSecond <= 0) {
+      elError.textContent = 'Please enter a valid pay rate greater than 0.';
+      elError.style.display = 'block';
+      return;
+    }
+    elError.style.display = 'none';
+    running  = true;
+    lastTick = Date.now();
+    timerID  = setInterval(tick, 50);
+    elStart.disabled = true;
+    elPause.disabled = false;
+    elReset.disabled = false;
+    setBadge('running');
+    showStats();
+  }
+
+  function pause() {
+    if (!running) return;
+    running = false;
+    clearInterval(timerID);
+    timerID = null;
+    elStart.disabled = false;
+    elStart.textContent = '▶ Resume';
+    elPause.disabled = true;
+    setBadge('paused');
+  }
+
+  function reset() {
+    running = false;
+    totalEarned = 0;
+    elapsedSec  = 0;
+    clearInterval(timerID);
+    timerID = null;
+    elValue.textContent = MS.formatCurrency(0, currency);
+    elTime.textContent  = '0m 00s elapsed';
+    elStart.disabled = false;
+    elStart.textContent = '▶ Start';
+    elPause.disabled = true;
+    elReset.disabled = true;
+    setBadge('idle');
+    elStats.style.display = 'none';
+  }
+
+  function setBadge(state) {
+    elBadge.className = 'status-badge ' + state;
+    if (state === 'running') {
+      elStatus.textContent = 'Running';
+      elPulse.style.display = 'block';
+    } else if (state === 'paused') {
+      elStatus.textContent = 'Paused';
+      elPulse.style.display = 'none';
+    } else {
+      elStatus.textContent = 'Idle — enter your rate above';
+      elPulse.style.display = 'block';
+    }
+  }
+
+  function showStats() {
+    var r   = computeRate();
+    var fmt = function (v) { return MS.formatCurrency(v, currency); };
+    var hpw = parseFloat(document.getElementById('mc-hours-per-week').value) || 40;
+    document.getElementById('mc-stat-sec').textContent = fmt(r);
+    document.getElementById('mc-stat-min').textContent = fmt(r * 60);
+    document.getElementById('mc-stat-hr').textContent  = fmt(r * 3600);
+    document.getElementById('mc-stat-day').textContent = fmt(r * 3600 * 8);
+    document.getElementById('mc-stat-wk').textContent  = fmt(r * 3600 * hpw);
+    document.getElementById('mc-stat-yr').textContent  = fmt(r * 3600 * hpw * 52);
+    elStats.style.display = 'block';
+  }
+
+  elStart.addEventListener('click', start);
+  elPause.addEventListener('click', pause);
+  elReset.addEventListener('click', reset);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (!running && !elStart.disabled) start();
+      else if (running) pause();
+    }
+  });
+
+  MS.initFAQ();
+})();
+</script>
+</body>
+</html>

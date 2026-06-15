@@ -25,9 +25,11 @@
 
   // Dropdown menus
   var NAV_CALCULATORS = [
-    { label: 'Overtime Calculator',      href: '/overtime-calculator.html' },
-    { label: 'Time and a Half',          href: '/time-and-a-half-calculator.html' },
-    { label: 'Pay Raise Calculator',     href: '/pay-raise-calculator.html' },
+    { label: 'Money Counter Online',      href: '/money-counter-online.html' },
+    { label: 'Billable Hours Calculator', href: '/billable-hours-calculator.html' },
+    { label: 'Overtime Calculator',       href: '/overtime-calculator.html' },
+    { label: 'Time and a Half',           href: '/time-and-a-half-calculator.html' },
+    { label: 'Pay Raise Calculator',      href: '/pay-raise-calculator.html' },
     { label: 'Salary Increase Calculator', href: '/pay-raise-calculator.html' },
     { type: 'divider' },
     { type: 'group', label: 'Paycheck Calculators' },
@@ -70,7 +72,8 @@
   // a custom domain (moneystopwatch.com/index.html) and
   // GitHub Pages (oisinmullen.github.io/Money-Stopwatch/index.html).
   function resolveHref(href) {
-    var inSubDir = currentPath().indexOf('/paycheck-calculator/') !== -1;
+    var p = currentPath();
+    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1;
     var path = href.replace(/^\//, ''); // strip leading slash
     return inSubDir ? ('../' + path) : path;
   }
