@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RT5SXH6N7D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RT5SXH6N7D');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Guides — Premium Financial Guides | MoneyStopwatch</title>
+  <meta name="description" content="Premium financial guides from MoneyStopwatch. Step-by-step playbooks for overtime tax deductions, salary negotiation, and budgeting.">
+  <meta property="og:title" content="Money Guides — Premium Financial Guides | MoneyStopwatch">
+  <meta property="og:description" content="Premium financial guides from MoneyStopwatch. Step-by-step playbooks for overtime tax deductions, salary negotiation, and budgeting.">
+  <meta property="og:url" content="https://www.moneystopwatch.com/guides/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://www.moneystopwatch.com/guides/">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 720px) {
+      .guides-grid { grid-template-columns: 1fr; }
+    }
+    .guide-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .15s, transform .15s;
+    }
+    .guide-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .guide-card-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .guide-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .guide-card-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: var(--muted2);
+    }
+    .guide-card-img-placeholder svg {
+      opacity: .4;
+    }
+    .guide-card-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      flex: 1;
+    }
+    .guide-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.35;
+    }
+    .guide-card-desc {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .guide-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: .5rem;
+    }
+    .guide-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .guide-badge-soon {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--bg1);
+      background: var(--accent);
+      padding: .25rem .65rem;
+      border-radius: 4px;
+    }
+    .guide-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 7px;
+      padding: .65rem 1.25rem;
+      font-size: .9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity .15s;
+    }
+    .guide-btn:hover { opacity: .87; }
+    .guide-btn.disabled {
+      opacity: .5;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header-slot"></div>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="page-hero">
+      <h1>Money <span class="hero-accent">Guides</span></h1>
+      <p>Premium step-by-step guides to help you keep more of what you earn.</p>
+    </div>
+
+    <div class="guides-grid" id="guides-grid"></div>
+
+  </div>
+</main>
+
+<div id="site-footer-slot"></div>
+
+<script src="../js/components.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var LS_KEY = 'ms_pdf_products';
+
+  var DEFAULTS = [
+    {
+      title: "No Tax on Overtime — Worker's Claim Guide",
+      description: 'Step by step guide to claiming your overtime tax deduction on your 2025 return. Know exactly what to fill in and where.',
+      price: '$7',
+      image: '',
+      url: '',
+      category: 'Tax Guide'
+    },
+    {
+      title: 'Salary Negotiation Script Pack',
+      description: 'Word-for-word scripts for asking for a raise, negotiating a job offer, and handling counteroffers.',
+      price: '$9',
+      image: '',
+      url: '',
+      category: 'Career Guide'
+    },
+    {
+      title: 'Budgeting in Everyday Life',
+      description: 'Save money, reduce financial stress and achieve your financial goals with this practical guide.',
+      price: '$9',
+      image: '',
+      url: '',
+      category: 'Finance Guide'
+    }
+  ];
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return [];
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (_) { return []; }
+  }
+
+  function esc(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  var placeholderSVG = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>';
+
+  function buildCard(product) {
+    var hasImage = product.image && product.image.trim();
+    var hasUrl = product.url && product.url.trim();
+    var imgHTML = hasImage
+      ? '<img src="' + esc(product.image) + '" alt="' + esc(product.title) + '">'
+      : '<div class="guide-card-img-placeholder">' + placeholderSVG + '<span style="font-size:.8rem;">Cover image</span></div>';
+
+    var btnHTML = hasUrl
+      ? '<a href="' + esc(product.url) + '" class="guide-btn" target="_blank" rel="noopener">Get the Guide</a>'
+      : '<span class="guide-btn disabled">Get the Guide</span>';
+
+    var priceHTML = product.price
+      ? '<span class="guide-price">' + esc(product.price) + '</span>'
+      : '<span class="guide-badge-soon">Coming Soon</span>';
+
+    return [
+      '<div class="guide-card">',
+      '  <div class="guide-card-img">' + imgHTML + '</div>',
+      '  <div class="guide-card-body">',
+      '    <div class="guide-card-title">' + esc(product.title) + '</div>',
+      '    <div class="guide-card-desc">' + esc(product.description) + '</div>',
+      '    <div class="guide-card-footer">',
+      '      ' + priceHTML,
+      '      ' + btnHTML,
+      '    </div>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+  }
+
+  var products = load();
+  if (products.length === 0) products = DEFAULTS;
+
+  document.getElementById('guides-grid').innerHTML = products.map(buildCard).join('');
+})();
+</script>
+</body>
+</html>

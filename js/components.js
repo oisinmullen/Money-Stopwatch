@@ -40,11 +40,6 @@
     { label: 'View All 50 States →', href: '/paycheck-calculator/index.html' },
   ];
 
-  var NAV_GUIDES = [
-    { label: 'How to Ask for a Raise',   href: '/how-to-ask-for-a-raise.html' },
-    { label: 'How to Negotiate Salary',  href: '/salary-negotiation-email.html' },
-  ];
-
   /* ── Logo assets ───────────────────────── */
   // Square icon: rounded-rect border + bold $ in #10b981, inline SVG
   var LOGO_SVG = [
@@ -72,7 +67,7 @@
   // GitHub Pages (oisinmullen.github.io/Money-Stopwatch/index.html).
   function resolveHref(href) {
     var p = currentPath();
-    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1 || p.indexOf('/admin/') !== -1;
+    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1 || p.indexOf('/admin/') !== -1 || p.indexOf('/guides/') !== -1;
     var path = href.replace(/^\//, ''); // strip leading slash
     return inSubDir ? ('../' + path) : path;
   }
@@ -114,22 +109,10 @@
       '</div>',
     ].join('');
 
-    // Guides dropdown
-    var guidesActive = NAV_GUIDES.some(function (l) { return l.href && isActive(l.href); });
-    var guidesDropdown = [
-      '<div class="nav-dropdown" id="dd-guides">',
-      '  <button class="nav-dropdown-trigger' + (guidesActive ? ' active' : '') + '" aria-haspopup="true">',
-      '    Guides <span class="nav-arrow">▾</span>',
-      '  </button>',
-      '  <div class="nav-dropdown-menu">',
-      buildDropdownItems(NAV_GUIDES),
-      '  </div>',
-      '</div>',
-    ].join('');
-
     var stopwatchLink = '<a href="' + resolveHref('/index.html') + '" class="' + (isActive('/index.html') ? 'active' : '') + '">Stopwatch</a>';
     var celebLink     = '<a href="' + resolveHref('/elon-musk-earnings-counter.html') + '" class="' + (isActive('/elon-musk-earnings-counter.html') ? 'active' : '') + '">Celebrity Earnings</a>';
     var feedLink      = '<a href="' + resolveHref('/feed/index.html') + '" class="' + (isActive('/feed/') ? 'active' : '') + '">The Feed</a>';
+    var guidesLink    = '<a href="' + resolveHref('/guides/index.html') + '" class="' + (isActive('/guides/') ? 'active' : '') + '">Guides</a>';
 
     return [
       '<header class="site-header">',
@@ -140,7 +123,7 @@
       '      ' + calcDropdown,
       '      ' + celebLink,
       '      ' + feedLink,
-      '      ' + guidesDropdown,
+      '      ' + guidesLink,
       '    </nav>',
       '    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">',
       '      ☰ Menu',
@@ -182,8 +165,8 @@
       <div class="footer-col">
         <h4>Guides</h4>
         <ul>
+          <li><a href="${r('/guides/index.html')}">Money Guides</a></li>
           <li><a href="${r('/how-to-ask-for-a-raise.html')}">How to Ask for a Raise</a></li>
-          <li><a href="${r('/salary-negotiation-email.html')}">Salary Negotiation Emails</a></li>
           <li><a href="${r('/elon-musk-earnings-counter.html')}">Elon Musk Earnings Counter</a></li>
         </ul>
       </div>
