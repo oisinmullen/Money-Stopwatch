@@ -29,9 +29,6 @@
       gap: .5rem;
       margin-bottom: 2rem;
     }
-    .login-logo svg {
-      flex-shrink: 0;
-    }
     .login-card h1 {
       font-size: 1.1rem;
       font-weight: 600;
@@ -93,25 +90,21 @@
       <form id="login-form" autocomplete="off">
         <input type="password" class="login-field" id="login-password" placeholder="Password" autofocus>
         <button type="submit" class="login-btn">Login</button>
-        <p class="login-error" id="login-error">Incorrect password. Try again.</p>
+        <p class="login-error" id="login-error">Incorrect password</p>
       </form>
     </div>
   </div>
   <script>
   (function () {
-    var TOKEN_KEY = 'ms_admin_token';
-    var VALID_TOKEN = 'ms_auth_ok';
-
-    if (sessionStorage.getItem(TOKEN_KEY) === VALID_TOKEN) {
+    if (sessionStorage.getItem('ms_auth') === 'ok') {
       window.location.replace('dashboard.html');
       return;
     }
-
     document.getElementById('login-form').addEventListener('submit', function (e) {
       e.preventDefault();
       var pw = document.getElementById('login-password').value;
       if (pw === 'MSadmin2026') {
-        sessionStorage.setItem(TOKEN_KEY, VALID_TOKEN);
+        sessionStorage.setItem('ms_auth', 'ok');
         window.location.replace('dashboard.html');
       } else {
         document.getElementById('login-error').classList.add('show');
