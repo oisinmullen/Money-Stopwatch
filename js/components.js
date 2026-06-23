@@ -42,7 +42,6 @@
 
   var NAV_GUIDES = [
     { label: 'How to Ask for a Raise',   href: '/how-to-ask-for-a-raise.html' },
-    { label: 'Salary Negotiation Emails', href: '/salary-negotiation-email.html' },
     { label: 'How to Negotiate Salary',  href: '/salary-negotiation-email.html' },
   ];
 
