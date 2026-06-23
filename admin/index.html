@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — MoneyStopwatch</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .login-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      width: 360px;
+      max-width: 100%;
+      text-align: center;
+    }
+    .login-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: 2rem;
+    }
+    .login-logo svg {
+      flex-shrink: 0;
+    }
+    .login-card h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .login-field {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: .9rem;
+      padding: .7rem 1rem;
+      outline: none;
+      transition: border-color .15s;
+      margin-bottom: 1rem;
+    }
+    .login-field:focus { border-color: var(--accent); }
+    .login-field::placeholder { color: var(--muted2); }
+    .login-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 7px;
+      padding: .7rem 1rem;
+      font-size: .9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+    .login-btn:hover { opacity: .87; }
+    .login-error {
+      color: var(--red, #ef4444);
+      font-size: .85rem;
+      margin-top: .75rem;
+      display: none;
+    }
+    .login-error.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="25" height="25" rx="6" stroke="#10b981" stroke-width="1.75"/>
+          <text x="14" y="20" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="15" fill="#10b981">$</text>
+        </svg>
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:20px;letter-spacing:-0.03em;line-height:1;display:flex;gap:0;">
+          <span style="color:#fff;font-weight:600;">Money</span>
+          <span style="color:#10b981;font-weight:600;">&thinsp;Stopwatch</span>
+        </span>
+      </div>
+      <h1>Admin Login</h1>
+      <form id="login-form" autocomplete="off">
+        <input type="password" class="login-field" id="login-password" placeholder="Password" autofocus>
+        <button type="submit" class="login-btn">Login</button>
+        <p class="login-error" id="login-error">Incorrect password. Try again.</p>
+      </form>
+    </div>
+  </div>
+  <script>
+  (function () {
+    var TOKEN_KEY = 'ms_admin_token';
+    var VALID_TOKEN = 'ms_auth_ok';
+
+    if (sessionStorage.getItem(TOKEN_KEY) === VALID_TOKEN) {
+      window.location.replace('dashboard.html');
+      return;
+    }
+
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var pw = document.getElementById('login-password').value;
+      if (pw === 'MSadmin2026') {
+        sessionStorage.setItem(TOKEN_KEY, VALID_TOKEN);
+        window.location.replace('dashboard.html');
+      } else {
+        document.getElementById('login-error').classList.add('show');
+        document.getElementById('login-password').value = '';
+        document.getElementById('login-password').focus();
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

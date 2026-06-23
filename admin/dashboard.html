@@ -627,6 +627,11 @@
 <div id="toast"></div>
 
 <script>
+if (sessionStorage.getItem('ms_admin_token') !== 'ms_auth_ok') {
+  window.location.replace('index.html');
+}
+</script>
+<script>
 (function () {
   'use strict';
 

@@ -73,7 +73,7 @@
   // GitHub Pages (oisinmullen.github.io/Money-Stopwatch/index.html).
   function resolveHref(href) {
     var p = currentPath();
-    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1;
+    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1 || p.indexOf('/admin/') !== -1;
     var path = href.replace(/^\//, ''); // strip leading slash
     return inSubDir ? ('../' + path) : path;
   }
@@ -128,9 +128,9 @@
       '</div>',
     ].join('');
 
-    // Insert Celebrity Earnings between Stopwatch and Calculators
     var stopwatchLink = '<a href="' + resolveHref('/index.html') + '" class="' + (isActive('/index.html') ? 'active' : '') + '">Stopwatch</a>';
     var celebLink     = '<a href="' + resolveHref('/elon-musk-earnings-counter.html') + '" class="' + (isActive('/elon-musk-earnings-counter.html') ? 'active' : '') + '">Celebrity Earnings</a>';
+    var feedLink      = '<a href="' + resolveHref('/feed/index.html') + '" class="' + (isActive('/feed/') ? 'active' : '') + '">The Feed</a>';
 
     return [
       '<header class="site-header">',
@@ -140,6 +140,7 @@
       '      ' + stopwatchLink,
       '      ' + calcDropdown,
       '      ' + celebLink,
+      '      ' + feedLink,
       '      ' + guidesDropdown,
       '    </nav>',
       '    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">',
