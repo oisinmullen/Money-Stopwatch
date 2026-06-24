@@ -23,69 +23,220 @@
   <link rel="canonical" href="https://www.moneystopwatch.com/guides/">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .guides-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #6b7280;
+      margin-bottom: .75rem;
     }
-    @media (max-width: 720px) {
-      .guides-grid { grid-template-columns: 1fr; }
+    .section-divider {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 2.5rem 0;
     }
-    .guide-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
+
+    /* Premium Bundle Cards */
+    .bundles-grid {
       display: flex;
       flex-direction: column;
-      transition: border-color .15s, transform .15s;
+      gap: 1.25rem;
     }
-    .guide-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+    .bundle-card {
+      background: #1a1a1a;
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      text-decoration: none;
     }
-    .guide-card-img {
+    @media (max-width: 600px) {
+      .bundle-card { flex-direction: column; align-items: flex-start; }
+    }
+    .bundle-cover {
+      width: 120px;
+      height: 160px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+    }
+    .bundle-cover img {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      background: var(--bg3);
+      height: 100%;
+      object-fit: contain;
+    }
+    .bundle-cover-placeholder {
+      width: 100%;
+      height: 100%;
+      background: #2a2a2a;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      color: #6b7280;
+      font-size: .75rem;
+      font-weight: 600;
+      text-align: center;
+      padding: .5rem;
     }
-    .guide-card-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .guide-card-img-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .5rem;
-      color: var(--muted2);
-    }
-    .guide-card-img-placeholder svg {
-      opacity: .4;
-    }
-    .guide-card-body {
-      padding: 1.25rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: .6rem;
+    .bundle-body {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
     }
-    .guide-card-title {
+    .bundle-title {
       font-size: 1.1rem;
       font-weight: 700;
-      color: var(--white);
+      color: #fff;
+      line-height: 1.35;
+    }
+    .bundle-desc {
+      font-size: .875rem;
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+    .bundle-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: .5rem;
+    }
+    .bundle-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f59e0b;
+    }
+    .bundle-btn {
+      display: inline-block;
+      background: #f59e0b;
+      color: #000;
+      border: none;
+      border-radius: 7px;
+      padding: .55rem 1.1rem;
+      font-size: .85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity .15s;
+    }
+    .bundle-btn:hover { opacity: .87; }
+
+    /* Email capture */
+    .email-banner {
+      background: #0d1f18;
+      border: 1px solid #10b981;
+      border-radius: 12px;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    @media (max-width: 720px) {
+      .email-banner { flex-direction: column; align-items: flex-start; padding: 20px; }
+    }
+    .email-banner-text h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .35rem;
+    }
+    .email-banner-text p {
+      font-size: .85rem;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+    .email-form {
+      display: flex;
+      gap: .5rem;
+      flex-shrink: 0;
+    }
+    @media (max-width: 720px) {
+      .email-form { width: 100%; }
+      .email-form input { flex: 1; }
+    }
+    .email-form input {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 7px;
+      color: #fff;
+      font-family: inherit;
+      font-size: .88rem;
+      padding: .55rem .8rem;
+      outline: none;
+      width: 240px;
+      transition: border-color .15s;
+    }
+    .email-form input:focus { border-color: #10b981; }
+    .email-form input::placeholder { color: #6b7280; }
+    .email-form button {
+      background: #10b981;
+      color: #000;
+      border: none;
+      border-radius: 7px;
+      padding: .55rem 1.1rem;
+      font-size: .85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity .15s;
+    }
+    .email-form button:hover { opacity: .87; }
+    .email-msg {
+      font-size: .85rem;
+      font-weight: 600;
+      margin-top: .25rem;
+    }
+    .email-msg.success { color: #10b981; }
+    .email-msg.error { color: #ef4444; }
+
+    /* Regular guides grid */
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 900px) {
+      .guides-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .guides-grid { grid-template-columns: 1fr; }
+    }
+    .guide-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      transition: border-color .15s;
+    }
+    .guide-card:hover { border-color: #10b981; }
+    .guide-card-cat {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #10b981;
+    }
+    .guide-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
       line-height: 1.35;
     }
     .guide-card-desc {
-      font-size: .875rem;
-      color: var(--muted);
-      line-height: 1.6;
+      font-size: .85rem;
+      color: #9ca3af;
+      line-height: 1.55;
       flex: 1;
     }
     .guide-card-footer {
@@ -95,29 +246,19 @@
       gap: 1rem;
       margin-top: .5rem;
     }
-    .guide-price {
-      font-size: 1.15rem;
+    .guide-card-price {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: var(--accent);
+      color: #10b981;
     }
-    .guide-badge-soon {
-      font-size: .75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--bg1);
-      background: var(--accent);
-      padding: .25rem .65rem;
-      border-radius: 4px;
-    }
-    .guide-btn {
+    .guide-card-btn {
       display: inline-block;
-      background: var(--accent);
+      background: #10b981;
       color: #000;
       border: none;
       border-radius: 7px;
-      padding: .65rem 1.25rem;
-      font-size: .9rem;
+      padding: .5rem 1rem;
+      font-size: .82rem;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
@@ -125,8 +266,8 @@
       text-align: center;
       transition: opacity .15s;
     }
-    .guide-btn:hover { opacity: .87; }
-    .guide-btn.disabled {
+    .guide-card-btn:hover { opacity: .87; }
+    .guide-card-btn.disabled {
       opacity: .5;
       pointer-events: none;
     }
@@ -144,6 +285,30 @@
       <p>Premium step-by-step guides to help you keep more of what you earn.</p>
     </div>
 
+    <!-- Premium Bundles -->
+    <div id="bundles-section"></div>
+
+    <hr class="section-divider" id="divider-bundles" style="display:none;">
+
+    <!-- Email Capture -->
+    <div class="email-banner" id="email-banner">
+      <div class="email-banner-text">
+        <h3>Get a free budgeting checklist</h3>
+        <p>Join readers getting free money guides and financial tips.</p>
+      </div>
+      <div>
+        <form class="email-form" id="email-form">
+          <input type="email" name="email" placeholder="you@email.com" required>
+          <button type="submit">Send Me the Checklist</button>
+        </form>
+        <div class="email-msg" id="email-msg" style="display:none;"></div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- All Guides -->
+    <div class="section-label">ALL GUIDES</div>
     <div class="guides-grid" id="guides-grid"></div>
 
   </div>
@@ -159,30 +324,15 @@
   var LS_KEY = 'ms_pdf_products';
 
   var DEFAULTS = [
-    {
-      title: "No Tax on Overtime — Worker's Claim Guide",
-      description: 'Step by step guide to claiming your overtime tax deduction on your 2025 return. Know exactly what to fill in and where.',
-      price: '$7',
-      image: '',
-      url: '',
-      category: 'Tax Guide'
-    },
-    {
-      title: 'Salary Negotiation Script Pack',
-      description: 'Word-for-word scripts for asking for a raise, negotiating a job offer, and handling counteroffers.',
-      price: '$9',
-      image: '',
-      url: '',
-      category: 'Career Guide'
-    },
-    {
-      title: 'Budgeting in Everyday Life',
-      description: 'Save money, reduce financial stress and achieve your financial goals with this practical guide.',
-      price: '$9',
-      image: '',
-      url: '',
-      category: 'Finance Guide'
-    }
+    { id:'g-1', title:'Budgeting in Everyday Life', description:'Save money, reduce financial stress and achieve your financial goals. A complete practical guide.', price:'$7', image:'', url:'#', category:'GUIDE', featured:true },
+    { id:'g-2', title:'Salary Negotiation Script Pack', description:'Word-for-word scripts to negotiate your salary with confidence and get paid what you\'re worth.', price:'$9', image:'', url:'#', category:'GUIDE', featured:true },
+    { id:'g-3', title:"No Tax on Overtime — Worker's Claim Guide", description:'Everything you need to know to claim your overtime tax deduction under the One Big Beautiful Bill Act.', price:'$7', image:'', url:'#', category:'GUIDE', featured:true },
+    { id:'g-4', title:'How to Read Your Pay Stub', description:'Understand every line on your paycheck so you never miss an error.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-5', title:'Side Income Starter Kit', description:'Proven ways to earn an extra $500-$2,000 per month outside your day job.', price:'$9', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-6', title:'Emergency Fund Blueprint', description:'Build a 3-month safety net on any income with this week-by-week savings plan.', price:'$7', image:'', url:'#', category:'CHECKLIST', featured:false },
+    { id:'g-7', title:'Tax Deductions You\'re Missing', description:'The most overlooked deductions for W-2 employees and 1099 workers.', price:'$9', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-8', title:'First-Time Home Buyer Checklist', description:'Every step from pre-approval to closing day, with cost breakdowns.', price:'$9', image:'', url:'#', category:'CHECKLIST', featured:false },
+    { id:'g-9', title:'Debt Payoff Accelerator', description:'Snowball vs avalanche — find the fastest path to zero debt for your situation.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false }
   ];
 
   function load() {
@@ -200,42 +350,83 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  var placeholderSVG = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>';
-
-  function buildCard(product) {
-    var hasImage = product.image && product.image.trim();
-    var hasUrl = product.url && product.url.trim();
+  function buildBundleCard(p) {
+    var hasImage = p.image && p.image.trim();
     var imgHTML = hasImage
-      ? '<img src="' + esc(product.image) + '" alt="' + esc(product.title) + '">'
-      : '<div class="guide-card-img-placeholder">' + placeholderSVG + '<span style="font-size:.8rem;">Cover image</span></div>';
-
+      ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '">'
+      : '<div class="bundle-cover-placeholder">Cover Coming Soon</div>';
+    var hasUrl = p.url && p.url.trim();
     var btnHTML = hasUrl
-      ? '<a href="' + esc(product.url) + '" class="guide-btn" target="_blank" rel="noopener">Get the Guide</a>'
-      : '<span class="guide-btn disabled">Get the Guide</span>';
+      ? '<a href="' + esc(p.url) + '" class="bundle-btn" target="_blank" rel="noopener">Get This Guide</a>'
+      : '<span class="bundle-btn" style="opacity:.5;pointer-events:none;">Get This Guide</span>';
 
-    var priceHTML = product.price
-      ? '<span class="guide-price">' + esc(product.price) + '</span>'
-      : '<span class="guide-badge-soon">Coming Soon</span>';
+    return '<div class="bundle-card">' +
+      '<div class="bundle-cover">' + imgHTML + '</div>' +
+      '<div class="bundle-body">' +
+      '<div class="bundle-title">' + esc(p.title) + '</div>' +
+      '<div class="bundle-desc">' + esc(p.description) + '</div>' +
+      '<div class="bundle-footer"><span class="bundle-price">' + esc(p.price) + '</span>' + btnHTML + '</div>' +
+      '</div></div>';
+  }
 
-    return [
-      '<div class="guide-card">',
-      '  <div class="guide-card-img">' + imgHTML + '</div>',
-      '  <div class="guide-card-body">',
-      '    <div class="guide-card-title">' + esc(product.title) + '</div>',
-      '    <div class="guide-card-desc">' + esc(product.description) + '</div>',
-      '    <div class="guide-card-footer">',
-      '      ' + priceHTML,
-      '      ' + btnHTML,
-      '    </div>',
-      '  </div>',
-      '</div>'
-    ].join('\n');
+  function buildGuideCard(p) {
+    var hasUrl = p.url && p.url.trim();
+    var btnHTML = hasUrl
+      ? '<a href="' + esc(p.url) + '" class="guide-card-btn" target="_blank" rel="noopener">Get This Guide</a>'
+      : '<span class="guide-card-btn disabled">Get This Guide</span>';
+
+    return '<div class="guide-card">' +
+      '<div class="guide-card-cat">' + esc(p.category || 'Guide') + '</div>' +
+      '<div class="guide-card-title">' + esc(p.title) + '</div>' +
+      '<div class="guide-card-desc">' + esc(p.description) + '</div>' +
+      '<div class="guide-card-footer"><span class="guide-card-price">' + esc(p.price) + '</span>' + btnHTML + '</div>' +
+      '</div>';
   }
 
   var products = load();
   if (products.length === 0) products = DEFAULTS;
 
-  document.getElementById('guides-grid').innerHTML = products.map(buildCard).join('');
+  var featured = products.filter(function(p) { return p.featured; })
+    .sort(function(a, b) { return (b.id || '').localeCompare(a.id || ''); })
+    .slice(0, 3);
+
+  var bundlesSection = document.getElementById('bundles-section');
+  if (featured.length > 0) {
+    bundlesSection.innerHTML =
+      '<div class="section-label">PREMIUM BUNDLES</div>' +
+      '<div class="bundles-grid">' + featured.map(buildBundleCard).join('') + '</div>';
+    document.getElementById('divider-bundles').style.display = '';
+  }
+
+  document.getElementById('guides-grid').innerHTML = products.map(buildGuideCard).join('');
+
+  /* Email form */
+  var emailForm = document.getElementById('email-form');
+  var emailMsg = document.getElementById('email-msg');
+  emailForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = new FormData(emailForm);
+    fetch('https://formspree.io/f/xgojokll', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function (res) {
+      if (res.ok) {
+        emailForm.style.display = 'none';
+        emailMsg.style.display = '';
+        emailMsg.className = 'email-msg success';
+        emailMsg.textContent = 'Checklist on its way — check your inbox.';
+      } else {
+        emailMsg.style.display = '';
+        emailMsg.className = 'email-msg error';
+        emailMsg.textContent = 'Something went wrong — try again.';
+      }
+    }).catch(function () {
+      emailMsg.style.display = '';
+      emailMsg.className = 'email-msg error';
+      emailMsg.textContent = 'Something went wrong — try again.';
+    });
+  });
 })();
 </script>
 </body>

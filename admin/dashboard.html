@@ -394,43 +394,69 @@
     <!-- ═══ GUIDES ═══ -->
     <div class="tab-panel" id="panel-guides">
       <div class="card">
-        <h2>Add PDF Product</h2>
+        <h2 id="guide-form-heading">Add New Guide</h2>
         <div class="field">
           <label for="g-title">Title</label>
-          <input type="text" id="g-title" placeholder="Product title...">
+          <input type="text" id="g-title" placeholder="Guide title...">
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="g-category">Category</label>
+            <select id="g-category">
+              <option value="">Select category</option>
+              <option value="GUIDE">Guide</option>
+              <option value="BUNDLE">Bundle</option>
+              <option value="CHECKLIST">Checklist</option>
+              <option value="COURSE">Course</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="g-price">Price</label>
+            <input type="text" id="g-price" placeholder="$7">
+          </div>
         </div>
         <div class="field">
           <label for="g-desc">Description</label>
           <textarea id="g-desc" rows="2" placeholder="Short description..."></textarea>
         </div>
-        <div class="form-row">
-          <div class="field">
-            <label for="g-price">Price</label>
-            <input type="text" id="g-price" placeholder="$9">
-          </div>
-          <div class="field">
-            <label for="g-category">Category</label>
-            <select id="g-category">
-              <option value="">Select category</option>
-              <option value="Salary">Salary</option>
-              <option value="Negotiation">Negotiation</option>
-              <option value="Tax and Overtime">Tax and Overtime</option>
-              <option value="Money Tips">Money Tips</option>
-              <option value="Paycheck">Paycheck</option>
-            </select>
-          </div>
+        <div class="field">
+          <label for="g-url">Stripe / Gumroad Link</label>
+          <input type="url" id="g-url" placeholder="https://gumroad.com/l/your-product">
         </div>
         <div class="field">
-          <label for="g-url">Payment URL</label>
-          <input type="url" id="g-url" placeholder="https://gumroad.com/...">
+          <label for="g-image">Image URL</label>
+          <input type="url" id="g-image" placeholder="https://...cover.jpg">
+        </div>
+        <div class="field" style="display:flex;align-items:flex-end;padding-bottom:.15rem;">
+          <div class="toggle-wrap">
+            <div class="toggle" id="g-featured"></div>
+            <span class="toggle-label">Set as Featured</span>
+          </div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-primary" id="btn-add-product">Add Product</button>
+          <button class="btn btn-primary" id="btn-add-product">Publish</button>
+          <button class="btn btn-ghost" id="btn-cancel-guide-edit" style="display:none;">Cancel</button>
         </div>
       </div>
       <div class="card">
-        <h2>Live Products <span class="count" id="products-count">0</span></h2>
+        <h2>Live Guides <span class="count" id="products-count">0</span></h2>
         <div id="products-list"></div>
+      </div>
+      <div class="card">
+        <h2>Recent Orders</h2>
+        <div style="overflow-x:auto;">
+          <table class="kw-table" id="orders-table">
+            <thead>
+              <tr><th>Order #</th><th>Name</th><th>Amount</th><th>Product</th><th>Email Delivered</th></tr>
+            </thead>
+            <tbody id="orders-body"></tbody>
+          </table>
+        </div>
+        <div id="order-detail" style="display:none;margin-top:1rem;padding:1rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;">
+          <div style="font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:.75rem;">Order Detail</div>
+          <div id="order-detail-content" style="font-size:.85rem;color:var(--text);line-height:1.7;"></div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:.75rem;" onclick="document.getElementById('order-detail').style.display='none'">Close</button>
+        </div>
       </div>
     </div>
 
@@ -751,42 +777,151 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
      ═══════════════════════════════════════════ */
   var PROD_KEY = 'ms_pdf_products';
   var products = lsGet(PROD_KEY, []);
+  var editingGuideId = null;
+
+  var gTitle = document.getElementById('g-title');
+  var gCat = document.getElementById('g-category');
+  var gDesc = document.getElementById('g-desc');
+  var gPrice = document.getElementById('g-price');
+  var gUrl = document.getElementById('g-url');
+  var gImage = document.getElementById('g-image');
+  var gFeatured = document.getElementById('g-featured');
+  var guideFormHeading = document.getElementById('guide-form-heading');
+  var btnCancelGuideEdit = document.getElementById('btn-cancel-guide-edit');
+
+  gFeatured.addEventListener('click', function () {
+    var turningOn = !gFeatured.classList.contains('on');
+    if (turningOn) {
+      var currentFeatured = products.filter(function(p) { return p.featured && p.id !== editingGuideId; }).length;
+      if (currentFeatured >= 3) {
+        var warn = document.createElement('div');
+        warn.style.cssText = 'position:fixed;top:1.5rem;right:1.5rem;background:#1a1a1a;border:1px solid #ef4444;border-radius:8px;padding:12px 16px;color:#ef4444;font-size:.85rem;font-weight:600;z-index:9999;transition:opacity .3s;';
+        warn.textContent = 'Featured limit reached (3/3) — unfeature an existing bundle first.';
+        document.body.appendChild(warn);
+        setTimeout(function() { warn.style.opacity = '0'; setTimeout(function() { warn.remove(); }, 300); }, 4000);
+        return;
+      }
+    }
+    gFeatured.classList.toggle('on');
+  });
+
+  function clearGuideForm() {
+    editingGuideId = null;
+    guideFormHeading.textContent = 'Add New Guide';
+    document.getElementById('btn-add-product').textContent = 'Publish';
+    btnCancelGuideEdit.style.display = 'none';
+    gTitle.value = ''; gCat.value = ''; gDesc.value = '';
+    gPrice.value = ''; gUrl.value = ''; gImage.value = '';
+    gFeatured.classList.remove('on');
+  }
+
+  btnCancelGuideEdit.addEventListener('click', clearGuideForm);
 
   function renderProducts() {
     var list = document.getElementById('products-list');
     document.getElementById('products-count').textContent = products.length;
-    if (!products.length) { list.innerHTML = '<p style="color:var(--muted2);font-size:.85rem;">No products yet.</p>'; return; }
+    if (!products.length) { list.innerHTML = '<p style="color:var(--muted2);font-size:.85rem;">No guides yet.</p>'; return; }
     list.innerHTML = products.map(function (p) {
-      return '<div class="product-item"><div class="product-info"><div class="product-title">' + esc(p.title) + '</div>' +
-        '<div class="product-meta">' + esc(p.category) + ' &middot; ' + esc(p.price) + '</div></div>' +
-        '<button class="btn btn-danger btn-sm" onclick="deleteProduct(\'' + p.id + '\')">Del</button></div>';
+      var badge = p.featured ? '<span class="story-badge featured">Featured</span>' : '<span class="story-badge">' + esc(p.category) + '</span>';
+      return '<div class="story-item">' + badge +
+        '<div class="story-info"><div class="story-info-title">' + esc(p.title) + '</div>' +
+        '<div class="story-info-meta">' + esc(p.price || '') + '</div></div>' +
+        '<div class="story-actions">' +
+        '<button class="btn btn-ghost btn-sm" onclick="editGuide(\'' + p.id + '\')">Edit</button>' +
+        '<button class="btn btn-danger btn-sm" onclick="deleteProduct(\'' + p.id + '\')">Del</button></div></div>';
     }).join('');
   }
 
   document.getElementById('btn-add-product').addEventListener('click', function () {
-    var t = document.getElementById('g-title').value.trim();
-    if (!t) { toast('Title required.', true); return; }
-    products.unshift({
-      id: 'p-' + Date.now(), title: t,
-      desc: document.getElementById('g-desc').value.trim(),
-      price: document.getElementById('g-price').value.trim(),
-      url: document.getElementById('g-url').value.trim(),
-      category: document.getElementById('g-category').value
-    });
+    var t = gTitle.value.trim();
+    if (!t) { toast('Title required.', true); gTitle.focus(); return; }
+    var guide = {
+      id: editingGuideId || ('p-' + Date.now()),
+      title: t,
+      description: gDesc.value.trim(),
+      price: gPrice.value.trim(),
+      url: gUrl.value.trim(),
+      image: gImage.value.trim(),
+      category: gCat.value,
+      featured: gFeatured.classList.contains('on')
+    };
+    if (editingGuideId) {
+      var idx = products.findIndex(function(p){return p.id===editingGuideId;});
+      if (idx !== -1) products[idx] = guide;
+    } else { products.unshift(guide); }
     lsSet(PROD_KEY, products); renderProducts();
-    document.getElementById('g-title').value = ''; document.getElementById('g-desc').value = '';
-    document.getElementById('g-price').value = ''; document.getElementById('g-url').value = '';
-    document.getElementById('g-category').value = '';
-    toast('Product added.');
+    clearGuideForm();
+    toast(editingGuideId ? 'Guide updated.' : 'Guide published.');
   });
 
+  window.editGuide = function (id) {
+    var p = products.find(function(x){return x.id===id;});
+    if (!p) return;
+    editingGuideId = id;
+    guideFormHeading.textContent = 'Edit Guide';
+    document.getElementById('btn-add-product').textContent = 'Update Guide';
+    btnCancelGuideEdit.style.display = '';
+    gTitle.value = p.title || ''; gCat.value = p.category || '';
+    gDesc.value = p.description || ''; gPrice.value = p.price || '';
+    gUrl.value = p.url || ''; gImage.value = p.image || '';
+    if (p.featured) gFeatured.classList.add('on'); else gFeatured.classList.remove('on');
+    tabs[2].click();
+    window.scrollTo({top:0,behavior:'smooth'}); gTitle.focus();
+  };
+
   window.deleteProduct = function (id) {
-    if (!confirm('Delete this product?')) return;
+    if (!confirm('Delete this guide?')) return;
     products = products.filter(function(p){return p.id!==id;});
-    lsSet(PROD_KEY, products); renderProducts(); toast('Product deleted.');
+    lsSet(PROD_KEY, products); renderProducts();
+    if (editingGuideId === id) clearGuideForm();
+    toast('Guide deleted.');
   };
 
   renderProducts();
+
+  /* Orders */
+  var SAMPLE_ORDERS = [
+    { id:'ORD-1001', name:'Sarah Johnson', email:'sarah.j@email.com', amount:'$7', product:"No Tax on Overtime — Worker's Claim Guide", method:'Stripe', date:'2026-06-22', delivered:true },
+    { id:'ORD-1002', name:'Michael Chen', email:'m.chen@email.com', amount:'$9', product:'Salary Negotiation Script Pack', method:'Gumroad', date:'2026-06-23', delivered:false }
+  ];
+  var expandedOrder = null;
+
+  function renderOrders() {
+    var body = document.getElementById('orders-body');
+    body.innerHTML = SAMPLE_ORDERS.map(function (o) {
+      var icon = o.delivered
+        ? '<span style="color:#10b981;font-weight:700;">&#10004;</span>'
+        : '<span style="color:#ef4444;font-weight:700;">&#10008;</span>';
+      return '<tr style="cursor:pointer;" data-order="' + esc(o.id) + '">' +
+        '<td style="font-weight:500;">' + esc(o.id) + '</td>' +
+        '<td>' + esc(o.name) + '</td>' +
+        '<td>' + esc(o.amount) + '</td>' +
+        '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(o.product) + '</td>' +
+        '<td>' + icon + '</td></tr>';
+    }).join('');
+    body.querySelectorAll('tr').forEach(function (row) {
+      row.addEventListener('click', function () {
+        var orderId = row.dataset.order;
+        var o = SAMPLE_ORDERS.find(function(x){return x.id===orderId;});
+        if (!o) return;
+        var detail = document.getElementById('order-detail');
+        var content = document.getElementById('order-detail-content');
+        if (expandedOrder === orderId) { detail.style.display = 'none'; expandedOrder = null; return; }
+        expandedOrder = orderId;
+        content.innerHTML =
+          '<div><strong>Order:</strong> ' + esc(o.id) + '</div>' +
+          '<div><strong>Name:</strong> ' + esc(o.name) + '</div>' +
+          '<div><strong>Email:</strong> ' + esc(o.email) + '</div>' +
+          '<div><strong>Product:</strong> ' + esc(o.product) + '</div>' +
+          '<div><strong>Amount:</strong> ' + esc(o.amount) + '</div>' +
+          '<div><strong>Payment Method:</strong> ' + esc(o.method) + '</div>' +
+          '<div><strong>Date:</strong> ' + esc(o.date) + '</div>' +
+          '<div><strong>Email Delivered:</strong> ' + (o.delivered ? '<span style="color:#10b981;">Yes</span>' : '<span style="color:#ef4444;">No</span>') + '</div>';
+        detail.style.display = '';
+      });
+    });
+  }
+  renderOrders();
 
   /* ═══════════════════════════════════════════
      KEYWORDS
