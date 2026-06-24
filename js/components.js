@@ -67,9 +67,12 @@
   // GitHub Pages (oisinmullen.github.io/Money-Stopwatch/index.html).
   function resolveHref(href) {
     var p = currentPath();
-    var inSubDir = p.indexOf('/paycheck-calculator/') !== -1 || p.indexOf('/feed/') !== -1 || p.indexOf('/admin/') !== -1 || p.indexOf('/guides/') !== -1;
-    var path = href.replace(/^\//, ''); // strip leading slash
-    return inSubDir ? ('../' + path) : path;
+    var segments = p.replace(/^\//, '').split('/');
+    var depth = segments.length - 1;
+    if (depth < 1) return href.replace(/^\//, '');
+    var prefix = '';
+    for (var i = 0; i < depth; i++) prefix += '../';
+    return prefix + href.replace(/^\//, '');
   }
 
   /* ── Build dropdown menu HTML ──────────── */
