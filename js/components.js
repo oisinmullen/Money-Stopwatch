@@ -136,6 +136,75 @@
     ].join('\n');
   }
 
+  /* ── Build Email Banner ─────────────────── */
+  function buildEmailBanner() {
+    return `
+<div class="msw-email-banner" id="msw-email-banner">
+  <div class="msw-email-inner">
+    <div class="msw-email-text">
+      <div class="msw-email-heading">Get a Free Budgeting Checklist</div>
+      <div class="msw-email-sub">Join readers getting free money guides and financial tips.</div>
+    </div>
+    <div class="msw-email-form-wrap">
+      <form class="msw-email-form" id="msw-email-form">
+        <input type="email" name="email" class="msw-email-input" placeholder="your@email.com" required>
+        <button type="submit" class="msw-email-btn">Send Me the Checklist</button>
+      </form>
+      <div class="msw-email-msg" id="msw-email-msg" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+<style>
+.msw-email-banner{background:#0d1f18;border-top:1px solid #10b981;padding:32px 24px;width:100%}
+.msw-email-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.msw-email-heading{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
+.msw-email-sub{font-size:14px;color:#9ca3af;line-height:1.5}
+.msw-email-form{display:flex;gap:8px}
+.msw-email-input{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:10px 16px;color:#fff;font-family:inherit;font-size:14px;outline:none;width:240px;transition:border-color .15s}
+.msw-email-input:focus{border-color:#10b981}
+.msw-email-input::placeholder{color:#6b7280}
+.msw-email-btn{background:#10b981;color:#000;font-weight:700;font-family:inherit;font-size:14px;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;white-space:nowrap;transition:background .15s}
+.msw-email-btn:hover{background:#059669}
+.msw-email-msg{font-size:15px;font-weight:600;margin-top:4px}
+@media(max-width:768px){
+.msw-email-inner{flex-direction:column;align-items:flex-start}
+.msw-email-form{flex-direction:column;width:100%}
+.msw-email-input{width:100%}
+.msw-email-btn{width:100%}
+}
+</style>`;
+  }
+
+  function initEmailBanner() {
+    var form = document.getElementById('msw-email-form');
+    var msg = document.getElementById('msw-email-msg');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('.msw-email-input').value;
+      fetch('https://formspree.io/f/xgojokll', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email })
+      }).then(function (res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          msg.style.display = '';
+          msg.style.color = '#10b981';
+          msg.textContent = '✓ Checklist on its way — check your inbox.';
+        } else {
+          msg.style.display = '';
+          msg.style.color = '#ef4444';
+          msg.textContent = 'Something went wrong — try again.';
+        }
+      }).catch(function () {
+        msg.style.display = '';
+        msg.style.color = '#ef4444';
+        msg.textContent = 'Something went wrong — try again.';
+      });
+    });
+  }
+
   /* ── Build Footer ─────────────────────── */
   function buildFooter() {
     const r = resolveHref.bind(null);
@@ -188,7 +257,9 @@
     if (headerSlot) headerSlot.outerHTML = buildHeader();
 
     var footerSlot = document.getElementById('site-footer-slot');
-    if (footerSlot) footerSlot.outerHTML = buildFooter();
+    if (footerSlot) footerSlot.outerHTML = buildEmailBanner() + buildFooter();
+
+    initEmailBanner();
 
     setTimeout(function () {
       // Mobile hamburger — open/close full nav
