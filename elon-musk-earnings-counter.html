@@ -11,14 +11,14 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elon Musk Earnings Counter | MoneyStopwatch</title>
+  <title>Celebrity Earnings Counter — Real-Time | MoneyStopwatch</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <meta name="description" content="Watch Elon Musk's estimated earnings accumulate in real time. See how much he earns per second, minute, and hour — and compare it to your own pay.">
-  <meta property="og:title" content="Elon Musk Earnings Counter | MoneyStopwatch">
-  <meta property="og:description" content="Watch Elon Musk's estimated earnings accumulate in real time. See how much he earns per second, minute, and hour — and compare it to your own pay.">
+  <meta name="description" content="Watch Elon Musk, Taylor Swift, Ronaldo, Messi and LeBron James earn money in real time. See how much the world's richest celebrities make per second.">
+  <meta property="og:title" content="Celebrity Earnings Counter — Real-Time | MoneyStopwatch">
+  <meta property="og:description" content="Watch Elon Musk, Taylor Swift, Ronaldo, Messi and LeBron James earn money in real time. See how much the world's richest celebrities make per second.">
   <meta property="og:url" content="https://www.moneystopwatch.com/elon-musk-earnings-counter.html">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://www.moneystopwatch.com/elon-musk-earnings-counter.html">
@@ -82,6 +82,114 @@
       border-radius: var(--radius);
       padding: .75rem 1rem;
       margin-top: 1rem;
+    }
+
+    .celeb-divider {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0 24px;
+    }
+    .celeb-section-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #6b7280;
+      margin-bottom: 1.25rem;
+    }
+    .celeb-sub-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #10b981;
+      margin-bottom: .75rem;
+    }
+    .wc-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 2rem;
+    }
+    .wc-row .celeb-card { flex: 1; }
+    .wc-vs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0 .5rem;
+    }
+    .wc-vs span {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #fff;
+      font-weight: 700;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 720px) {
+      .wc-row { flex-direction: column; gap: 1rem; }
+      .wc-vs { padding: .25rem 0; }
+    }
+    .celeb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 720px) {
+      .celeb-grid { grid-template-columns: 1fr; }
+    }
+    .celeb-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .celeb-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .15rem;
+    }
+    .celeb-title {
+      font-size: .8rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+    .celeb-counter {
+      font-size: 32px;
+      font-weight: 800;
+      color: #10b981;
+      font-family: 'Courier New', ui-monospace, monospace;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: .2rem;
+    }
+    .celeb-counter-label {
+      font-size: .78rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: .75rem;
+    }
+    .celeb-networth {
+      font-size: .8rem;
+      color: #6b7280;
+      margin-bottom: .75rem;
+    }
+    .celeb-fact {
+      font-size: .82rem;
+      color: #9ca3af;
+      line-height: 1.5;
+      margin-bottom: .5rem;
+    }
+    .celeb-how {
+      font-size: .78rem;
+      color: #6b7280;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -218,6 +326,75 @@
       <p style="font-size:.88rem;color:var(--muted);margin:0;">This is an educational estimate for entertainment and perspective. Actual net worth changes fluctuate with Tesla, SpaceX, and X valuations. This is not financial data.</p>
     </div>
 
+    <!-- More Celebrity Earnings -->
+    <hr class="celeb-divider">
+    <div class="celeb-section-label">MORE CELEBRITY EARNINGS</div>
+
+    <!-- World Cup Spotlight -->
+    <div class="celeb-sub-label">⚽ 2026 WORLD CUP SPOTLIGHT</div>
+    <div class="wc-row">
+      <div class="celeb-card" id="card-ronaldo">
+        <div class="celeb-name">Cristiano Ronaldo</div>
+        <div class="celeb-title">Portugal Captain &amp; Al Nassr Forward</div>
+        <div class="celeb-counter" id="counter-ronaldo">$0.00</div>
+        <div class="celeb-counter-label">earned since you opened this page</div>
+        <div class="celeb-networth">Est. net worth: $1.3 billion</div>
+        <div class="celeb-fact">Ronaldo earns ~$7.45 per second — more than most people earn in an hour</div>
+        <div class="celeb-how"><strong>How he made it:</strong> Al Nassr salary ($200M+/yr), lifetime Nike deal, CR7 brand empire</div>
+      </div>
+      <div class="wc-vs"><span>vs</span></div>
+      <div class="celeb-card" id="card-messi">
+        <div class="celeb-name">Lionel Messi</div>
+        <div class="celeb-title">Argentina Captain &amp; Inter Miami Forward</div>
+        <div class="celeb-counter" id="counter-messi">$0.00</div>
+        <div class="celeb-counter-label">earned since you opened this page</div>
+        <div class="celeb-networth">Est. net worth: $1 billion</div>
+        <div class="celeb-fact">Messi earns ~$4.28 per second — and he still takes penalties</div>
+        <div class="celeb-how"><strong>How he made it:</strong> Inter Miami salary, Adidas lifetime deal, MLS equity stake</div>
+      </div>
+    </div>
+
+    <hr class="celeb-divider" style="margin-top:1.5rem;">
+    <div class="celeb-section-label">CELEBRITY EARNINGS</div>
+    <div class="celeb-grid">
+      <div class="celeb-card">
+        <div class="celeb-name">Taylor Swift</div>
+        <div class="celeb-title">Musician &amp; Billionaire</div>
+        <div class="celeb-counter" id="counter-swift">$0.00</div>
+        <div class="celeb-counter-label">earned since you opened this page</div>
+        <div class="celeb-networth">Est. net worth: $2 billion</div>
+        <div class="celeb-fact">Taylor earns ~$4.76 per second — mostly from music she owns outright</div>
+        <div class="celeb-how"><strong>How she made it:</strong> Eras Tour ($2.2B gross), music catalog ownership, masters buyback</div>
+      </div>
+      <div class="celeb-card">
+        <div class="celeb-name">LeBron James</div>
+        <div class="celeb-title">NBA Star &amp; Entrepreneur</div>
+        <div class="celeb-counter" id="counter-lebron">$0.00</div>
+        <div class="celeb-counter-label">earned since you opened this page</div>
+        <div class="celeb-networth">Est. net worth: $1.3 billion</div>
+        <div class="celeb-fact">LeBron earns ~$3.79 per second — more off the court than on it</div>
+        <div class="celeb-how"><strong>How he made it:</strong> Lakers salary, lifetime Nike deal, Fenway Sports Group equity</div>
+      </div>
+      <div class="celeb-card">
+        <div class="celeb-name">Jeff Bezos</div>
+        <div class="celeb-title">Amazon Founder</div>
+        <div class="celeb-counter" id="counter-bezos">$0.00</div>
+        <div class="celeb-counter-label">earned since you opened this page</div>
+        <div class="celeb-networth">Est. net worth: $200 billion</div>
+        <div class="celeb-fact">Bezos earns ~$275 per second — that's more than most earn in a week</div>
+        <div class="celeb-how"><strong>How he made it:</strong> Amazon equity, Blue Origin, Washington Post, investments</div>
+      </div>
+      <div class="celeb-card">
+        <div class="celeb-name">Mark Zuckerberg</div>
+        <div class="celeb-title">Meta CEO &amp; Founder</div>
+        <div class="celeb-counter" id="counter-zuck">$0.00</div>
+        <div class="celeb-counter-label">earned since you opened this page</div>
+        <div class="celeb-networth">Est. net worth: $220 billion</div>
+        <div class="celeb-fact">Zuck earns ~$301 per second — Meta's AI bet is paying off</div>
+        <div class="celeb-how"><strong>How he made it:</strong> Meta equity (Facebook, Instagram, WhatsApp), AI investments</div>
+      </div>
+    </div>
+
     <!-- CTA to stopwatch -->
     <div class="cta-box mt-3">
       <h2>Track Your Own Earnings</h2>
@@ -305,6 +482,32 @@
 
   /* ── Kick off ── */
   requestAnimationFrame(tick);
+
+  /* ── Celebrity counters ── */
+  var CELEBS = [
+    { id: 'counter-ronaldo', annual: 235000000 },
+    { id: 'counter-messi',   annual: 135000000 },
+    { id: 'counter-swift',   annual: 150000000 },
+    { id: 'counter-lebron',  annual: 119500000 },
+    { id: 'counter-bezos',   annual: 8700000000 },
+    { id: 'counter-zuck',    annual: 9500000000 }
+  ];
+  var SEC = 31536000;
+  var celebTotals = CELEBS.map(function () { return 0; });
+  var celebEls = CELEBS.map(function (c) { return document.getElementById(c.id); });
+  var celebLast = Date.now();
+
+  function celebTick() {
+    var now = Date.now();
+    var dt = (now - celebLast) / 1000;
+    celebLast = now;
+    for (var i = 0; i < CELEBS.length; i++) {
+      celebTotals[i] += (CELEBS[i].annual / SEC) * dt;
+      celebEls[i].textContent = '$' + celebTotals[i].toFixed(2);
+    }
+    requestAnimationFrame(celebTick);
+  }
+  requestAnimationFrame(celebTick);
 })();
 </script>
 </body>
