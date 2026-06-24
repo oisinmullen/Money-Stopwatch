@@ -487,6 +487,10 @@
         <h3>4-Week Content Plan</h3>
         <div id="content-plan"></div>
       </div>
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:24px;margin-top:32px;">
+        <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6b7280;margin-bottom:1rem;">NEXT ACTIONS</div>
+        <div id="next-actions"></div>
+      </div>
     </div>
 
     <!-- ═══ SEO HEALTH ═══ -->
@@ -976,7 +980,10 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     {kw:'texas minimum wage',vol:'35K',kd:24,status:'Target',notes:''},
     {kw:'no tax on tips',vol:'69K',kd:48,status:'Target',notes:''},
     {kw:'money counter online',vol:'2.9K',kd:5,status:'Target',notes:''},
-    {kw:'billable hours calculator',vol:'400',kd:1,status:'Ranking',notes:''}
+    {kw:'billable hours calculator',vol:'400',kd:1,status:'Ranking',notes:''},
+    {kw:'taylor swift net worth',vol:'157K',kd:9,status:'Target',notes:'High priority — write Feed article, link to Celebrity Earnings page'},
+    {kw:'ronaldo net worth',vol:'17K',kd:7,status:'Target',notes:'World Cup timing — write Feed article, link to Ronaldo counter'},
+    {kw:'messi net worth',vol:'17K',kd:10,status:'Target',notes:'World Cup timing — write Feed article, link to Messi counter'}
   ];
 
   var keywords = lsGet(KW_KEY, null);
@@ -1049,6 +1056,48 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     });
   }
   renderPlan();
+
+  /* Next Actions */
+  var ACTIONS = [
+    { pri:'high', emoji:'🔴', label:'HIGH', text:'Set up Gumroad for "Budgeting in Everyday Life" ($7) — upload PDF, get payment link, add to admin Guides tab' },
+    { pri:'high', emoji:'🔴', label:'HIGH', text:'Write Feed article: "Taylor Swift Net Worth 2026" — target keyword "taylor swift net worth" (157K/mo, KD 9)' },
+    { pri:'med', emoji:'🟡', label:'MEDIUM', text:'Write Feed article: "Cristiano Ronaldo Earnings Per Second" — target keyword "ronaldo net worth" (17K/mo, KD 7)' },
+    { pri:'med', emoji:'🟡', label:'MEDIUM', text:'Write Feed article: "Lionel Messi Net Worth 2026" — target keyword "messi net worth" (17K/mo, KD 10)' },
+    { pri:'med', emoji:'🟡', label:'MEDIUM', text:'Launch on Product Hunt — first backlink activity' },
+    { pri:'med', emoji:'🟡', label:'MEDIUM', text:'Submit top pages for manual indexing in Google Search Console' },
+    { pri:'low', emoji:'🟢', label:'LOW', text:'Set up Gumroad for Salary Negotiation Script Pack ($9) and No Tax on Overtime Worker\'s Claim Guide ($7)' },
+    { pri:'low', emoji:'🟢', label:'LOW', text:'Set up email tool (Mailchimp or ConvertKit) and connect to Formspree captures' },
+    { pri:'low', emoji:'🟢', label:'LOW', text:'Add "All Calculators" page to site navigation' }
+  ];
+  var actionsEl = document.getElementById('next-actions');
+  var priColors = { high:'#ef4444', med:'#f59e0b', low:'#10b981' };
+  actionsEl.innerHTML = ACTIONS.map(function(a, i) {
+    return '<div class="na-item" data-idx="' + i + '" style="display:flex;align-items:flex-start;gap:.7rem;padding:.55rem 0;border-bottom:1px solid #2a2a2a;cursor:pointer;user-select:none;">' +
+      '<div class="na-check" style="width:20px;height:20px;border:2px solid #4b5563;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;margin-top:1px;transition:all .15s;"></div>' +
+      '<span style="font-size:.78rem;font-weight:700;color:' + priColors[a.pri] + ';flex-shrink:0;margin-top:2px;">' + a.emoji + ' ' + a.label + '</span>' +
+      '<span class="na-text" style="font-size:.85rem;color:#e5e7eb;line-height:1.45;transition:all .15s;">' + esc(a.text) + '</span></div>';
+  }).join('');
+  actionsEl.querySelectorAll('.na-item').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var check = el.querySelector('.na-check');
+      var text = el.querySelector('.na-text');
+      var done = check.style.background === 'rgb(16, 185, 129)';
+      if (done) {
+        check.style.background = 'transparent';
+        check.style.borderColor = '#4b5563';
+        check.style.color = 'transparent';
+        text.style.textDecoration = 'none';
+        text.style.color = '#e5e7eb';
+      } else {
+        check.style.background = '#10b981';
+        check.style.borderColor = '#10b981';
+        check.style.color = '#fff';
+        check.textContent = '✓';
+        text.style.textDecoration = 'line-through';
+        text.style.color = '#6b7280';
+      }
+    });
+  });
 
   /* ═══════════════════════════════════════════
      SEO HEALTH
