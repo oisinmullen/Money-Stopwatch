@@ -426,6 +426,13 @@
         <div class="field">
           <label for="g-image">Image URL</label>
           <input type="url" id="g-image" placeholder="https://...cover.jpg">
+          <div style="font-size:12px;color:#6b7280;margin-top:.35rem;">Upload your image to /assets/guides/ in GitHub, then paste the path here — e.g. /assets/guides/my-cover.jpg</div>
+          <div id="g-image-preview" style="display:none;margin-top:.6rem;">
+            <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:8px;display:inline-block;">
+              <img id="g-image-preview-img" style="max-width:120px;max-height:160px;object-fit:contain;display:block;border-radius:4px;">
+            </div>
+            <div id="g-image-preview-label" style="font-size:12px;font-weight:600;margin-top:.3rem;"></div>
+          </div>
         </div>
         <div class="field" style="display:flex;align-items:flex-end;padding-bottom:.15rem;">
           <div class="toggle-wrap">
@@ -788,6 +795,31 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   var gFeatured = document.getElementById('g-featured');
   var guideFormHeading = document.getElementById('guide-form-heading');
   var btnCancelGuideEdit = document.getElementById('btn-cancel-guide-edit');
+  var gImagePreview = document.getElementById('g-image-preview');
+  var gImagePreviewImg = document.getElementById('g-image-preview-img');
+  var gImagePreviewLabel = document.getElementById('g-image-preview-label');
+  var gImageTimer = null;
+
+  function showImagePreview(url) {
+    if (!url || !url.trim()) { gImagePreview.style.display = 'none'; return; }
+    gImagePreview.style.display = '';
+    gImagePreviewImg.onload = function () {
+      gImagePreviewImg.style.display = 'block';
+      gImagePreviewLabel.style.color = '#10b981';
+      gImagePreviewLabel.textContent = '✓ Image found';
+    };
+    gImagePreviewImg.onerror = function () {
+      gImagePreviewImg.style.display = 'none';
+      gImagePreviewLabel.style.color = '#ef4444';
+      gImagePreviewLabel.textContent = '✗ Image not found — check the path';
+    };
+    gImagePreviewImg.src = url.trim();
+  }
+
+  gImage.addEventListener('input', function () {
+    clearTimeout(gImageTimer);
+    gImageTimer = setTimeout(function () { showImagePreview(gImage.value); }, 500);
+  });
 
   gFeatured.addEventListener('click', function () {
     var turningOn = !gFeatured.classList.contains('on');
@@ -813,6 +845,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     gTitle.value = ''; gCat.value = ''; gDesc.value = '';
     gPrice.value = ''; gUrl.value = ''; gImage.value = '';
     gFeatured.classList.remove('on');
+    gImagePreview.style.display = 'none';
   }
 
   btnCancelGuideEdit.addEventListener('click', clearGuideForm);
@@ -863,7 +896,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     btnCancelGuideEdit.style.display = '';
     gTitle.value = p.title || ''; gCat.value = p.category || '';
     gDesc.value = p.description || ''; gPrice.value = p.price || '';
-    gUrl.value = p.url || ''; gImage.value = p.image || '';
+    gUrl.value = p.url || ''; gImage.value = p.image || ''; showImagePreview(p.image || '');
     if (p.featured) gFeatured.classList.add('on'); else gFeatured.classList.remove('on');
     tabs[2].click();
     window.scrollTo({top:0,behavior:'smooth'}); gTitle.focus();
