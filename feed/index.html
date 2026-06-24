@@ -78,6 +78,72 @@
     .feed-card.featured .feed-card-title {
       font-size: 1.15rem;
     }
+    .featured-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #6b7280;
+      margin-bottom: .75rem;
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 720px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+    .featured-card {
+      background: #0d1f18;
+      border: 1px solid var(--border);
+      border-left: 4px solid #10b981;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      text-decoration: none;
+      transition: border-color .15s;
+    }
+    .featured-card:hover {
+      border-color: var(--accent);
+      border-left-color: var(--accent);
+    }
+    .featured-card .fc-cat {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--accent);
+    }
+    .featured-card .fc-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.35;
+    }
+    .featured-card .fc-excerpt {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .featured-card .fc-meta {
+      font-size: .72rem;
+      color: var(--muted2);
+      display: flex;
+      gap: .75rem;
+      margin-top: .25rem;
+    }
+    .feed-divider {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 32px 0;
+    }
   </style>
 </head>
 <body>
@@ -89,7 +155,7 @@
 
     <div class="page-hero">
       <h1>Money <span class="hero-accent">Feed</span></h1>
-      <p>Guides, explainers, and calculators to help you understand your paycheck.</p>
+      <p>Money news, tax explainers, and financial guides for everyday workers.</p>
     </div>
 
     <!--
@@ -97,6 +163,8 @@
       The JS block below replaces #feed-static with dynamic content from localStorage
       once the page has loaded in a browser.
     -->
+    <div id="feed-featured"></div>
+
     <div id="feed-static">
       <div class="feed-grid">
 
@@ -212,7 +280,33 @@
     ].join('');
   }
 
+  function buildFeaturedCard(story) {
+    return [
+      '<a href="' + escHtml(story.url) + '" class="featured-card">',
+      '<div class="fc-cat">' + escHtml(story.category) + '</div>',
+      '<div class="fc-title">' + escHtml(story.title) + '</div>',
+      '<div class="fc-excerpt">' + escHtml(story.excerpt) + '</div>',
+      '<div class="fc-meta">',
+      '<span>' + escHtml(formatDate(story.date)) + '</span>',
+      '<span>' + escHtml(story.readTime) + '</span>',
+      '</div>',
+      '</a>',
+    ].join('');
+  }
+
   var stories = loadStories();
+
+  var featuredEl = document.getElementById('feed-featured');
+  var featured = stories.filter(function(s) { return s.featured; })
+    .sort(function(a, b) { return b.date.localeCompare(a.date); })
+    .slice(0, 3);
+  if (featured.length > 0) {
+    featuredEl.innerHTML =
+      '<div class="featured-label">FEATURED</div>' +
+      '<div class="featured-grid">' + featured.map(buildFeaturedCard).join('') + '</div>' +
+      '<hr class="feed-divider">';
+  }
+
   if (stories.length > 0) {
     var grid = '<div class="feed-grid">' + stories.map(buildCard).join('') + '</div>';
     document.getElementById('feed-static').innerHTML = grid;

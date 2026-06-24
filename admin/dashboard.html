@@ -560,7 +560,21 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   var feedFormHeading = document.getElementById('feed-form-heading');
 
   fDate.value = new Date().toISOString().slice(0,10);
-  fFeatured.addEventListener('click', function () { fFeatured.classList.toggle('on'); });
+  fFeatured.addEventListener('click', function () {
+    var turningOn = !fFeatured.classList.contains('on');
+    if (turningOn) {
+      var currentFeatured = stories.filter(function(s) { return s.featured && s.id !== editingId; }).length;
+      if (currentFeatured >= 3) {
+        var warn = document.createElement('div');
+        warn.style.cssText = 'position:fixed;top:1.5rem;right:1.5rem;background:#1a1a1a;border:1px solid #ef4444;border-radius:8px;padding:12px 16px;color:#ef4444;font-size:.85rem;font-weight:600;z-index:9999;transition:opacity .3s;';
+        warn.textContent = 'Featured limit reached (3/3) — unfeature an existing story first.';
+        document.body.appendChild(warn);
+        setTimeout(function() { warn.style.opacity = '0'; setTimeout(function() { warn.remove(); }, 300); }, 4000);
+        return;
+      }
+    }
+    fFeatured.classList.toggle('on');
+  });
   fTitle.addEventListener('input', function () { if (!slugManual) fSlug.value = titleToSlug(fTitle.value); });
   fSlug.addEventListener('input', function () { slugManual = true; });
 
