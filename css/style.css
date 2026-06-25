@@ -1112,6 +1112,8 @@ select {
   gap: 12px;
   margin-top: 16px;
   margin-bottom: 1.5rem;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .stat-card {
@@ -1120,6 +1122,8 @@ select {
   border-radius: 12px;
   padding: 20px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .stat-label {
@@ -1261,7 +1265,7 @@ select {
 
   .steps-grid { grid-template-columns: 1fr 1fr; }
 
-  .stats-row { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
 
   .input-group { grid-template-columns: 1fr; }
 
@@ -1271,7 +1275,7 @@ select {
 @media (max-width: 480px) {
   .steps-grid { grid-template-columns: 1fr; }
   .container { padding: 0 16px; }
-  .stats-row { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
   .input-group { grid-template-columns: 1fr; }
   .calculator-card { padding: 20px; }
   .result-amount { font-size: 2.5rem; }
