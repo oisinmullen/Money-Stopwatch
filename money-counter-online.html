@@ -291,7 +291,7 @@
     currency = document.getElementById('mc-currency').value;
     if (rate <= 0) return 0;
     var perYear = (type === 'hourly') ? rate * hpw * 52 : rate;
-    return perYear / (365.25 * 24 * 3600);
+    return perYear / (hpw * 52 * 3600);
   }
 
   function tick() {
