@@ -137,6 +137,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 2rem;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
     }
     @media (max-width: 720px) {
       .email-banner { flex-direction: column; align-items: flex-start; padding: 20px; }
@@ -157,9 +160,10 @@
       gap: .5rem;
       flex-shrink: 0;
     }
-    @media (max-width: 720px) {
-      .email-form { width: 100%; }
-      .email-form input { flex: 1; }
+    @media (max-width: 768px) {
+      .email-form { width: 100%; flex-direction: column; gap: 8px; }
+      .email-form input { flex: 1; width: 100%; box-sizing: border-box; }
+      .email-form button { width: 100%; box-sizing: border-box; }
     }
     .email-form input {
       background: #1a1a1a;
