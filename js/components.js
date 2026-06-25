@@ -155,12 +155,12 @@
   </div>
 </div>
 <style>
-.msw-email-banner{background:#0d1f18;border-top:1px solid #10b981;padding:32px 24px;width:100%}
+.msw-email-banner{background:#0d1f18;border-top:1px solid #10b981;padding:32px 24px;width:100%;max-width:100%;overflow:hidden}
 .msw-email-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem}
 .msw-email-heading{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
 .msw-email-sub{font-size:14px;color:#9ca3af;line-height:1.5}
 .msw-email-form{display:flex;gap:8px}
-.msw-email-input{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:10px 16px;color:#fff;font-family:inherit;font-size:14px;outline:none;width:240px;transition:border-color .15s}
+.msw-email-input{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:10px 16px;color:#fff;font-family:inherit;font-size:14px;outline:none;width:240px;max-width:100%;transition:border-color .15s}
 .msw-email-input:focus{border-color:#10b981}
 .msw-email-input::placeholder{color:#6b7280}
 .msw-email-btn{background:#10b981;color:#000;font-weight:700;font-family:inherit;font-size:14px;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;white-space:nowrap;transition:background .15s}
