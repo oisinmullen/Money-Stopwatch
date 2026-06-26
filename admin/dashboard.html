@@ -583,7 +583,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     { id:'seed-4', title:'No Tax on Overtime Calculator', category:'Calculator', excerpt:'Enter your hourly rate and overtime hours to see how much more you would take home.', readTime:'3 min read', url:'/feed/no-tax-on-overtime-calculator.html', date:'2026-06-21', featured:false, body:'' },
     { id:'seed-5', title:'No Tax on Tips — What It Actually Means for Your Paycheck', category:'Explainer', excerpt:'The no tax on tips deduction is now law. Here is who qualifies, how much you can save, and how to claim it.', readTime:'5 min read', url:'/feed/no-tax-on-tips.html', date:'2026-06-22', featured:false, body:'' },
     { id:'seed-6', title:"Elon Musk Is Now a Trillionaire — Here's How Much He Makes Every Second", category:'News', excerpt:'On June 12 2026 Elon Musk became the world\'s first trillionaire when SpaceX went public. Here\'s exactly how much he earns per second.', readTime:'5 min read', url:'/feed/elon-musk-trillionaire/', date:'2026-06-24', featured:false, body:'' },
-    { id:'seed-7', title:'Taylor Swift Net Worth 2026: How She Became a $2 Billion Musician', category:'News', excerpt:'Taylor Swift\'s net worth hit $2 billion in 2026 — here\'s how much she earns per second and what built her fortune.', readTime:'7 min read', url:'/feed/taylor-swift-net-worth/', date:'2026-06-25', featured:false, body:'' }
+    { id:'seed-7', title:'Taylor Swift Net Worth 2026: How She Became a $2 Billion Musician', category:'NEWS', excerpt:'Taylor Swift\'s net worth hit $2 billion in 2026 — here\'s how much she earns per second and what built her fortune.', readTime:'7 min read', url:'/feed/taylor-swift-net-worth/', date:'2026-06-25', featured:false, body:'' }
   ];
 
   var stories = lsGet(FEED_KEY, []);
@@ -794,7 +794,22 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
      GUIDES
      ═══════════════════════════════════════════ */
   var PROD_KEY = 'ms_pdf_products';
+  var SEED_PRODUCTS = [
+    { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to help your customers build strong money habits, stick to a budget, and create a real plan for financial freedom. Includes 2 guides, 2 checklists, 1 audio series, 1 mini-course, 1 prompt pack, and 1 book.', price:'$27', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
+    { id:'g-2', title:'Smart Money Habits', description:'A complete system for building lasting financial habits, tackling debt, and growing long-term wealth. Includes 2 guides, 2 checklists, 1 mini-course, and 1 book.', price:'$27', image:'/assets/guides/Smart Money Habits.png', url:'https://moneystopwatch.gumroad.com/l/Smart-money-habits-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
+    { id:'g-3', title:'Interview Success Blueprint', description:'Land the job, ask for the promotion, and earn what you\'re worth. A full toolkit for interview confidence, salary negotiation, and career advancement. Includes 2 guides, 2 checklists, 1 mini-course, and 1 book.', price:'$27', image:'/assets/guides/Interview Blueprint.png', url:'https://moneystopwatch.gumroad.com/l/Interview-success-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
+    { id:'g-4', title:'The Resilient Wallet', description:'A podcast-style audio series to help build strong money habits, stick to a budget, and plan for real financial freedom.', price:'$5', image:'', url:'#', category:'AUDIO', featured:false },
+    { id:'g-5', title:'Take Control of Your Finances', description:'An email mini-course teaching smart money habits while building trust with your audience.', price:'$7', image:'', url:'#', category:'MINI-COURSE', featured:false },
+    { id:'g-6', title:'Personal Finance Mastery', description:'An AI prompt pack to help improve budgeting, build savings, and make smarter financial choices every day.', price:'$5', image:'', url:'#', category:'PROMPT PACK', featured:false },
+    { id:'g-7', title:'The Multi-Bucket Savings System', description:'A structured savings system using multiple buckets for short-term needs, emergency funds, and long-term wealth building.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-8', title:'Investment Portfolio Building', description:'A step-by-step checklist for building a diversified investment portfolio with strategies for risk management and long-term growth.', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false },
+    { id:'g-9', title:'The 90-Day Debt Elimination Plan', description:'A structured plan to help eliminate debt fast with clear milestones and proven payoff strategies.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-10', title:'Stand Out and Get Hired', description:'Master interview strategies, build confidence, and position yourself as the top candidate for any role.', price:'$7', image:'', url:'#', category:'MINI-COURSE', featured:false },
+    { id:'g-11', title:'Professional Story Library Creator', description:'Build a library of compelling professional stories to showcase achievements and win interviews.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-12', title:'Confident Non-Verbal Communication', description:'Use body language and non-verbal cues to project confidence in interviews, meetings, and salary negotiations.', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false }
+  ];
   var products = lsGet(PROD_KEY, []);
+  if (products.length === 0) { products = SEED_PRODUCTS.map(function(p){return Object.assign({},p);}); lsSet(PROD_KEY, products); }
   var editingGuideId = null;
 
   var gTitle = document.getElementById('g-title');
