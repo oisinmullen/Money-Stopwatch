@@ -271,6 +271,12 @@
     }
     #toast.show { transform: translateY(0); opacity: 1; }
     #toast.error { background: var(--red, #ef4444); color: #fff; }
+    .drag-handle { cursor: grab; color: #6b7280; font-size: 1.1rem; padding: 0 .4rem; user-select: none; flex-shrink: 0; line-height: 1; }
+    .drag-handle:hover { color: #10b981; }
+    .drag-handle:active { cursor: grabbing; }
+    .story-item[draggable="true"] { transition: opacity .15s; }
+    .story-item.drag-over { border-top: 2px solid #10b981; }
+    .story-item.dragging { opacity: .4; }
   </style>
 </head>
 <body>
@@ -859,15 +865,17 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     var list = document.getElementById('products-list');
     document.getElementById('products-count').textContent = products.length;
     if (!products.length) { list.innerHTML = '<p style="color:var(--muted2);font-size:.85rem;">No guides yet.</p>'; return; }
-    list.innerHTML = products.map(function (p) {
+    list.innerHTML = products.map(function (p, i) {
       var badge = p.featured ? '<span class="story-badge featured">Featured</span>' : '<span class="story-badge">' + esc(p.category) + '</span>';
-      return '<div class="story-item">' + badge +
+      return '<div class="story-item" draggable="true" data-drag-idx="' + i + '" data-drag-list="products">' +
+        '<span class="drag-handle" title="Drag to reorder">≡</span>' + badge +
         '<div class="story-info"><div class="story-info-title">' + esc(p.title) + '</div>' +
         '<div class="story-info-meta">' + esc(p.price || '') + '</div></div>' +
         '<div class="story-actions">' +
         '<button class="btn btn-ghost btn-sm" onclick="editGuide(\'' + p.id + '\')">Edit</button>' +
         '<button class="btn btn-danger btn-sm" onclick="deleteProduct(\'' + p.id + '\')">Del</button></div></div>';
     }).join('');
+    initDragList(list, 'products');
   }
 
   document.getElementById('btn-add-product').addEventListener('click', function () {
@@ -914,6 +922,41 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     if (editingGuideId === id) clearGuideForm();
     toast('Guide deleted.');
   };
+
+  function initDragList(container, listName) {
+    var dragIdx = null;
+    container.addEventListener('dragstart', function(e) {
+      var item = e.target.closest('[data-drag-idx]');
+      if (!item) return;
+      dragIdx = parseInt(item.getAttribute('data-drag-idx'));
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    container.addEventListener('dragend', function(e) {
+      var item = e.target.closest('[data-drag-idx]');
+      if (item) item.classList.remove('dragging');
+      container.querySelectorAll('.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
+      dragIdx = null;
+    });
+    container.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      var item = e.target.closest('[data-drag-idx]');
+      container.querySelectorAll('.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
+      if (item && parseInt(item.getAttribute('data-drag-idx')) !== dragIdx) item.classList.add('drag-over');
+    });
+    container.addEventListener('drop', function(e) {
+      e.preventDefault();
+      var item = e.target.closest('[data-drag-idx]');
+      if (!item || dragIdx === null) return;
+      var dropIdx = parseInt(item.getAttribute('data-drag-idx'));
+      if (dropIdx === dragIdx) return;
+      var moved = products.splice(dragIdx, 1)[0];
+      products.splice(dropIdx, 0, moved);
+      lsSet(PROD_KEY, products);
+      renderProducts();
+    });
+  }
 
   renderProducts();
 

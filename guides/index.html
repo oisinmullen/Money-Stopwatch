@@ -417,7 +417,6 @@
   if (products.length === 0) products = DEFAULTS;
 
   var featured = products.filter(function(p) { return p.featured; })
-    .sort(function(a, b) { return (b.id || '').localeCompare(a.id || ''); })
     .slice(0, 3);
 
   var bundlesSection = document.getElementById('bundles-section');
