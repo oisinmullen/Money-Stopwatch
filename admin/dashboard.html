@@ -798,7 +798,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
      ═══════════════════════════════════════════ */
   var PROD_KEY = 'ms_pdf_products';
   var SEED_PRODUCTS = [
-    { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.', price:'$27', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
+    { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.', price:'$29', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
     { id:'g-2', title:'Smart Money Habits', description:'A complete system for building lasting financial habits, tackling debt, and growing long-term wealth.', price:'$27', image:'/assets/guides/Smart Money Habits.png', url:'https://moneystopwatch.gumroad.com/l/Smart-money-habits-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
     { id:'g-3', title:'Interview Success Blueprint', description:'Land the job, ask for the promotion, and earn what you\'re worth. A full toolkit for interview confidence, salary negotiation, and career advancement.', price:'$27', image:'/assets/guides/Interview Blueprint.png', url:'https://moneystopwatch.gumroad.com/l/Interview-success-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
     { id:'g-4', title:'The Resilient Wallet', description:'A podcast-style audio series to help build strong money habits, stick to a budget, and plan for real financial freedom.', price:'$5', image:'', url:'#', category:'AUDIO', featured:false },
@@ -812,7 +812,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     { id:'g-12', title:'Confident Non-Verbal Communication', description:'Use body language and non-verbal cues to project confidence in interviews, meetings, and salary negotiations.', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false }
   ];
   var PROD_VER_KEY = 'ms_pdf_products_version';
-  var PROD_VERSION = 2;
+  var PROD_VERSION = 3;
   var products = lsGet(PROD_KEY, []);
   if (products.length === 0 || lsGet(PROD_VER_KEY, 0) !== PROD_VERSION) { products = SEED_PRODUCTS.map(function(p){return Object.assign({},p);}); lsSet(PROD_KEY, products); lsSet(PROD_VER_KEY, PROD_VERSION); }
   var editingGuideId = null;

@@ -306,9 +306,44 @@
     </div>
 
     <!-- Premium Bundles -->
-    <div id="bundles-section"></div>
+    <div id="bundles-section">
+      <div class="section-label">PREMIUM BUNDLES</div>
+      <div class="bundles-grid">
 
-    <hr class="section-divider" id="divider-bundles" style="display:none;">
+        <div class="bundle-card">
+          <div class="bundle-cover"><img src="/assets/guides/Budgeting In Everyday Life.png" alt="Budgeting in Everyday Life"></div>
+          <div class="bundle-body">
+            <div class="bundle-title">Budgeting in Everyday Life</div>
+            <div class="bundle-desc">Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.</div>
+            <div class="bundle-badges"><span class="bundle-badge">2 Guides</span><span class="bundle-badge">2 Checklists</span><span class="bundle-badge">1 Audio</span><span class="bundle-badge">1 Mini-Course</span><span class="bundle-badge">1 Prompt Pack</span><span class="bundle-badge">1 Book</span></div>
+            <div class="bundle-footer"><span class="bundle-price">$29</span><a href="https://moneystopwatch.gumroad.com/l/Budgeting-Bundle" class="bundle-btn" target="_blank" rel="noopener">Get This Bundle</a></div>
+          </div>
+        </div>
+
+        <div class="bundle-card">
+          <div class="bundle-cover"><img src="/assets/guides/Smart Money Habits.png" alt="Smart Money Habits"></div>
+          <div class="bundle-body">
+            <div class="bundle-title">Smart Money Habits</div>
+            <div class="bundle-desc">A complete system for building lasting financial habits, tackling debt, and growing long-term wealth.</div>
+            <div class="bundle-badges"><span class="bundle-badge">2 Guides</span><span class="bundle-badge">2 Checklists</span><span class="bundle-badge">1 Mini-Course</span><span class="bundle-badge">1 Book</span></div>
+            <div class="bundle-footer"><span class="bundle-price">$27</span><a href="https://moneystopwatch.gumroad.com/l/Smart-money-habits-bundle" class="bundle-btn" target="_blank" rel="noopener">Get This Bundle</a></div>
+          </div>
+        </div>
+
+        <div class="bundle-card">
+          <div class="bundle-cover"><img src="/assets/guides/Interview Blueprint.png" alt="Interview Success Blueprint"></div>
+          <div class="bundle-body">
+            <div class="bundle-title">Interview Success Blueprint</div>
+            <div class="bundle-desc">Land the job, ask for the promotion, and earn what you're worth. A full toolkit for interview confidence, salary negotiation, and career advancement.</div>
+            <div class="bundle-badges"><span class="bundle-badge">2 Guides</span><span class="bundle-badge">2 Checklists</span><span class="bundle-badge">1 Mini-Course</span><span class="bundle-badge">1 Book</span></div>
+            <div class="bundle-footer"><span class="bundle-price">$27</span><a href="https://moneystopwatch.gumroad.com/l/Interview-success-bundle" class="bundle-btn" target="_blank" rel="noopener">Get This Bundle</a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="section-divider">
 
     <!-- Email Capture -->
     <div class="email-banner" id="email-banner">
@@ -343,10 +378,10 @@
 
   var LS_KEY = 'ms_pdf_products';
   var VER_KEY = 'ms_pdf_products_version';
-  var VERSION = 2;
+  var VERSION = 3;
 
   var DEFAULTS = [
-    { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.', price:'$27', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
+    { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.', price:'$29', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
     { id:'g-2', title:'Smart Money Habits', description:'A complete system for building lasting financial habits, tackling debt, and growing long-term wealth.', price:'$27', image:'/assets/guides/Smart Money Habits.png', url:'https://moneystopwatch.gumroad.com/l/Smart-money-habits-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
     { id:'g-3', title:'Interview Success Blueprint', description:'Land the job, ask for the promotion, and earn what you\'re worth. A full toolkit for interview confidence, salary negotiation, and career advancement.', price:'$27', image:'/assets/guides/Interview Blueprint.png', url:'https://moneystopwatch.gumroad.com/l/Interview-success-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
     { id:'g-4', title:'The Resilient Wallet', description:'A podcast-style audio series to help build strong money habits, stick to a budget, and plan for real financial freedom.', price:'$5', image:'', url:'#', category:'AUDIO', featured:false },
@@ -432,7 +467,6 @@
     bundlesSection.innerHTML =
       '<div class="section-label">PREMIUM BUNDLES</div>' +
       '<div class="bundles-grid">' + featured.map(buildBundleCard).join('') + '</div>';
-    document.getElementById('divider-bundles').style.display = '';
   }
 
   var nonFeatured = products.filter(function(p) { return !p.featured; });
