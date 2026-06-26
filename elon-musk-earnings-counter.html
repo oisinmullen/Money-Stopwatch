@@ -191,6 +191,7 @@
       color: #6b7280;
       line-height: 1.5;
     }
+    .perspective-grid .card + .card { margin-top: 0; }
   </style>
 </head>
 <body>
@@ -284,7 +285,7 @@
     <!-- Perspective cards -->
     <div class="section mt-4">
       <h2 class="mb-3">To Put It in Perspective…</h2>
-      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+      <div class="form-grid perspective-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
         <div class="card">
           <div style="font-size:1.75rem;margin-bottom:.5rem;">🏥</div>
           <h3 style="font-size:.95rem;margin-bottom:.4rem;">US Median Annual Salary</h3>
