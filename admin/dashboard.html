@@ -569,8 +569,8 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
 
   /* ─── Helpers ─── */
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  function lsGet(k, def) { try { var v = JSON.parse(localStorage.getItem(k)); return v || def; } catch(_) { return def; } }
-  function lsSet(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+  function lsGet(k, def) { return def; }
+  function lsSet(k, v) { }
   function titleToSlug(t) { return t.toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,''); }
 
   /* ═══════════════════════════════════════════
@@ -1221,12 +1221,12 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   /* SEO Notes */
   var seoNotes = document.getElementById('seo-notes');
   var seoSaved = document.getElementById('seo-saved');
-  seoNotes.value = localStorage.getItem(SEO_NOTES_KEY) || '';
+  seoNotes.value = '';
   var noteTimer;
   seoNotes.addEventListener('input', function () {
     clearTimeout(noteTimer);
     noteTimer = setTimeout(function () {
-      localStorage.setItem(SEO_NOTES_KEY, seoNotes.value);
+      void 0;
       seoSaved.classList.add('show');
       setTimeout(function () { seoSaved.classList.remove('show'); }, 1500);
     }, 1000);
