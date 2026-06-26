@@ -576,10 +576,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   /* ═══════════════════════════════════════════
      THE FEED
      ═══════════════════════════════════════════ */
-  var FEED_KEY = 'ms_feed_stories';
-  var FEED_VER_KEY = 'ms_feed_stories_version';
-  var FEED_VERSION = 2;
-  var SEED_STORIES = [
+  var STORIES_DATA = [
     { id:'seed-1', title:'No Tax on Overtime, Explained', category:'Explainer', excerpt:'What it means, who it affects, and how much extra money it could put in your paycheck.', readTime:'8 min read', url:'/feed/no-tax-on-overtime-explained.html', date:'2026-06-19', featured:true, body:'' },
     { id:'seed-2', title:'When Does No Tax on Overtime Start?', category:'Timeline', excerpt:'The legislative timeline and when overtime workers will see a change in their paychecks.', readTime:'7 min read', url:'/feed/when-does-no-tax-on-overtime-start.html', date:'2026-06-20', featured:false, body:'' },
     { id:'seed-3', title:'Did No Tax on Overtime Pass?', category:'Status Update', excerpt:'Current status — what has been signed and what it means right now.', readTime:'6 min read', url:'/feed/did-no-tax-on-overtime-pass.html', date:'2026-06-21', featured:false, body:'' },
@@ -589,8 +586,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     { id:'seed-7', title:'Taylor Swift Net Worth 2026: How She Became a $2 Billion Musician', category:'NEWS', excerpt:'Taylor Swift\'s net worth hit $2 billion in 2026 — here\'s how much she earns per second and what built her fortune.', readTime:'7 min read', url:'/feed/taylor-swift-net-worth/', date:'2026-06-25', featured:false, body:'' }
   ];
 
-  var stories = lsGet(FEED_KEY, []);
-  if (stories.length === 0 || lsGet(FEED_VER_KEY, 0) !== FEED_VERSION) { stories = SEED_STORIES.map(function(s){return Object.assign({},s);}); lsSet(FEED_KEY, stories); lsSet(FEED_VER_KEY, FEED_VERSION); }
+  var stories = STORIES_DATA.map(function(s){return Object.assign({},s);});
   var editingId = null;
   var slugManual = false;
 
@@ -748,7 +744,6 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
       var idx = stories.findIndex(function(s){return s.id===editingId;});
       if (idx !== -1) stories[idx] = story;
     } else { stories.unshift(story); }
-    lsSet(FEED_KEY, stories);
     renderStories();
     var html = generateArticleHtml(story);
     document.getElementById('pub-path').textContent = 'Create this file in GitHub at /feed/' + slug + '.html and paste this code.';
@@ -786,7 +781,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   window.deleteStory = function (id) {
     if (!confirm('Delete this story?')) return;
     stories = stories.filter(function(s){return s.id!==id;});
-    lsSet(FEED_KEY, stories); renderStories();
+    renderStories();
     if (editingId === id) clearFeedForm();
     toast('Story deleted.');
   };
@@ -796,8 +791,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   /* ═══════════════════════════════════════════
      GUIDES
      ═══════════════════════════════════════════ */
-  var PROD_KEY = 'ms_pdf_products';
-  var SEED_PRODUCTS = [
+  var PRODUCTS_DATA = [
     { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.', price:'$29', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
     { id:'g-2', title:'Smart Money Habits', description:'A complete system for building lasting financial habits, tackling debt, and growing long-term wealth.', price:'$27', image:'/assets/guides/Smart Money Habits.png', url:'https://moneystopwatch.gumroad.com/l/Smart-money-habits-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
     { id:'g-3', title:'Interview Success Blueprint', description:'Land the job, ask for the promotion, and earn what you\'re worth. A full toolkit for interview confidence, salary negotiation, and career advancement.', price:'$27', image:'/assets/guides/Interview Blueprint.png', url:'https://moneystopwatch.gumroad.com/l/Interview-success-bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
@@ -822,10 +816,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     { id:'g-22', title:'Confident Non-Verbal Communication', description:'', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false },
     { id:'g-23', title:'Stand Out and Get Hired', description:'', price:'$7', image:'', url:'#', category:'MINI-COURSE', featured:false }
   ];
-  var PROD_VER_KEY = 'ms_pdf_products_version';
-  var PROD_VERSION = 4;
-  var products = lsGet(PROD_KEY, []);
-  if (products.length === 0 || lsGet(PROD_VER_KEY, 0) !== PROD_VERSION) { products = SEED_PRODUCTS.map(function(p){return Object.assign({},p);}); lsSet(PROD_KEY, products); lsSet(PROD_VER_KEY, PROD_VERSION); }
+  var products = PRODUCTS_DATA.map(function(p){return Object.assign({},p);});
   var editingGuideId = null;
 
   var gTitle = document.getElementById('g-title');
@@ -926,7 +917,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
       var idx = products.findIndex(function(p){return p.id===editingGuideId;});
       if (idx !== -1) products[idx] = guide;
     } else { products.unshift(guide); }
-    lsSet(PROD_KEY, products); renderProducts();
+    renderProducts();
     clearGuideForm();
     toast(editingGuideId ? 'Guide updated.' : 'Guide published.');
   });
@@ -949,7 +940,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   window.deleteProduct = function (id) {
     if (!confirm('Delete this guide?')) return;
     products = products.filter(function(p){return p.id!==id;});
-    lsSet(PROD_KEY, products); renderProducts();
+    renderProducts();
     if (editingGuideId === id) clearGuideForm();
     toast('Guide deleted.');
   };
@@ -984,7 +975,6 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
       if (dropIdx === dragIdx) return;
       var moved = products.splice(dragIdx, 1)[0];
       products.splice(dropIdx, 0, moved);
-      lsSet(PROD_KEY, products);
       renderProducts();
     });
   }
