@@ -318,7 +318,17 @@
   }
 
   if (stories.length > 0) {
-    var grid = '<div class="feed-grid">' + stories.map(buildCard).join('') + '</div>';
+    var staticCards = document.querySelectorAll('#feed-static .feed-card');
+    var urls = {};
+    stories.forEach(function(s) { urls[s.url] = true; });
+    var extras = [];
+    staticCards.forEach(function(card) {
+      var href = card.getAttribute('href');
+      if (href && !urls[href]) {
+        extras.push(card.outerHTML);
+      }
+    });
+    var grid = '<div class="feed-grid">' + stories.map(buildCard).join('') + extras.join('') + '</div>';
     document.getElementById('feed-static').innerHTML = grid;
   }
 })();
