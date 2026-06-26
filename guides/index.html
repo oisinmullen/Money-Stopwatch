@@ -342,6 +342,8 @@
   'use strict';
 
   var LS_KEY = 'ms_pdf_products';
+  var VER_KEY = 'ms_pdf_products_version';
+  var VERSION = 2;
 
   var DEFAULTS = [
     { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to build strong money habits, stick to a budget, and create a real plan for financial freedom.', price:'$27', image:'/assets/guides/Budgeting In Everyday Life.png', url:'https://moneystopwatch.gumroad.com/l/Budgeting-Bundle', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
@@ -413,8 +415,14 @@
       '</div>';
   }
 
+  var storedVer = 0;
+  try { storedVer = JSON.parse(localStorage.getItem(VER_KEY)) || 0; } catch(_) {}
   var products = load();
-  if (products.length === 0) products = DEFAULTS;
+  if (products.length === 0 || storedVer !== VERSION) {
+    products = DEFAULTS;
+    localStorage.setItem(LS_KEY, JSON.stringify(products));
+    localStorage.setItem(VER_KEY, JSON.stringify(VERSION));
+  }
 
   var featured = products.filter(function(p) { return p.featured; })
     .slice(0, 3);

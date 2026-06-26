@@ -577,6 +577,8 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
      THE FEED
      ═══════════════════════════════════════════ */
   var FEED_KEY = 'ms_feed_stories';
+  var FEED_VER_KEY = 'ms_feed_stories_version';
+  var FEED_VERSION = 2;
   var SEED_STORIES = [
     { id:'seed-1', title:'No Tax on Overtime, Explained', category:'Explainer', excerpt:'What it means, who it affects, and how much extra money it could put in your paycheck.', readTime:'8 min read', url:'/feed/no-tax-on-overtime-explained.html', date:'2026-06-19', featured:true, body:'' },
     { id:'seed-2', title:'When Does No Tax on Overtime Start?', category:'Timeline', excerpt:'The legislative timeline and when overtime workers will see a change in their paychecks.', readTime:'7 min read', url:'/feed/when-does-no-tax-on-overtime-start.html', date:'2026-06-20', featured:false, body:'' },
@@ -588,7 +590,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   ];
 
   var stories = lsGet(FEED_KEY, []);
-  if (stories.length === 0) { stories = SEED_STORIES.map(function(s){return Object.assign({},s);}); lsSet(FEED_KEY, stories); }
+  if (stories.length === 0 || lsGet(FEED_VER_KEY, 0) !== FEED_VERSION) { stories = SEED_STORIES.map(function(s){return Object.assign({},s);}); lsSet(FEED_KEY, stories); lsSet(FEED_VER_KEY, FEED_VERSION); }
   var editingId = null;
   var slugManual = false;
 
@@ -809,8 +811,10 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
     { id:'g-11', title:'Professional Story Library Creator', description:'Build a library of compelling professional stories to showcase achievements and win interviews.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
     { id:'g-12', title:'Confident Non-Verbal Communication', description:'Use body language and non-verbal cues to project confidence in interviews, meetings, and salary negotiations.', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false }
   ];
+  var PROD_VER_KEY = 'ms_pdf_products_version';
+  var PROD_VERSION = 2;
   var products = lsGet(PROD_KEY, []);
-  if (products.length === 0) { products = SEED_PRODUCTS.map(function(p){return Object.assign({},p);}); lsSet(PROD_KEY, products); }
+  if (products.length === 0 || lsGet(PROD_VER_KEY, 0) !== PROD_VERSION) { products = SEED_PRODUCTS.map(function(p){return Object.assign({},p);}); lsSet(PROD_KEY, products); lsSet(PROD_VER_KEY, PROD_VERSION); }
   var editingGuideId = null;
 
   var gTitle = document.getElementById('g-title');
