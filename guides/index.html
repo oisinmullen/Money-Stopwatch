@@ -99,6 +99,22 @@
       color: #9ca3af;
       line-height: 1.6;
     }
+    .bundle-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-top: .25rem;
+    }
+    .bundle-badge {
+      font-size: .7rem;
+      font-weight: 600;
+      color: #f59e0b;
+      background: rgba(245,158,11,.1);
+      border: 1px solid rgba(245,158,11,.25);
+      border-radius: 4px;
+      padding: .2rem .5rem;
+      white-space: nowrap;
+    }
     .bundle-footer {
       display: flex;
       align-items: center;
@@ -328,15 +344,18 @@
   var LS_KEY = 'ms_pdf_products';
 
   var DEFAULTS = [
-    { id:'g-1', title:'Budgeting in Everyday Life', description:'Save money, reduce financial stress and achieve your financial goals. A complete practical guide.', price:'$7', image:'', url:'#', category:'GUIDE', featured:true },
-    { id:'g-2', title:'Salary Negotiation Script Pack', description:'Word-for-word scripts to negotiate your salary with confidence and get paid what you\'re worth.', price:'$9', image:'', url:'#', category:'GUIDE', featured:true },
-    { id:'g-3', title:"No Tax on Overtime — Worker's Claim Guide", description:'Everything you need to know to claim your overtime tax deduction under the One Big Beautiful Bill Act.', price:'$7', image:'', url:'#', category:'GUIDE', featured:true },
-    { id:'g-4', title:'How to Read Your Pay Stub', description:'Understand every line on your paycheck so you never miss an error.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
-    { id:'g-5', title:'Side Income Starter Kit', description:'Proven ways to earn an extra $500-$2,000 per month outside your day job.', price:'$9', image:'', url:'#', category:'GUIDE', featured:false },
-    { id:'g-6', title:'Emergency Fund Blueprint', description:'Build a 3-month safety net on any income with this week-by-week savings plan.', price:'$7', image:'', url:'#', category:'CHECKLIST', featured:false },
-    { id:'g-7', title:'Tax Deductions You\'re Missing', description:'The most overlooked deductions for W-2 employees and 1099 workers.', price:'$9', image:'', url:'#', category:'GUIDE', featured:false },
-    { id:'g-8', title:'First-Time Home Buyer Checklist', description:'Every step from pre-approval to closing day, with cost breakdowns.', price:'$9', image:'', url:'#', category:'CHECKLIST', featured:false },
-    { id:'g-9', title:'Debt Payoff Accelerator', description:'Snowball vs avalanche — find the fastest path to zero debt for your situation.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false }
+    { id:'g-1', title:'Budgeting in Everyday Life', description:'Everything you need to help your customers build strong money habits, stick to a budget, and create a real plan for financial freedom. Includes 2 guides, 2 checklists, 1 audio series, 1 mini-course, 1 prompt pack, and 1 book.', price:'$27', image:'/assets/guides/budgeting-bundle.jpg', url:'#', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Audio','1 Mini-Course','1 Prompt Pack','1 Book'] },
+    { id:'g-2', title:'Smart Money Habits', description:'A complete system for building lasting financial habits, tackling debt, and growing long-term wealth. Includes 2 guides, 2 checklists, 1 mini-course, and 1 book.', price:'$27', image:'/assets/guides/smart-money-habits.jpg', url:'#', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
+    { id:'g-3', title:'Interview Success Blueprint', description:'Land the job, ask for the promotion, and earn what you\'re worth. A full toolkit for interview confidence, salary negotiation, and career advancement. Includes 2 guides, 2 checklists, 1 mini-course, and 1 book.', price:'$27', image:'/assets/guides/interview-success.jpg', url:'#', category:'BUNDLE', featured:true, badges:['2 Guides','2 Checklists','1 Mini-Course','1 Book'] },
+    { id:'g-4', title:'The Resilient Wallet', description:'A podcast-style audio series to help build strong money habits, stick to a budget, and plan for real financial freedom.', price:'$5', image:'', url:'#', category:'AUDIO', featured:false },
+    { id:'g-5', title:'Take Control of Your Finances', description:'An email mini-course teaching smart money habits while building trust with your audience.', price:'$7', image:'', url:'#', category:'MINI-COURSE', featured:false },
+    { id:'g-6', title:'Personal Finance Mastery', description:'An AI prompt pack to help improve budgeting, build savings, and make smarter financial choices every day.', price:'$5', image:'', url:'#', category:'PROMPT PACK', featured:false },
+    { id:'g-7', title:'The Multi-Bucket Savings System', description:'A structured savings system using multiple buckets for short-term needs, emergency funds, and long-term wealth building.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-8', title:'Investment Portfolio Building', description:'A step-by-step checklist for building a diversified investment portfolio with strategies for risk management and long-term growth.', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false },
+    { id:'g-9', title:'The 90-Day Debt Elimination Plan', description:'A structured plan to help eliminate debt fast with clear milestones and proven payoff strategies.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-10', title:'Stand Out and Get Hired', description:'Master interview strategies, build confidence, and position yourself as the top candidate for any role.', price:'$7', image:'', url:'#', category:'MINI-COURSE', featured:false },
+    { id:'g-11', title:'Professional Story Library Creator', description:'Build a library of compelling professional stories to showcase achievements and win interviews.', price:'$7', image:'', url:'#', category:'GUIDE', featured:false },
+    { id:'g-12', title:'Confident Non-Verbal Communication', description:'Use body language and non-verbal cues to project confidence in interviews, meetings, and salary negotiations.', price:'$5', image:'', url:'#', category:'CHECKLIST', featured:false }
   ];
 
   function load() {
@@ -357,18 +376,25 @@
   function buildBundleCard(p) {
     var hasImage = p.image && p.image.trim();
     var imgHTML = hasImage
-      ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '">'
+      ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" onerror="this.parentNode.innerHTML=\'<div class=bundle-cover-placeholder>Cover Coming Soon</div>\'">'
       : '<div class="bundle-cover-placeholder">Cover Coming Soon</div>';
     var hasUrl = p.url && p.url.trim();
     var btnHTML = hasUrl
-      ? '<a href="' + esc(p.url) + '" class="bundle-btn" target="_blank" rel="noopener">Get This Guide</a>'
-      : '<span class="bundle-btn" style="opacity:.5;pointer-events:none;">Get This Guide</span>';
+      ? '<a href="' + esc(p.url) + '" class="bundle-btn" target="_blank" rel="noopener">Get This Bundle</a>'
+      : '<span class="bundle-btn" style="opacity:.5;pointer-events:none;">Get This Bundle</span>';
+    var badgesHTML = '';
+    if (p.badges && p.badges.length) {
+      badgesHTML = '<div class="bundle-badges">' + p.badges.map(function(b) {
+        return '<span class="bundle-badge">' + esc(b) + '</span>';
+      }).join('') + '</div>';
+    }
 
     return '<div class="bundle-card">' +
       '<div class="bundle-cover">' + imgHTML + '</div>' +
       '<div class="bundle-body">' +
       '<div class="bundle-title">' + esc(p.title) + '</div>' +
       '<div class="bundle-desc">' + esc(p.description) + '</div>' +
+      badgesHTML +
       '<div class="bundle-footer"><span class="bundle-price">' + esc(p.price) + '</span>' + btnHTML + '</div>' +
       '</div></div>';
   }
@@ -402,7 +428,8 @@
     document.getElementById('divider-bundles').style.display = '';
   }
 
-  document.getElementById('guides-grid').innerHTML = products.map(buildGuideCard).join('');
+  var nonFeatured = products.filter(function(p) { return !p.featured; });
+  document.getElementById('guides-grid').innerHTML = nonFeatured.map(buildGuideCard).join('');
 
   /* Email form */
   var emailForm = document.getElementById('email-form');
