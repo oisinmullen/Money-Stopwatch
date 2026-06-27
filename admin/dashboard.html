@@ -320,7 +320,7 @@
           <div class="stat-card"><div class="stat-label">AdSense ID</div><div class="stat-value">ca-pub-4538737580937479</div></div>
         </div>
         <div class="action-grid">
-          <a href="https://www.moneystopwatch.com" target="_blank" class="action-btn">Open Site</a>
+          <a href="https://moneystopwatch.com" target="_blank" class="action-btn">Open Site</a>
           <a href="https://analytics.google.com" target="_blank" class="action-btn">Google Analytics</a>
           <a href="https://search.google.com/search-console" target="_blank" class="action-btn">Search Console</a>
           <a href="https://ahrefs.com" target="_blank" class="action-btn">Ahrefs</a>
@@ -676,7 +676,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
   }
 
   function generateArticleHtml(story) {
-    var fullUrl = 'https://www.moneystopwatch.com' + story.url;
+    var fullUrl = 'https://moneystopwatch.com' + story.url;
     var d = new Date(story.date + 'T00:00:00');
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     var prettyDate = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
@@ -711,7 +711,7 @@ if (sessionStorage.getItem('ms_auth') !== 'ok') {
       '    "description": "' + esc(story.excerpt) + '",\n' +
       '    "datePublished": "' + story.date + '",\n    "dateModified": "' + story.date + '",\n' +
       '    "author": { "@type": "Organization", "name": "MoneyStopwatch" },\n' +
-      '    "publisher": { "@type": "Organization", "name": "MoneyStopwatch", "url": "https://www.moneystopwatch.com" },\n' +
+      '    "publisher": { "@type": "Organization", "name": "MoneyStopwatch", "url": "https://moneystopwatch.com" },\n' +
       '    "mainEntityOfPage": { "@type": "WebPage", "@id": "' + fullUrl + '" }\n  }\n  <\/script>\n' +
       '</head>\n<body>\n\n<div id="site-header-slot"></div>\n\n' +
       '<main class="main-content">\n  <div class="container container--narrow">\n\n' +
